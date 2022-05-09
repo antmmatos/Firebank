@@ -82,6 +82,7 @@ namespace Firebank
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "InputBox";
             this.Text = "InputBox";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputBox_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -18,7 +18,7 @@ namespace Firebank
         private static readonly string BASE_URL = "https://gy2yge.api.infobip.com";
         private static readonly string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
 
-        public static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
+        private static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
         private static string _verificationCode;
         private string _IP;
         private string _CountryIP;

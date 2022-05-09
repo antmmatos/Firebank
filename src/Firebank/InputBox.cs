@@ -50,5 +50,10 @@ namespace Firebank
                 }
             }
         }
+
+        private void InputBox_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

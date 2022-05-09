@@ -73,16 +73,6 @@ namespace Firebank.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap invisible {
-            get {
-                object obj = ResourceManager.GetObject("invisible", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap invisible_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("invisible-removebg-preview", resourceCulture);
