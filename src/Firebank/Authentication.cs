@@ -28,8 +28,10 @@ namespace Firebank
                 commandReader.Read();
                 if (commandReader.HasRows)
                 {
-                    new HomePage(commandReader, db).Show();
                     this.Hide();
+                    HomePage homepage = new HomePage(commandReader, db);
+                    homepage.Closed += (s, args) => this.Close();
+                    homepage.Show();
                 }
                 else
                 {

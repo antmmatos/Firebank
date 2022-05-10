@@ -37,6 +37,7 @@ namespace Firebank
         private string _PhoneNumber;
         private string _Birthday;
         private SqlConnection db;
+        List<Account> accounts = new List<Account>();
         public HomePage(SqlDataReader reader, SqlConnection db)
         {
             InitializeComponent();
@@ -70,12 +71,12 @@ namespace Firebank
             WelcomeLabel.Text = "Welcome " + _Username;
             SqlCommand command = new SqlCommand();
             command.Connection = db;
-            command.CommandText = "SELECT Accounts.ID, IBan, Balance, isnull(AccountName, 'SEM NOME') FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner";
+            command.CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, isnull(AccountName, 'SEM NOME') FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner";
             SqlDataReader reader = command.ExecuteReader();
-            string accountName = "ID: " + reader.GetInt32(0) + " - Nome: " + reader.GetString(3);
             while (reader.Read())
             {
-                AccountList.Items.Add(new Item(, 1));
+                AccountList.Items.Add("ID: " + reader.GetInt32(0).ToString() + " - Account Name: " + reader.GetString(4));
+                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), AccountList.Items.Count));
             }
             if (AccountList.Items.Count == 0)
             {
@@ -86,6 +87,11 @@ namespace Firebank
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void AccountList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BalanceLabelValue.Text = accounts.ElementAt(AccountList.SelectedIndex).Balance.ToString();
         }
     }
 }
