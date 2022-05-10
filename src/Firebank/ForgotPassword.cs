@@ -18,25 +18,27 @@ namespace Firebank
         private static readonly string BASE_URL = "https://gy2yge.api.infobip.com";
         private static readonly string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
 
-        private static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
+        private static readonly string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
         private static string _verificationCode;
         private string _IP;
         private string _CountryIP;
         private string _CountryCode;
         private string _PhoneNumber;
-        SqlConnection db = new SqlConnection(ConnectionString);
+        readonly SqlConnection db = new SqlConnection(ConnectionString);
         public ForgotPassword()
         {
             InitializeComponent();
-            getIp();
-            getCountryIp(_IP);
+            GetIp();
+            GetCountryIp(_IP);
         }
 
         private void RecoverPasswordButton_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand();
-            command.Connection = db;
-            command.CommandText = "SELECT * FROM Users WHERE Email = @Var or Username = @Var or MobilePhoneNumber = @Var";
+            SqlCommand command = new SqlCommand
+            {
+                Connection = db,
+                CommandText = "SELECT * FROM Users WHERE Email = @Var or Username = @Var or MobilePhoneNumber = @Var"
+            };
             command.Parameters.Add("@Var", System.Data.SqlDbType.VarChar).Value = UsernameTextBox.Text;
             db.Open();
             SqlDataReader commandReader = command.ExecuteReader();
@@ -45,7 +47,7 @@ namespace Firebank
             Random random = new Random();
             for (int i = 0; i < 8; i++)
             {
-                verificationCode = verificationCode + randomArray[random.Next(35)];
+                verificationCode += randomArray[random.Next(35)];
             }
             commandReader.Read();
             if (commandReader.HasRows)
@@ -142,13 +144,13 @@ namespace Firebank
             db.Close();
         }
 
-        async private void getIp()
+        async private void GetIp()
         {
             var httpClient = new HttpClient();
             string ip = await httpClient.GetStringAsync("https://api.ipify.org");
             _IP = ip;
         }
-        async private void getCountryIp(string IP)
+        async private void GetCountryIp(string IP)
         {
             var httpClient = new HttpClient();
             string country = await httpClient.GetStringAsync($"http://ip-api.com/json/{IP}");

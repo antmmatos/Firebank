@@ -8,8 +8,8 @@ namespace Firebank
 {
     public partial class Authentication : Form
     {
-        public static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
-        SqlConnection db = new SqlConnection(ConnectionString);
+        private static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
+        readonly SqlConnection db = new SqlConnection(ConnectionString);
         private bool seePassword;
         public Authentication()
         {
@@ -28,7 +28,8 @@ namespace Firebank
                 commandReader.Read();
                 if (commandReader.HasRows)
                 {
-                    MessageBox.Show(commandReader["Username"].ToString());
+                    new HomePage(commandReader, db).Show();
+                    this.Hide();
                 }
                 else
                 {
@@ -64,8 +65,6 @@ namespace Firebank
             RegisterPanel.Visible = true;
             seePassword = false;
             SeePasswordPhotoLogin.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
-            PasswordTextBox.PasswordChar = '*';
-            seePassword = false;
             SeePasswordPhoto.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
             PasswordTextBox.PasswordChar = '*';
         }
@@ -77,9 +76,7 @@ namespace Firebank
             RegisterPanel.Visible = false;
             seePassword = false;
             SeePasswordPhotoLogin.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
-            seePassword = false;
             SeePasswordPhoto.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
-            PasswordTextBox.PasswordChar = '*';
             PasswordTextBox.PasswordChar = '*';
         }
 
@@ -119,9 +116,11 @@ namespace Firebank
         {
             if (UsernameTextBoxRegister.Text.Length >= 6 && PasswordTextBoxRegister.Text.Length >= 8 && UsernameTextBoxRegister.Text.Length <= 32 && PasswordTextBoxRegister.Text.Length <= 20 && EmailTextBoxRegister.Text.Contains("@"))
             {
-                SqlCommand command = new SqlCommand();
-                command.Connection = db;
-                command.CommandText = "SELECT * FROM Users WHERE Username = @Username OR Email = @Email OR MobilePhoneNumber = @MobilePhoneNumber OR NIF = @NIF OR CC = @CC";
+                SqlCommand command = new SqlCommand
+                {
+                    Connection = db,
+                    CommandText = "SELECT * FROM Users WHERE Username = @Username OR Email = @Email OR MobilePhoneNumber = @MobilePhoneNumber OR NIF = @NIF OR CC = @CC"
+                };
                 command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = UsernameTextBoxRegister.Text;
                 command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = EmailTextBoxRegister.Text;
                 command.Parameters.Add("@MobilePhoneNumber", System.Data.SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
@@ -138,9 +137,11 @@ namespace Firebank
                 else
                 {
                     ClearReaders(commandReader, command);
-                    command = new SqlCommand();
-                    command.Connection = db;
-                    command.CommandText = "INSERT INTO Users (Username, Password, Email, NIF, CC, Birthday, MobilePhoneNumber) VALUES (@Username, @Password, @Email, @NIF, @CC, @Birthday, @MobilePhoneNumber)";
+                    command = new SqlCommand
+                    {
+                        Connection = db,
+                        CommandText = "INSERT INTO Users (Username, Password, Email, NIF, CC, Birthday, MobilePhoneNumber) VALUES (@Username, @Password, @Email, @NIF, @CC, @Birthday, @MobilePhoneNumber)"
+                    };
                     command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = UsernameTextBoxRegister.Text;
                     command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBoxRegister.Text);
                     command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = EmailTextBoxRegister.Text;
@@ -150,9 +151,8 @@ namespace Firebank
                     command.Parameters.Add("@MobilePhoneNumber", System.Data.SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                     command.ExecuteNonQuery();
                     MessageBox.Show("Account created successfully.");
-                    this.Close();
-                    this.Dispose();
-                    //new CredentialsVerification();
+                    new HomePage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db).Show();
+                    this.Hide();
                 }
                 db.Close();
             }
@@ -196,7 +196,7 @@ namespace Firebank
             }
         }
 
-        private void lbl6_Click(object sender, EventArgs e)
+        private void Lbl6_Click(object sender, EventArgs e)
         {
             new ForgotPassword().ShowDialog();
         }

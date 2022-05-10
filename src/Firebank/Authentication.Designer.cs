@@ -455,7 +455,7 @@
             this.lbl6.TabIndex = 24;
             this.lbl6.Text = "Forgot Password";
             this.lbl6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl6.Click += new System.EventHandler(this.lbl6_Click);
+            this.lbl6.Click += new System.EventHandler(this.Lbl6_Click);
             // 
             // Authentication
             // 
