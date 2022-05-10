@@ -65,7 +65,7 @@ namespace Firebank
                         Body = "\nYour verification code to recover password is: " + verificationCode,
                         IsBodyHtml = false,
                     };
-                    mailMessage.To.Add("antonio.martim.matos@gmail.com");
+                    mailMessage.To.Add(UsernameTextBox.Text);
                     smtpClient.Send(mailMessage);
                     MessageBox.Show("An email has been sent with a validation code.");
                     CodeTextBox.Enabled = true;

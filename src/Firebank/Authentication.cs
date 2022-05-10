@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Firebank
@@ -19,8 +21,8 @@ namespace Firebank
             if (UsernameTextBox.Text.Length >= 6 && PasswordTextBox.Text.Length >= 8 && UsernameTextBox.Text.Length <= 32 && PasswordTextBox.Text.Length <= 20)
             {
                 SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND Password = @Password", db);
-                command.Parameters.AddWithValue("@Username", UsernameTextBox.Text);
-                command.Parameters.AddWithValue("@Password", PasswordTextBox.Text);
+                command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = UsernameTextBox.Text;
+                command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBox.Text);
                 db.Open();
                 SqlDataReader commandReader = command.ExecuteReader();
                 commandReader.Read();
@@ -140,7 +142,7 @@ namespace Firebank
                     command.Connection = db;
                     command.CommandText = "INSERT INTO Users (Username, Password, Email, NIF, CC, Birthday, MobilePhoneNumber) VALUES (@Username, @Password, @Email, @NIF, @CC, @Birthday, @MobilePhoneNumber)";
                     command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = UsernameTextBoxRegister.Text;
-                    command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = PasswordTextBoxRegister.Text;
+                    command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBoxRegister.Text);
                     command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = EmailTextBoxRegister.Text;
                     command.Parameters.Add("@NIF", System.Data.SqlDbType.VarChar).Value = TAXTextBoxRegister.Text;
                     command.Parameters.Add("@CC", System.Data.SqlDbType.VarChar).Value = CCNTextBox.Text;
@@ -176,6 +178,21 @@ namespace Firebank
                 {
                     MessageBox.Show("Invalid Email.");
                 }
+            }
+        }
+
+        private static string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
             }
         }
 

@@ -8,6 +8,9 @@ namespace Firebank
         public string value;
         private bool isPassword = false;
         private string _successMessage;
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
         public InputBox(string Title, string Label, bool password, string successMessage)
         {
             InitializeComponent();
@@ -51,9 +54,12 @@ namespace Firebank
             }
         }
 
-        private void InputBox_FormClosing(object sender, FormClosingEventArgs e)
+        protected override void WndProc(ref Message message)
         {
-            e.Cancel = true;
+            base.WndProc(ref message);
+
+            if (message.Msg == WM_NCHITTEST && (int)message.Result == HTCLIENT)
+                message.Result = (IntPtr)HTCAPTION;
         }
     }
 }

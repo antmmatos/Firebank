@@ -79,10 +79,9 @@ namespace Firebank
             this.Controls.Add(this.ValueTextBox);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.CustomLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "InputBox";
             this.Text = "InputBox";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputBox_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

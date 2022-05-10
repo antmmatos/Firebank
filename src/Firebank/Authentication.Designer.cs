@@ -42,6 +42,8 @@
             this.line1 = new System.Windows.Forms.Button();
             this.logo = new System.Windows.Forms.PictureBox();
             this.RegisterPanel = new System.Windows.Forms.Panel();
+            this.PhoneTextBoxRegister = new System.Windows.Forms.TextBox();
+            this.PhoneLabel = new System.Windows.Forms.Label();
             this.CCNTextBox = new System.Windows.Forms.TextBox();
             this.CCLabelRegister = new System.Windows.Forms.Label();
             this.DatePickerRegister = new System.Windows.Forms.DateTimePicker();
@@ -59,8 +61,6 @@
             this.UsernameLabelRegister = new System.Windows.Forms.Label();
             this.SeePasswordPhotoLogin = new System.Windows.Forms.PictureBox();
             this.lbl6 = new System.Windows.Forms.Label();
-            this.PhoneTextBoxRegister = new System.Windows.Forms.TextBox();
-            this.PhoneLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.RegisterPanel.SuspendLayout();
@@ -82,6 +82,8 @@
             // 
             // UsernameTextBox
             // 
+            this.UsernameTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.UsernameTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.UsernameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.UsernameTextBox.Location = new System.Drawing.Point(222, 139);
             this.UsernameTextBox.Name = "UsernameTextBox";
@@ -113,6 +115,8 @@
             // 
             // PasswordTextBox
             // 
+            this.PasswordTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.PasswordTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.PasswordTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PasswordTextBox.Location = new System.Drawing.Point(222, 212);
             this.PasswordTextBox.Name = "PasswordTextBox";
@@ -180,7 +184,7 @@
             this.RegisterPanelButton.Location = new System.Drawing.Point(23, 289);
             this.RegisterPanelButton.Name = "RegisterPanelButton";
             this.RegisterPanelButton.Size = new System.Drawing.Size(137, 48);
-            this.RegisterPanelButton.TabIndex = 12;
+            this.RegisterPanelButton.TabIndex = 2;
             this.RegisterPanelButton.Text = "Register";
             this.RegisterPanelButton.UseVisualStyleBackColor = true;
             this.RegisterPanelButton.Click += new System.EventHandler(this.RegisterPanelButton_Click);
@@ -194,7 +198,7 @@
             this.LoginPanelButton.Location = new System.Drawing.Point(23, 191);
             this.LoginPanelButton.Name = "LoginPanelButton";
             this.LoginPanelButton.Size = new System.Drawing.Size(137, 48);
-            this.LoginPanelButton.TabIndex = 11;
+            this.LoginPanelButton.TabIndex = 1;
             this.LoginPanelButton.Text = "Login";
             this.LoginPanelButton.UseVisualStyleBackColor = true;
             this.LoginPanelButton.Click += new System.EventHandler(this.LoginPanelButton_Click);
@@ -244,13 +248,36 @@
             this.RegisterPanel.TabIndex = 11;
             this.RegisterPanel.Visible = false;
             // 
+            // PhoneTextBoxRegister
+            // 
+            this.PhoneTextBoxRegister.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.PhoneTextBoxRegister.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.PhoneTextBoxRegister.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PhoneTextBoxRegister.Location = new System.Drawing.Point(233, 283);
+            this.PhoneTextBoxRegister.Name = "PhoneTextBoxRegister";
+            this.PhoneTextBoxRegister.Size = new System.Drawing.Size(173, 21);
+            this.PhoneTextBoxRegister.TabIndex = 9;
+            this.PhoneTextBoxRegister.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // PhoneLabel
+            // 
+            this.PhoneLabel.AutoSize = true;
+            this.PhoneLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.PhoneLabel.Location = new System.Drawing.Point(230, 267);
+            this.PhoneLabel.Name = "PhoneLabel";
+            this.PhoneLabel.Size = new System.Drawing.Size(102, 13);
+            this.PhoneLabel.TabIndex = 25;
+            this.PhoneLabel.Text = "Phone Number";
+            // 
             // CCNTextBox
             // 
+            this.CCNTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CCNTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.CCNTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CCNTextBox.Location = new System.Drawing.Point(233, 217);
             this.CCNTextBox.Name = "CCNTextBox";
             this.CCNTextBox.Size = new System.Drawing.Size(173, 21);
-            this.CCNTextBox.TabIndex = 22;
+            this.CCNTextBox.TabIndex = 8;
             this.CCNTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // CCLabelRegister
@@ -268,7 +295,7 @@
             this.DatePickerRegister.Location = new System.Drawing.Point(233, 159);
             this.DatePickerRegister.Name = "DatePickerRegister";
             this.DatePickerRegister.Size = new System.Drawing.Size(173, 21);
-            this.DatePickerRegister.TabIndex = 21;
+            this.DatePickerRegister.TabIndex = 7;
             // 
             // BirthdayLabelRegister
             // 
@@ -282,11 +309,13 @@
             // 
             // TAXTextBoxRegister
             // 
+            this.TAXTextBoxRegister.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TAXTextBoxRegister.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TAXTextBoxRegister.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TAXTextBoxRegister.Location = new System.Drawing.Point(233, 100);
             this.TAXTextBoxRegister.Name = "TAXTextBoxRegister";
             this.TAXTextBoxRegister.Size = new System.Drawing.Size(173, 21);
-            this.TAXTextBoxRegister.TabIndex = 17;
+            this.TAXTextBoxRegister.TabIndex = 6;
             this.TAXTextBoxRegister.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // NIFLabelRegister
@@ -313,11 +342,13 @@
             // 
             // EmailTextBoxRegister
             // 
+            this.EmailTextBoxRegister.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.EmailTextBoxRegister.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.EmailTextBoxRegister.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EmailTextBoxRegister.Location = new System.Drawing.Point(27, 159);
             this.EmailTextBoxRegister.Name = "EmailTextBoxRegister";
             this.EmailTextBoxRegister.Size = new System.Drawing.Size(173, 21);
-            this.EmailTextBoxRegister.TabIndex = 14;
+            this.EmailTextBoxRegister.TabIndex = 4;
             this.EmailTextBoxRegister.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // EmailLabelRegister
@@ -351,20 +382,22 @@
             this.RegisterButton.Location = new System.Drawing.Point(27, 267);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(140, 58);
-            this.RegisterButton.TabIndex = 13;
+            this.RegisterButton.TabIndex = 10;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = false;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // PasswordTextBoxRegister
             // 
+            this.PasswordTextBoxRegister.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.PasswordTextBoxRegister.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.PasswordTextBoxRegister.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PasswordTextBoxRegister.Location = new System.Drawing.Point(27, 216);
             this.PasswordTextBoxRegister.Name = "PasswordTextBoxRegister";
             this.PasswordTextBoxRegister.PasswordChar = '*';
             this.PasswordTextBoxRegister.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PasswordTextBoxRegister.Size = new System.Drawing.Size(173, 21);
-            this.PasswordTextBoxRegister.TabIndex = 11;
+            this.PasswordTextBoxRegister.TabIndex = 5;
             this.PasswordTextBoxRegister.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // PasswordLabelRegister
@@ -379,11 +412,13 @@
             // 
             // UsernameTextBoxRegister
             // 
+            this.UsernameTextBoxRegister.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.UsernameTextBoxRegister.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.UsernameTextBoxRegister.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.UsernameTextBoxRegister.Location = new System.Drawing.Point(27, 100);
             this.UsernameTextBoxRegister.Name = "UsernameTextBoxRegister";
             this.UsernameTextBoxRegister.Size = new System.Drawing.Size(173, 21);
-            this.UsernameTextBoxRegister.TabIndex = 8;
+            this.UsernameTextBoxRegister.TabIndex = 3;
             this.UsernameTextBoxRegister.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // UsernameLabelRegister
@@ -421,25 +456,6 @@
             this.lbl6.Text = "Forgot Password";
             this.lbl6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbl6.Click += new System.EventHandler(this.lbl6_Click);
-            // 
-            // PhoneTextBoxRegister
-            // 
-            this.PhoneTextBoxRegister.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PhoneTextBoxRegister.Location = new System.Drawing.Point(233, 283);
-            this.PhoneTextBoxRegister.Name = "PhoneTextBoxRegister";
-            this.PhoneTextBoxRegister.Size = new System.Drawing.Size(173, 21);
-            this.PhoneTextBoxRegister.TabIndex = 24;
-            this.PhoneTextBoxRegister.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // PhoneLabel
-            // 
-            this.PhoneLabel.AutoSize = true;
-            this.PhoneLabel.ForeColor = System.Drawing.Color.OrangeRed;
-            this.PhoneLabel.Location = new System.Drawing.Point(230, 267);
-            this.PhoneLabel.Name = "PhoneLabel";
-            this.PhoneLabel.Size = new System.Drawing.Size(102, 13);
-            this.PhoneLabel.TabIndex = 25;
-            this.PhoneLabel.Text = "Phone Number";
             // 
             // Authentication
             // 
