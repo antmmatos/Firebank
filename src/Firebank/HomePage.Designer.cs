@@ -1,7 +1,7 @@
 ﻿
 namespace Firebank
 {
-    partial class HomePage
+    partial class Homepage
     {
         /// <summary>
         /// Required designer variable.
@@ -42,10 +42,24 @@ namespace Firebank
             this.AccountList = new System.Windows.Forms.ComboBox();
             this.BalanceLabelValue = new System.Windows.Forms.Label();
             this.StatementLabel = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.OpenStatementButton = new System.Windows.Forms.Button();
+            this.cardsmanagementpanel = new System.Windows.Forms.Panel();
+            this.isActivated = new System.Windows.Forms.Label();
+            this.isFreeze = new System.Windows.Forms.Label();
+            this.ActivateButton = new System.Windows.Forms.Button();
+            this.FreezeButton = new System.Windows.Forms.Button();
+            this.NumberLabel = new System.Windows.Forms.Label();
+            this.EDLabel = new System.Windows.Forms.Label();
+            this.CVVLabel = new System.Windows.Forms.Label();
+            this.CardCVVLabel = new System.Windows.Forms.Label();
+            this.CardExpireDate = new System.Windows.Forms.Label();
+            this.CardNumberLabel = new System.Windows.Forms.Label();
+            this.CardsComboBox = new System.Windows.Forms.ComboBox();
+            this.CardSelectorLabel = new System.Windows.Forms.Label();
+            this.CardsManagementTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.cardsmanagementpanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -65,6 +79,7 @@ namespace Firebank
             // 
             // button4
             // 
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
             this.button4.FlatAppearance.BorderSize = 2;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -79,6 +94,7 @@ namespace Firebank
             // 
             // button3
             // 
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
             this.button3.FlatAppearance.BorderSize = 2;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -93,6 +109,7 @@ namespace Firebank
             // 
             // button2
             // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
             this.button2.FlatAppearance.BorderSize = 2;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -102,11 +119,13 @@ namespace Firebank
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(140, 44);
             this.button2.TabIndex = 15;
-            this.button2.Text = "Users Management";
+            this.button2.Text = "Cards Management";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
             this.button1.FlatAppearance.BorderSize = 2;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -118,6 +137,7 @@ namespace Firebank
             this.button1.TabIndex = 14;
             this.button1.Text = "Home";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // logo
             // 
@@ -193,7 +213,9 @@ namespace Firebank
             // BalanceLabelValue
             // 
             this.BalanceLabelValue.AutoSize = true;
+            this.BalanceLabelValue.BackColor = System.Drawing.SystemColors.Control;
             this.BalanceLabelValue.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BalanceLabelValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
             this.BalanceLabelValue.Location = new System.Drawing.Point(211, 235);
             this.BalanceLabelValue.Name = "BalanceLabelValue";
             this.BalanceLabelValue.Size = new System.Drawing.Size(144, 38);
@@ -211,23 +233,206 @@ namespace Firebank
             this.StatementLabel.TabIndex = 18;
             this.StatementLabel.Text = "Account Statement";
             // 
-            // dataGridView1
+            // OpenStatementButton
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(432, 243);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 19;
+            this.OpenStatementButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OpenStatementButton.Enabled = false;
+            this.OpenStatementButton.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.OpenStatementButton.FlatAppearance.BorderSize = 2;
+            this.OpenStatementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenStatementButton.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OpenStatementButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.OpenStatementButton.Location = new System.Drawing.Point(432, 235);
+            this.OpenStatementButton.Name = "OpenStatementButton";
+            this.OpenStatementButton.Size = new System.Drawing.Size(163, 64);
+            this.OpenStatementButton.TabIndex = 19;
+            this.OpenStatementButton.Text = "Statement";
+            this.OpenStatementButton.UseVisualStyleBackColor = true;
+            this.OpenStatementButton.Click += new System.EventHandler(this.OpenStatementButton_Click);
             // 
-            // HomePage
+            // cardsmanagementpanel
+            // 
+            this.cardsmanagementpanel.Controls.Add(this.isActivated);
+            this.cardsmanagementpanel.Controls.Add(this.isFreeze);
+            this.cardsmanagementpanel.Controls.Add(this.ActivateButton);
+            this.cardsmanagementpanel.Controls.Add(this.FreezeButton);
+            this.cardsmanagementpanel.Controls.Add(this.NumberLabel);
+            this.cardsmanagementpanel.Controls.Add(this.EDLabel);
+            this.cardsmanagementpanel.Controls.Add(this.CVVLabel);
+            this.cardsmanagementpanel.Controls.Add(this.CardCVVLabel);
+            this.cardsmanagementpanel.Controls.Add(this.CardExpireDate);
+            this.cardsmanagementpanel.Controls.Add(this.CardNumberLabel);
+            this.cardsmanagementpanel.Controls.Add(this.CardsComboBox);
+            this.cardsmanagementpanel.Controls.Add(this.CardSelectorLabel);
+            this.cardsmanagementpanel.Controls.Add(this.CardsManagementTitle);
+            this.cardsmanagementpanel.Location = new System.Drawing.Point(218, 12);
+            this.cardsmanagementpanel.Name = "cardsmanagementpanel";
+            this.cardsmanagementpanel.Size = new System.Drawing.Size(503, 391);
+            this.cardsmanagementpanel.TabIndex = 20;
+            this.cardsmanagementpanel.Visible = false;
+            // 
+            // isActivated
+            // 
+            this.isActivated.AutoSize = true;
+            this.isActivated.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.isActivated.ForeColor = System.Drawing.Color.Green;
+            this.isActivated.Location = new System.Drawing.Point(344, 280);
+            this.isActivated.Name = "isActivated";
+            this.isActivated.Size = new System.Drawing.Size(77, 16);
+            this.isActivated.TabIndex = 28;
+            this.isActivated.Text = "Activated";
+            this.isActivated.Visible = false;
+            // 
+            // isFreeze
+            // 
+            this.isFreeze.AutoSize = true;
+            this.isFreeze.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.isFreeze.ForeColor = System.Drawing.Color.Red;
+            this.isFreeze.Location = new System.Drawing.Point(212, 280);
+            this.isFreeze.Name = "isFreeze";
+            this.isFreeze.Size = new System.Drawing.Size(57, 16);
+            this.isFreeze.TabIndex = 27;
+            this.isFreeze.Text = "Freeze";
+            this.isFreeze.Visible = false;
+            // 
+            // ActivateButton
+            // 
+            this.ActivateButton.FlatAppearance.BorderSize = 2;
+            this.ActivateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ActivateButton.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ActivateButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.ActivateButton.Location = new System.Drawing.Point(323, 308);
+            this.ActivateButton.Name = "ActivateButton";
+            this.ActivateButton.Size = new System.Drawing.Size(124, 47);
+            this.ActivateButton.TabIndex = 26;
+            this.ActivateButton.Text = "Activate Card";
+            this.ActivateButton.UseVisualStyleBackColor = true;
+            this.ActivateButton.Click += new System.EventHandler(this.ActivateButton_Click);
+            // 
+            // FreezeButton
+            // 
+            this.FreezeButton.FlatAppearance.BorderSize = 2;
+            this.FreezeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FreezeButton.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FreezeButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.FreezeButton.Location = new System.Drawing.Point(185, 308);
+            this.FreezeButton.Name = "FreezeButton";
+            this.FreezeButton.Size = new System.Drawing.Size(115, 47);
+            this.FreezeButton.TabIndex = 25;
+            this.FreezeButton.Text = "Freeze Card";
+            this.FreezeButton.UseVisualStyleBackColor = true;
+            this.FreezeButton.Click += new System.EventHandler(this.FreezeButton_Click);
+            // 
+            // NumberLabel
+            // 
+            this.NumberLabel.AutoSize = true;
+            this.NumberLabel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumberLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
+            this.NumberLabel.Location = new System.Drawing.Point(-3, 207);
+            this.NumberLabel.Name = "NumberLabel";
+            this.NumberLabel.Size = new System.Drawing.Size(64, 16);
+            this.NumberLabel.TabIndex = 23;
+            this.NumberLabel.Text = "Number";
+            this.NumberLabel.Visible = false;
+            // 
+            // EDLabel
+            // 
+            this.EDLabel.AutoSize = true;
+            this.EDLabel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EDLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
+            this.EDLabel.Location = new System.Drawing.Point(256, 207);
+            this.EDLabel.Name = "EDLabel";
+            this.EDLabel.Size = new System.Drawing.Size(91, 16);
+            this.EDLabel.TabIndex = 24;
+            this.EDLabel.Text = "Expire Date";
+            this.EDLabel.Visible = false;
+            // 
+            // CVVLabel
+            // 
+            this.CVVLabel.AutoSize = true;
+            this.CVVLabel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CVVLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
+            this.CVVLabel.Location = new System.Drawing.Point(-3, 308);
+            this.CVVLabel.Name = "CVVLabel";
+            this.CVVLabel.Size = new System.Drawing.Size(37, 16);
+            this.CVVLabel.TabIndex = 22;
+            this.CVVLabel.Text = "CVV";
+            this.CVVLabel.Visible = false;
+            // 
+            // CardCVVLabel
+            // 
+            this.CardCVVLabel.AutoSize = true;
+            this.CardCVVLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardCVVLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.CardCVVLabel.Location = new System.Drawing.Point(-4, 264);
+            this.CardCVVLabel.Name = "CardCVVLabel";
+            this.CardCVVLabel.Size = new System.Drawing.Size(110, 23);
+            this.CardCVVLabel.TabIndex = 21;
+            this.CardCVVLabel.Text = "Card CVV";
+            // 
+            // CardExpireDate
+            // 
+            this.CardExpireDate.AutoSize = true;
+            this.CardExpireDate.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardExpireDate.ForeColor = System.Drawing.Color.OrangeRed;
+            this.CardExpireDate.Location = new System.Drawing.Point(255, 168);
+            this.CardExpireDate.Name = "CardExpireDate";
+            this.CardExpireDate.Size = new System.Drawing.Size(192, 23);
+            this.CardExpireDate.TabIndex = 20;
+            this.CardExpireDate.Text = "Card Expire Date";
+            // 
+            // CardNumberLabel
+            // 
+            this.CardNumberLabel.AutoSize = true;
+            this.CardNumberLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardNumberLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.CardNumberLabel.Location = new System.Drawing.Point(-4, 168);
+            this.CardNumberLabel.Name = "CardNumberLabel";
+            this.CardNumberLabel.Size = new System.Drawing.Size(151, 23);
+            this.CardNumberLabel.TabIndex = 19;
+            this.CardNumberLabel.Text = "Card Number";
+            // 
+            // CardsComboBox
+            // 
+            this.CardsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CardsComboBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardsComboBox.FormattingEnabled = true;
+            this.CardsComboBox.Location = new System.Drawing.Point(0, 100);
+            this.CardsComboBox.Name = "CardsComboBox";
+            this.CardsComboBox.Size = new System.Drawing.Size(406, 31);
+            this.CardsComboBox.TabIndex = 18;
+            this.CardsComboBox.SelectedIndexChanged += new System.EventHandler(this.CardsComboBox_SelectedIndexChanged);
+            // 
+            // CardSelectorLabel
+            // 
+            this.CardSelectorLabel.AutoSize = true;
+            this.CardSelectorLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardSelectorLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.CardSelectorLabel.Location = new System.Drawing.Point(-6, 65);
+            this.CardSelectorLabel.Name = "CardSelectorLabel";
+            this.CardSelectorLabel.Size = new System.Drawing.Size(100, 32);
+            this.CardSelectorLabel.TabIndex = 17;
+            this.CardSelectorLabel.Text = "Cards";
+            // 
+            // CardsManagementTitle
+            // 
+            this.CardsManagementTitle.AutoSize = true;
+            this.CardsManagementTitle.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardsManagementTitle.ForeColor = System.Drawing.Color.OrangeRed;
+            this.CardsManagementTitle.Location = new System.Drawing.Point(-6, 0);
+            this.CardsManagementTitle.Name = "CardsManagementTitle";
+            this.CardsManagementTitle.Size = new System.Drawing.Size(305, 32);
+            this.CardsManagementTitle.TabIndex = 14;
+            this.CardsManagementTitle.Text = "Cards Management";
+            this.CardsManagementTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Homepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 415);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.cardsmanagementpanel);
+            this.Controls.Add(this.OpenStatementButton);
             this.Controls.Add(this.StatementLabel);
             this.Controls.Add(this.BalanceLabelValue);
             this.Controls.Add(this.AccountList);
@@ -235,12 +440,14 @@ namespace Firebank
             this.Controls.Add(this.BalanceLabel);
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.panel1);
-            this.Name = "HomePage";
-            this.Text = "DataVerification";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "Homepage";
+            this.Text = "Firebank - Homepage";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.cardsmanagementpanel.ResumeLayout(false);
+            this.cardsmanagementpanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,6 +468,20 @@ namespace Firebank
         private System.Windows.Forms.ComboBox AccountList;
         private System.Windows.Forms.Label BalanceLabelValue;
         private System.Windows.Forms.Label StatementLabel;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button OpenStatementButton;
+        private System.Windows.Forms.Panel cardsmanagementpanel;
+        private System.Windows.Forms.Label CardsManagementTitle;
+        private System.Windows.Forms.ComboBox CardsComboBox;
+        private System.Windows.Forms.Label CardSelectorLabel;
+        private System.Windows.Forms.Label CardNumberLabel;
+        private System.Windows.Forms.Label CardExpireDate;
+        private System.Windows.Forms.Label CardCVVLabel;
+        private System.Windows.Forms.Label CVVLabel;
+        private System.Windows.Forms.Label NumberLabel;
+        private System.Windows.Forms.Label EDLabel;
+        private System.Windows.Forms.Label isActivated;
+        private System.Windows.Forms.Label isFreeze;
+        private System.Windows.Forms.Button ActivateButton;
+        private System.Windows.Forms.Button FreezeButton;
     }
 }

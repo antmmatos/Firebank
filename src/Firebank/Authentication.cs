@@ -29,7 +29,7 @@ namespace Firebank
                 if (commandReader.HasRows)
                 {
                     this.Hide();
-                    HomePage homepage = new HomePage(commandReader, db);
+                    Homepage homepage = new Homepage(commandReader, db);
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
                 }
@@ -153,7 +153,7 @@ namespace Firebank
                     command.Parameters.Add("@MobilePhoneNumber", System.Data.SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                     command.ExecuteNonQuery();
                     MessageBox.Show("Account created successfully.");
-                    new HomePage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db).Show();
+                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db).Show();
                     this.Hide();
                 }
                 db.Close();
