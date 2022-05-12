@@ -8,8 +8,8 @@ namespace Firebank
 {
     public partial class Authentication : Form
     {
-        private static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;";
-        readonly SqlConnection db = new SqlConnection(ConnectionString);
+        private static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
+        public static SqlConnection db = new SqlConnection(ConnectionString);
         private bool seePassword;
         public Authentication()
         {
@@ -32,10 +32,12 @@ namespace Firebank
                     Homepage homepage = new Homepage(commandReader, db);
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
+                    commandReader.Close();
                 }
                 else
                 {
                     MessageBox.Show("Username or Password is incorrect");
+                    commandReader.Close();
                 }
                 db.Close();
             }

@@ -1,77 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Firebank
 {
-    public partial class Homepage : Form
+    public partial class CardsUserControl : UserControl
     {
-        private string _Username;
-        private string _Email;
-        private string _NIF;
-        private string _CC;
-        private string _PhoneNumber;
-        private string _Birthday;
-        private SqlConnection db;
-        private DataTable _CurrentStatement;
         List<Account> accounts = new List<Account>();
         List<Card> cards = new List<Card>();
-        public Homepage(SqlDataReader reader, SqlConnection db)
+        SqlConnection db = Authentication.db;
+        public CardsUserControl()
         {
             InitializeComponent();
-            _Username = reader["Username"].ToString();
-            _Email = reader["Email"].ToString();
-            _NIF = reader["NIF"].ToString();
-            _CC = reader["CC"].ToString();
-            _PhoneNumber = reader["MobilePhoneNumber"].ToString();
-            _Birthday = reader["Birthday"].ToString();
-            reader.Close();
-            this.db = db;
-            StartUPFunctions();
+            StartUPCards();
         }
 
-        public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db)
-        {
-            InitializeComponent();
-            _Username = Username;
-            _Email = Email;
-            _NIF = NIF;
-            _CC = CC;
-            _PhoneNumber = PhoneNumber;
-            _Birthday = Birthday;
-            this.db = db;
-            StartUPFunctions();
-        }
-        private void StartUPFunctions()
-        {
-            StartUPHomepage();
-            //StartUPCards();
-        }
-
-        private void StartUPHomepage()
-        {
-            AccountList.Items.Clear();
-            WelcomeLabel.Text = "Welcome " + _Username;
-            SqlCommand command = new SqlCommand();
-            command.Connection = db;
-            command.CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, isnull(AccountName, 'SEM NOME') FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner";
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                AccountList.Items.Add("ID: " + reader.GetInt32(0).ToString() + " - Account Name: " + reader.GetString(4));
-                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4)));
-            }
-            if (AccountList.Items.Count == 0)
-            {
-                AccountList.Items.Add("No Accounts found");
-            }
-            reader.Close();
-        }
-
-        /*private void StartUPCards()
+        private void StartUPCards()
         {
             CardsComboBox.Items.Clear();
             cards.Clear();
@@ -82,7 +33,7 @@ namespace Firebank
             {
                 db.Open();
             }
-            catch(Exception) { }
+            catch (Exception) { }
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -95,43 +46,8 @@ namespace Firebank
             }
             reader.Close();
             db.Close();
-        }*/
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
-
-        private void AccountList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BalanceLabelValue.Text = accounts.ElementAt(AccountList.SelectedIndex).Balance.ToString();
-            SqlCommand command = new SqlCommand();
-            command.Connection = db;
-            command.CommandText = "SELECT * FROM Transactions WHERE Sender_Account = @ID OR Receiver_Account = @ID";
-            command.Parameters.Add("@ID", SqlDbType.Int).Value = accounts.ElementAt(AccountList.SelectedIndex).ID;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataSet dataSet = new DataSet();
-            adapter.Fill(dataSet);
-            _CurrentStatement = dataSet.Tables[0];
-            OpenStatementButton.Enabled = true;
-        }
-
-        private void OpenStatementButton_Click(object sender, EventArgs e)
-        {
-            new Statement(_CurrentStatement).ShowDialog();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CardsManagement.Visible = true;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //cardsmanagementpanel.Visible = false;
-        }
-
-        /*private void CardsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void CardsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CVVLabel.Visible = true;
             EDLabel.Visible = true;
@@ -188,10 +104,10 @@ namespace Firebank
                 isFreeze.ForeColor = System.Drawing.Color.Green;
             }
         }
-        
+
         private void ActivateButton_Click(object sender, EventArgs e)
         {
-            if(cards.ElementAt(CardsComboBox.SelectedIndex).isActivating)
+            if (cards.ElementAt(CardsComboBox.SelectedIndex).isActivating)
             {
                 InputBox input = new InputBox("Card Activation", "Enter the activation code", false, "");
                 input.ShowDialog();
@@ -204,7 +120,7 @@ namespace Firebank
                 db.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                if(input.value == reader["ActivationCode"].ToString())
+                if (input.value == reader["ActivationCode"].ToString())
                 {
                     reader.Close();
                     SqlCommand updateActivation = new SqlCommand
@@ -269,13 +185,13 @@ namespace Firebank
                 command.ExecuteNonQuery();
                 db.Close();
                 MessageBox.Show("A transaction has been added to your statement with the activation code.");
-            }  
+            }
         }
 
         private void addCardButton_Click(object sender, EventArgs e)
         {
             new RequestCard(accounts).ShowDialog();
             StartUPCards();
-        }*/
+        }
     }
 }

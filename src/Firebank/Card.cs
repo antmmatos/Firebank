@@ -2,7 +2,7 @@
 
 namespace Firebank
 {
-    internal class Card
+    public class Card
     {
         internal int ID { get; set; }
         internal string CardNumber { get; set; }
@@ -11,7 +11,8 @@ namespace Firebank
         internal int AccountID { get; set; }
         internal bool isActivated { get; set; }
         internal bool isFreeze { get; set; }
-        public Card(int ID, string CardNumber, DateTime CardExpireDate, string CardCVV, int AccountID, bool isActivated, bool isFreeze)
+        internal bool isActivating { get; set; }
+        public Card(int ID, string CardNumber, DateTime CardExpireDate, string CardCVV, int AccountID, bool isActivated, bool isFreeze, bool isActivating)
         {
             this.ID = ID;
             this.CardNumber = CardNumber;
@@ -20,6 +21,7 @@ namespace Firebank
             this.AccountID = AccountID;
             this.isActivated = isActivated;
             this.isFreeze = isFreeze;
+            this.isActivating = isActivating;
         }
     }
 }

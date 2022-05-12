@@ -1,6 +1,6 @@
 ﻿namespace Firebank
 {
-    internal class Account
+    public class Account
     {
         internal string Name { get; set; }
         internal string AccountOwner { get; set; }

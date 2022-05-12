@@ -31,7 +31,10 @@ namespace Firebank
                 if (ValueTextBox.TextLength >= 8)
                 {
                     value = ValueTextBox.Text;
-                    MessageBox.Show(_successMessage);
+                    if(_successMessage != "")
+                    {
+                        MessageBox.Show(_successMessage);
+                    }
                     this.Close();
                 }
                 else
@@ -44,7 +47,10 @@ namespace Firebank
                 if (ValueTextBox.TextLength > 0)
                 {
                     value = ValueTextBox.Text;
-                    MessageBox.Show(_successMessage);
+                    if(_successMessage != "")
+                    {
+                        MessageBox.Show(_successMessage);
+                    }
                     this.Close();
                 }
                 else
