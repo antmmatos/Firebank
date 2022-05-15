@@ -48,7 +48,6 @@ namespace Firebank
         private void StartUPFunctions()
         {
             StartUPHomepage();
-            //StartUPCards();
         }
 
         private void StartUPHomepage()
@@ -58,6 +57,7 @@ namespace Firebank
             SqlCommand command = new SqlCommand();
             command.Connection = db;
             command.CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, isnull(AccountName, 'SEM NOME') FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner";
+            db.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -69,33 +69,8 @@ namespace Firebank
                 AccountList.Items.Add("No Accounts found");
             }
             reader.Close();
-        }
-
-        /*private void StartUPCards()
-        {
-            CardsComboBox.Items.Clear();
-            cards.Clear();
-            SqlCommand command = new SqlCommand();
-            command.Connection = db;
-            command.CommandText = "SELECT Cards.ID, CardNumber, CardExpireDate, CardCVV, AccountID, isActivated, isFreeze, isActivating, Accounts.AccountName FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner INNER JOIN Cards ON Accounts.ID = Cards.AccountID";
-            try
-            {
-                db.Open();
-            }
-            catch(Exception) { }
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                CardsComboBox.Items.Add("ID: " + reader.GetInt32(0).ToString() + " - Account Connected: " + reader.GetString(8).ToString());
-                cards.Add(new Card(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetString(3), reader.GetInt32(4), reader.GetBoolean(5), reader.GetBoolean(6), reader.GetBoolean(7)));
-            }
-            if (CardsComboBox.Items.Count == 0)
-            {
-                CardsComboBox.Items.Add("No Cards found");
-            }
-            reader.Close();
             db.Close();
-        }*/
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -128,7 +103,7 @@ namespace Firebank
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //cardsmanagementpanel.Visible = false;
+            CardsManagement.Visible = false;
         }
 
         /*private void CardsComboBox_SelectedIndexChanged(object sender, EventArgs e)

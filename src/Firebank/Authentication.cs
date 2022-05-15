@@ -29,10 +29,9 @@ namespace Firebank
                 if (commandReader.HasRows)
                 {
                     this.Hide();
-                    Homepage homepage = new Homepage(commandReader, db);
+                    Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db);
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
-                    commandReader.Close();
                 }
                 else
                 {
