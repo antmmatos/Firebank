@@ -20,6 +20,7 @@ namespace Firebank
         {
             InitializeComponent();
             StartUPCards();
+            CardsComboBox.SelectedIndex = 1;
         }
 
         private void StartUPCards()
@@ -28,7 +29,7 @@ namespace Firebank
             cards.Clear();
             SqlCommand command = new SqlCommand();
             command.Connection = db;
-            command.CommandText = "SELECT Cards.ID, CardNumber, CardExpireDate, CardCVV, AccountID, isActivated, isFreeze, isActivating, Accounts.AccountName FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner INNER JOIN Cards ON Accounts.ID = Cards.AccountID";
+            command.CommandText = "SELECT Cards.ID, CardNumber, CardExpireDate, CardCVV, AccountID, isActivated, isFreeze, isActivating, Accounts.AccountName FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner INNER JOIN Cards ON Accounts.ID = Cards.AccountID WHERE ";
             try
             {
                 db.Open();

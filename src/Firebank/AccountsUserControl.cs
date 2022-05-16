@@ -14,12 +14,12 @@ namespace Firebank
     public partial class AccountsUserControl : UserControl
     {
         List<Account> accounts = new List<Account>();
-        List<Card> cards = new List<Card>();
         SqlConnection db = Authentication.db;
         public AccountsUserControl()
         {
             InitializeComponent();
             StartUPAccounts();
+            AccountsComboBox.SelectedIndex = 1;
         }
 
         private void StartUPAccounts()
@@ -59,8 +59,7 @@ namespace Firebank
 
         private void addAccountButton_Click(object sender, EventArgs e)
         {
-            // TODO
-            //new RequestAccount(accounts).ShowDialog();
+            new RequestAccount().ShowDialog();
             StartUPAccounts();
         }
 

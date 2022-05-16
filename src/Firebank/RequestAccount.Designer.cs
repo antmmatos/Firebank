@@ -1,7 +1,7 @@
 ﻿
 namespace Firebank
 {
-    partial class RequestCard
+    partial class RequestAccount
     {
         /// <summary>
         /// Required designer variable.
@@ -49,11 +49,11 @@ namespace Firebank
             this.Label1.AutoSize = true;
             this.Label1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label1.ForeColor = System.Drawing.Color.OrangeRed;
-            this.Label1.Location = new System.Drawing.Point(14, 9);
+            this.Label1.Location = new System.Drawing.Point(61, 17);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(315, 18);
+            this.Label1.Size = new System.Drawing.Size(221, 18);
             this.Label1.TabIndex = 20;
-            this.Label1.Text = "Select the account you want to use";
+            this.Label1.Text = "Enter the Account Name";
             // 
             // addCardButton
             // 
@@ -65,11 +65,11 @@ namespace Firebank
             this.addCardButton.Name = "addCardButton";
             this.addCardButton.Size = new System.Drawing.Size(165, 47);
             this.addCardButton.TabIndex = 30;
-            this.addCardButton.Text = "Request Card";
+            this.addCardButton.Text = "Request Account";
             this.addCardButton.UseVisualStyleBackColor = true;
-            this.addCardButton.Click += new System.EventHandler(this.addCardButton_Click);
+            this.addCardButton.Click += new System.EventHandler(this.addAccountButton_Click);
             // 
-            // RequestCard
+            // RequestAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,8 +79,8 @@ namespace Firebank
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.CardsComboBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "RequestCard";
-            this.Text = "Firebank - Request Card";
+            this.Name = "RequestAccount";
+            this.Text = "Firebank - Request Account";
             this.ResumeLayout(false);
             this.PerformLayout();
 

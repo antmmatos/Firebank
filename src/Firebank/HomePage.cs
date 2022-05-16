@@ -15,23 +15,11 @@ namespace Firebank
         private string _CC;
         private string _PhoneNumber;
         private string _Birthday;
+        private int _ID;
         private SqlConnection db;
         private DataTable _CurrentStatement;
         List<Account> accounts = new List<Account>();
         List<Card> cards = new List<Card>();
-        public Homepage(SqlDataReader reader, SqlConnection db)
-        {
-            InitializeComponent();
-            _Username = reader["Username"].ToString();
-            _Email = reader["Email"].ToString();
-            _NIF = reader["NIF"].ToString();
-            _CC = reader["CC"].ToString();
-            _PhoneNumber = reader["MobilePhoneNumber"].ToString();
-            _Birthday = reader["Birthday"].ToString();
-            reader.Close();
-            this.db = db;
-            StartUPFunctions();
-        }
 
         public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db)
         {
