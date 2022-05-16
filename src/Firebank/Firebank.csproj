@@ -199,6 +199,12 @@
   <ItemGroup>
     <Compile Include="Card.cs" />
     <Compile Include="Account.cs" />
+    <Compile Include="AccountsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AccountsUserControl.Designer.cs">
+      <DependentUpon>AccountsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CardsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -243,6 +249,9 @@
     <Compile Include="Statement.Designer.cs">
       <DependentUpon>Statement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AccountsUserControl.resx">
+      <DependentUpon>AccountsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CardsUserControl.resx">
       <DependentUpon>CardsUserControl.cs</DependentUpon>
     </EmbeddedResource>

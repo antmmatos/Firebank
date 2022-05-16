@@ -31,7 +31,7 @@ namespace Firebank
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.AccountManagementButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.logo = new System.Windows.Forms.PictureBox();
@@ -43,7 +43,9 @@ namespace Firebank
             this.BalanceLabelValue = new System.Windows.Forms.Label();
             this.StatementLabel = new System.Windows.Forms.Label();
             this.OpenStatementButton = new System.Windows.Forms.Button();
+            this.AccountsManagement = new Firebank.AccountsUserControl();
             this.CardsManagement = new Firebank.CardsUserControl();
+            this.accountsUserControl1 = new Firebank.AccountsUserControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +54,7 @@ namespace Firebank
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
             this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.AccountManagementButton);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.logo);
@@ -78,20 +80,21 @@ namespace Firebank
             this.button4.Text = "Settings";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // AccountManagementButton
             // 
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
-            this.button3.FlatAppearance.BorderSize = 2;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.OrangeRed;
-            this.button3.Location = new System.Drawing.Point(21, 292);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 44);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "Accounts Management";
-            this.button3.UseVisualStyleBackColor = true;
+            this.AccountManagementButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AccountManagementButton.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.AccountManagementButton.FlatAppearance.BorderSize = 2;
+            this.AccountManagementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AccountManagementButton.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AccountManagementButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.AccountManagementButton.Location = new System.Drawing.Point(21, 292);
+            this.AccountManagementButton.Name = "AccountManagementButton";
+            this.AccountManagementButton.Size = new System.Drawing.Size(140, 44);
+            this.AccountManagementButton.TabIndex = 16;
+            this.AccountManagementButton.Text = "Accounts Management";
+            this.AccountManagementButton.UseVisualStyleBackColor = true;
+            this.AccountManagementButton.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -142,7 +145,7 @@ namespace Firebank
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(18, 139);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(146, 32);
+            this.lbl1.Size = new System.Drawing.Size(147, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -154,7 +157,7 @@ namespace Firebank
             this.WelcomeLabel.ForeColor = System.Drawing.Color.OrangeRed;
             this.WelcomeLabel.Location = new System.Drawing.Point(212, 12);
             this.WelcomeLabel.Name = "WelcomeLabel";
-            this.WelcomeLabel.Size = new System.Drawing.Size(153, 32);
+            this.WelcomeLabel.Size = new System.Drawing.Size(154, 32);
             this.WelcomeLabel.TabIndex = 13;
             this.WelcomeLabel.Text = "Welcome";
             this.WelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -178,7 +181,7 @@ namespace Firebank
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
             this.label1.Location = new System.Drawing.Point(212, 77);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 32);
+            this.label1.Size = new System.Drawing.Size(137, 32);
             this.label1.TabIndex = 15;
             this.label1.Text = "Account";
             // 
@@ -236,6 +239,14 @@ namespace Firebank
             this.OpenStatementButton.UseVisualStyleBackColor = true;
             this.OpenStatementButton.Click += new System.EventHandler(this.OpenStatementButton_Click);
             // 
+            // AccountsManagement
+            // 
+            this.AccountsManagement.Location = new System.Drawing.Point(218, 12);
+            this.AccountsManagement.Name = "AccountsManagement";
+            this.AccountsManagement.Size = new System.Drawing.Size(503, 391);
+            this.AccountsManagement.TabIndex = 21;
+            this.AccountsManagement.Visible = false;
+            // 
             // CardsManagement
             // 
             this.CardsManagement.Location = new System.Drawing.Point(218, 12);
@@ -244,11 +255,21 @@ namespace Firebank
             this.CardsManagement.TabIndex = 20;
             this.CardsManagement.Visible = false;
             // 
+            // accountsUserControl1
+            // 
+            this.accountsUserControl1.Location = new System.Drawing.Point(218, 12);
+            this.accountsUserControl1.Name = "accountsUserControl1";
+            this.accountsUserControl1.Size = new System.Drawing.Size(503, 391);
+            this.accountsUserControl1.TabIndex = 21;
+            this.accountsUserControl1.Visible = false;
+            // 
             // Homepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 415);
+            this.Controls.Add(this.accountsUserControl1);
+            this.Controls.Add(this.AccountsManagement);
             this.Controls.Add(this.CardsManagement);
             this.Controls.Add(this.OpenStatementButton);
             this.Controls.Add(this.StatementLabel);
@@ -276,7 +297,7 @@ namespace Firebank
         private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.Label WelcomeLabel;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button AccountManagementButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label BalanceLabel;
@@ -286,5 +307,7 @@ namespace Firebank
         private System.Windows.Forms.Label StatementLabel;
         private System.Windows.Forms.Button OpenStatementButton;
         private CardsUserControl CardsManagement;
+        private AccountsUserControl AccountsManagement;
+        private AccountsUserControl accountsUserControl1;
     }
 }

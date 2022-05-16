@@ -99,11 +99,19 @@ namespace Firebank
         private void button2_Click(object sender, EventArgs e)
         {
             CardsManagement.Visible = true;
+            AccountsManagement.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             CardsManagement.Visible = false;
+            AccountsManagement.Visible = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CardsManagement.Visible = false;
+            AccountsManagement.Visible = true;
         }
 
         /*private void CardsComboBox_SelectedIndexChanged(object sender, EventArgs e)
