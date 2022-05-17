@@ -132,6 +132,8 @@ namespace Firebank
             this.AccountsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AccountsComboBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AccountsComboBox.FormattingEnabled = true;
+            this.AccountsComboBox.Items.AddRange(new object[] {
+            "---"});
             this.AccountsComboBox.Location = new System.Drawing.Point(14, 118);
             this.AccountsComboBox.Name = "AccountsComboBox";
             this.AccountsComboBox.Size = new System.Drawing.Size(406, 31);

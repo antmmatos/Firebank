@@ -185,6 +185,8 @@ namespace Firebank
             this.CardsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CardsComboBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CardsComboBox.FormattingEnabled = true;
+            this.CardsComboBox.Items.AddRange(new object[] {
+            "---"});
             this.CardsComboBox.Location = new System.Drawing.Point(14, 118);
             this.CardsComboBox.Name = "CardsComboBox";
             this.CardsComboBox.Size = new System.Drawing.Size(406, 31);
@@ -214,7 +216,7 @@ namespace Firebank
             this.CardsManagementTitle.Text = "Cards Management";
             this.CardsManagementTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Home
+            // CardsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -232,7 +234,7 @@ namespace Firebank
             this.Controls.Add(this.CardsComboBox);
             this.Controls.Add(this.CardSelectorLabel);
             this.Controls.Add(this.CardsManagementTitle);
-            this.Name = "Home";
+            this.Name = "CardsUserControl";
             this.Size = new System.Drawing.Size(503, 391);
             this.ResumeLayout(false);
             this.PerformLayout();

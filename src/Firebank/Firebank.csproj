@@ -197,6 +197,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Settings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="AccountsUserControl.cs">
@@ -255,6 +261,9 @@
     <Compile Include="Statement.Designer.cs">
       <DependentUpon>Statement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AccountsUserControl.resx">
       <DependentUpon>AccountsUserControl.cs</DependentUpon>
     </EmbeddedResource>

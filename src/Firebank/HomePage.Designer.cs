@@ -29,6 +29,7 @@ namespace Firebank
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Homepage));
             this.panel1 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.AccountManagementButton = new System.Windows.Forms.Button();
@@ -43,9 +44,9 @@ namespace Firebank
             this.BalanceLabelValue = new System.Windows.Forms.Label();
             this.StatementLabel = new System.Windows.Forms.Label();
             this.OpenStatementButton = new System.Windows.Forms.Button();
-            this.AccountsManagement = new Firebank.AccountsUserControl();
             this.CardsManagement = new Firebank.CardsUserControl();
-            this.accountsUserControl1 = new Firebank.AccountsUserControl();
+            this.AccountsManagement = new Firebank.AccountsUserControl();
+            this.SettingsUserControl = new Firebank.Settings();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
@@ -130,7 +131,7 @@ namespace Firebank
             // 
             // logo
             // 
-            this.logo.Image = global::Firebank.Properties.Resources.firebank;
+            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
             this.logo.Location = new System.Drawing.Point(21, 12);
             this.logo.Name = "logo";
             this.logo.Size = new System.Drawing.Size(140, 118);
@@ -239,38 +240,36 @@ namespace Firebank
             this.OpenStatementButton.UseVisualStyleBackColor = true;
             this.OpenStatementButton.Click += new System.EventHandler(this.OpenStatementButton_Click);
             // 
-            // AccountsManagement
-            // 
-            this.AccountsManagement.Location = new System.Drawing.Point(218, 12);
-            this.AccountsManagement.Name = "AccountsManagement";
-            this.AccountsManagement.Size = new System.Drawing.Size(503, 391);
-            this.AccountsManagement.TabIndex = 21;
-            this.AccountsManagement.Visible = false;
-            // 
             // CardsManagement
             // 
             this.CardsManagement.Location = new System.Drawing.Point(218, 12);
             this.CardsManagement.Name = "CardsManagement";
             this.CardsManagement.Size = new System.Drawing.Size(503, 391);
-            this.CardsManagement.TabIndex = 20;
+            this.CardsManagement.TabIndex = 21;
             this.CardsManagement.Visible = false;
             // 
-            // accountsUserControl1
+            // AccountsManagement
             // 
-            this.accountsUserControl1.Location = new System.Drawing.Point(218, 12);
-            this.accountsUserControl1.Name = "accountsUserControl1";
-            this.accountsUserControl1.Size = new System.Drawing.Size(503, 391);
-            this.accountsUserControl1.TabIndex = 21;
-            this.accountsUserControl1.Visible = false;
+            this.AccountsManagement.Location = new System.Drawing.Point(218, 12);
+            this.AccountsManagement.Name = "AccountsManagement";
+            this.AccountsManagement.Size = new System.Drawing.Size(503, 391);
+            this.AccountsManagement.TabIndex = 20;
+            this.AccountsManagement.Visible = false;
+            // 
+            // SettingsUserControl
+            // 
+            this.SettingsUserControl.Location = new System.Drawing.Point(218, 12);
+            this.SettingsUserControl.Name = "SettingsUserControl";
+            this.SettingsUserControl.Size = new System.Drawing.Size(503, 391);
+            this.SettingsUserControl.TabIndex = 22;
             // 
             // Homepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 415);
-            this.Controls.Add(this.accountsUserControl1);
+            this.Controls.Add(this.SettingsUserControl);
             this.Controls.Add(this.AccountsManagement);
-            this.Controls.Add(this.CardsManagement);
             this.Controls.Add(this.OpenStatementButton);
             this.Controls.Add(this.StatementLabel);
             this.Controls.Add(this.BalanceLabelValue);
@@ -279,6 +278,7 @@ namespace Firebank
             this.Controls.Add(this.BalanceLabel);
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.CardsManagement);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Homepage";
             this.Text = "Firebank - Homepage";
@@ -306,8 +306,8 @@ namespace Firebank
         private System.Windows.Forms.Label BalanceLabelValue;
         private System.Windows.Forms.Label StatementLabel;
         private System.Windows.Forms.Button OpenStatementButton;
-        private CardsUserControl CardsManagement;
         private AccountsUserControl AccountsManagement;
-        private AccountsUserControl accountsUserControl1;
+        private CardsUserControl CardsManagement;
+        private Settings SettingsUserControl;
     }
 }

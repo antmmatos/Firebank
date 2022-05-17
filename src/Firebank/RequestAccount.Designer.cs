@@ -29,20 +29,18 @@ namespace Firebank
         /// </summary>
         private void InitializeComponent()
         {
-            this.CardsComboBox = new System.Windows.Forms.ComboBox();
+            this.AccountNameTextBox = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.addCardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // CardsComboBox
+            // AccountNameTextBox
             // 
-            this.CardsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CardsComboBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CardsComboBox.FormattingEnabled = true;
-            this.CardsComboBox.Location = new System.Drawing.Point(17, 50);
-            this.CardsComboBox.Name = "CardsComboBox";
-            this.CardsComboBox.Size = new System.Drawing.Size(312, 31);
-            this.CardsComboBox.TabIndex = 19;
+            this.AccountNameTextBox.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AccountNameTextBox.Location = new System.Drawing.Point(17, 50);
+            this.AccountNameTextBox.Name = "AccountNameTextBox";
+            this.AccountNameTextBox.Size = new System.Drawing.Size(312, 31);
+            this.AccountNameTextBox.TabIndex = 19;
             // 
             // Label1
             // 
@@ -77,7 +75,7 @@ namespace Firebank
             this.ClientSize = new System.Drawing.Size(343, 174);
             this.Controls.Add(this.addCardButton);
             this.Controls.Add(this.Label1);
-            this.Controls.Add(this.CardsComboBox);
+            this.Controls.Add(this.AccountNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "RequestAccount";
             this.Text = "Firebank - Request Account";
@@ -88,7 +86,7 @@ namespace Firebank
 
         #endregion
 
-        private System.Windows.Forms.ComboBox CardsComboBox;
+        private System.Windows.Forms.TextBox AccountNameTextBox;
         private System.Windows.Forms.Label Label1;
         private System.Windows.Forms.Button addCardButton;
     }

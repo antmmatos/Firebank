@@ -15,11 +15,11 @@ namespace Firebank
     {
         List<Account> accounts = new List<Account>();
         SqlConnection db = Authentication.db;
+        public string NIF = "";
         public AccountsUserControl()
         {
             InitializeComponent();
             StartUPAccounts();
-            AccountsComboBox.SelectedIndex = 1;
         }
 
         private void StartUPAccounts()
@@ -28,7 +28,8 @@ namespace Firebank
             accounts.Clear();
             SqlCommand command = new SqlCommand();
             command.Connection = db;
-            command.CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, AccountName FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner";
+            command.CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, AccountName FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner WHERE Users.NIF = @NIF";
+            command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIF;
             try
             {
                 db.Open();
@@ -59,13 +60,13 @@ namespace Firebank
 
         private void addAccountButton_Click(object sender, EventArgs e)
         {
-            new RequestAccount().ShowDialog();
+            new RequestAccount(NIF).ShowDialog();
             StartUPAccounts();
         }
 
         private void ChangeNameButton_Click(object sender, EventArgs e)
         {
-            if(AccountsComboBox.SelectedIndex != 0)
+            if(AccountsComboBox.SelectedIndex != -1)
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = db;
