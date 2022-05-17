@@ -32,7 +32,7 @@ namespace Firebank
             this.SettingsTitle = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PhoneNumberTextBox = new System.Windows.Forms.TextBox();
             this.PhoneNumberLabel = new System.Windows.Forms.Label();
             this.BirthdayTextBox = new System.Windows.Forms.TextBox();
             this.BirthdayLabel = new System.Windows.Forms.Label();
@@ -40,7 +40,7 @@ namespace Firebank
             this.EmailLabel = new System.Windows.Forms.Label();
             this.NIFTextBox = new System.Windows.Forms.TextBox();
             this.NIFLabel = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.CCTextBox = new System.Windows.Forms.TextBox();
             this.CCLabel = new System.Windows.Forms.Label();
             this.ChangePasswordButton = new System.Windows.Forms.Button();
             this.LogoutButton = new System.Windows.Forms.Button();
@@ -53,7 +53,7 @@ namespace Firebank
             this.SettingsTitle.ForeColor = System.Drawing.Color.OrangeRed;
             this.SettingsTitle.Location = new System.Drawing.Point(8, 18);
             this.SettingsTitle.Name = "SettingsTitle";
-            this.SettingsTitle.Size = new System.Drawing.Size(139, 32);
+            this.SettingsTitle.Size = new System.Drawing.Size(138, 32);
             this.SettingsTitle.TabIndex = 30;
             this.SettingsTitle.Text = "Settings";
             this.SettingsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,13 +77,13 @@ namespace Firebank
             this.UsernameTextBox.Size = new System.Drawing.Size(133, 20);
             this.UsernameTextBox.TabIndex = 32;
             // 
-            // textBox1
+            // PhoneNumberTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(354, 127);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(133, 20);
-            this.textBox1.TabIndex = 34;
+            this.PhoneNumberTextBox.Location = new System.Drawing.Point(354, 127);
+            this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
+            this.PhoneNumberTextBox.ReadOnly = true;
+            this.PhoneNumberTextBox.Size = new System.Drawing.Size(133, 20);
+            this.PhoneNumberTextBox.TabIndex = 34;
             // 
             // PhoneNumberLabel
             // 
@@ -153,13 +153,13 @@ namespace Firebank
             this.NIFLabel.TabIndex = 39;
             this.NIFLabel.Text = "Tax Number";
             // 
-            // textBox4
+            // CCTextBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(354, 225);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(133, 20);
-            this.textBox4.TabIndex = 42;
+            this.CCTextBox.Location = new System.Drawing.Point(354, 225);
+            this.CCTextBox.Name = "CCTextBox";
+            this.CCTextBox.ReadOnly = true;
+            this.CCTextBox.Size = new System.Drawing.Size(133, 20);
+            this.CCTextBox.TabIndex = 42;
             // 
             // CCLabel
             // 
@@ -207,7 +207,7 @@ namespace Firebank
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.LogoutButton);
             this.Controls.Add(this.ChangePasswordButton);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.CCTextBox);
             this.Controls.Add(this.CCLabel);
             this.Controls.Add(this.NIFTextBox);
             this.Controls.Add(this.NIFLabel);
@@ -215,7 +215,7 @@ namespace Firebank
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.BirthdayTextBox);
             this.Controls.Add(this.BirthdayLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.PhoneNumberTextBox);
             this.Controls.Add(this.PhoneNumberLabel);
             this.Controls.Add(this.UsernameTextBox);
             this.Controls.Add(this.UsernameLabel);
@@ -231,7 +231,7 @@ namespace Firebank
         private System.Windows.Forms.Label SettingsTitle;
         private System.Windows.Forms.Label UsernameLabel;
         private System.Windows.Forms.TextBox UsernameTextBox;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox PhoneNumberTextBox;
         private System.Windows.Forms.Label PhoneNumberLabel;
         private System.Windows.Forms.TextBox BirthdayTextBox;
         private System.Windows.Forms.Label BirthdayLabel;
@@ -239,7 +239,7 @@ namespace Firebank
         private System.Windows.Forms.Label EmailLabel;
         private System.Windows.Forms.TextBox NIFTextBox;
         private System.Windows.Forms.Label NIFLabel;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox CCTextBox;
         private System.Windows.Forms.Label CCLabel;
         private System.Windows.Forms.Button ChangePasswordButton;
         private System.Windows.Forms.Button LogoutButton;

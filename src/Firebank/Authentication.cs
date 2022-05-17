@@ -8,7 +8,7 @@ namespace Firebank
 {
     public partial class Authentication : Form
     {
-        private static string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
+        private static readonly string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
         public static SqlConnection db = new SqlConnection(ConnectionString);
         private bool seePassword;
         public Authentication()
@@ -29,6 +29,7 @@ namespace Firebank
                 if (commandReader.HasRows)
                 {
                     this.Hide();
+                    new VerificationSystem(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString()).ShowDialog();
                     Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db);
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
@@ -154,8 +155,8 @@ namespace Firebank
                     command.Parameters.Add("@MobilePhoneNumber", System.Data.SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                     command.ExecuteNonQuery();
                     MessageBox.Show("Account created successfully.");
-                    //new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db).Show();
-                    new VerificationSystem().Show();
+                    new VerificationSystem(EmailTextBoxRegister.Text, PhoneTextBoxRegister.Text).ShowDialog();
+                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db).Show();
                     this.Hide();
                 }
                 db.Close();

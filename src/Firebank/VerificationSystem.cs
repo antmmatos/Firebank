@@ -23,16 +23,34 @@ namespace Firebank
         private static readonly string BASE_URL = "https://gy2yge.api.infobip.com";
         private static readonly string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
         private static string _verificationCode;
+        private string _PhoneNumber;
+        private readonly string _Email;
+        private bool IsEmailVerified = false;
+        private readonly bool IsPhoneVerified = false;
         private string _IP;
         private string _CountryIP;
         private string _CountryCode;
-        private string _PhoneNumber;
-        private string _Email;
-        private bool _IsEmailVerified;
-        public VerificationSystem()
+        public VerificationSystem(string email, string phone)
         {
             InitializeComponent();
-            SendEmail();
+            _Email = email;
+            _PhoneNumber = phone;
+            SqlCommand command = new SqlCommand
+            {
+                Connection = Authentication.db,
+                CommandText = "SELECT * FROM Users WHERE Email = @Email"
+            };
+            command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                IsEmailVerified = Convert.ToBoolean(reader["VerifiedEmail"]);
+                IsPhoneVerified = Convert.ToBoolean(reader["VerifiedMobilePhone"]);
+            }
+            if (!IsEmailVerified)
+            {
+                SendEmail();
+            }
         }
 
         private void SendEmail()
@@ -59,7 +77,6 @@ namespace Firebank
             };
             mailMessage.To.Add(_Email);
             smtpClient.Send(mailMessage);
-            MessageBox.Show("An email has been sent with a validation code.");
             _verificationCode = verificationCode;
         }
 
@@ -83,7 +100,6 @@ namespace Firebank
                 }
             }
             _PhoneNumber = _CountryCode + _PhoneNumber;
-
             var configuration = new Configuration()
             {
                 BasePath = BASE_URL,
@@ -111,7 +127,6 @@ namespace Firebank
             try
             {
                 var smsResponse = sendSmsApi.SendSmsMessage(smsRequest);
-                MessageBox.Show("A SMS has been sent with a validation code.");
                 _verificationCode = verificationCode;
             }
             catch (ApiException apiException)
@@ -124,7 +139,7 @@ namespace Firebank
         {
             if(_verificationCode == VerifyEmailCodeTextBox.Text)
             {
-                if (!_IsEmailVerified)
+                if (!IsEmailVerified)
                 {
                     MessageBox.Show("Email verified!");
                     SqlCommand command = new SqlCommand
@@ -135,18 +150,26 @@ namespace Firebank
                     command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
                     VerifyLabel.Text = "SMS Verification";
                     CheckLabel.Text = "Enter the code sent by SMS";
-                    _IsEmailVerified = true;
-                    SendSMS();
+                    IsEmailVerified = true;
+                    VerifyEmailCodeTextBox.Text = "";
+                    if (!IsPhoneVerified)
+                    {
+                        SendSMS();
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Phone number verified!");
-                    SqlCommand command = new SqlCommand
+                    if (!IsPhoneVerified)
                     {
-                        Connection = Authentication.db,
-                        CommandText = "UPDATE Users SET VerifiedMobilePhone = 1 WHERE Email = @Email"
-                    };
-                    command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
+                        MessageBox.Show("Phone number verified!");
+                        SqlCommand command = new SqlCommand
+                        {
+                            Connection = Authentication.db,
+                            CommandText = "UPDATE Users SET VerifiedMobilePhone = 1 WHERE Email = @Email"
+                        };
+                        command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
+                        this.Dispose();
+                    }
                 }
             }
             else

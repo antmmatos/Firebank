@@ -31,10 +31,11 @@ namespace Firebank
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Homepage));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
+            this.SettingsButton = new System.Windows.Forms.Button();
             this.AccountManagementButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.CardsManagementButton = new System.Windows.Forms.Button();
+            this.HomeButton = new System.Windows.Forms.Button();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.lbl1 = new System.Windows.Forms.Label();
             this.WelcomeLabel = new System.Windows.Forms.Label();
             this.BalanceLabel = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@ namespace Firebank
             this.CardsManagement = new Firebank.CardsUserControl();
             this.AccountsManagement = new Firebank.AccountsUserControl();
             this.SettingsUserControl = new Firebank.Settings();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
@@ -54,10 +54,10 @@ namespace Firebank
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
-            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.SettingsButton);
             this.panel1.Controls.Add(this.AccountManagementButton);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.CardsManagementButton);
+            this.panel1.Controls.Add(this.HomeButton);
             this.panel1.Controls.Add(this.logo);
             this.panel1.Controls.Add(this.lbl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -66,21 +66,21 @@ namespace Firebank
             this.panel1.Size = new System.Drawing.Size(180, 415);
             this.panel1.TabIndex = 12;
             // 
-            // button4
+            // SettingsButton
             // 
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
-            this.button4.FlatAppearance.BorderSize = 2;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.OrangeRed;
-            this.button4.Location = new System.Drawing.Point(21, 349);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(140, 44);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "Settings";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.SettingsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SettingsButton.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.SettingsButton.FlatAppearance.BorderSize = 2;
+            this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SettingsButton.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.SettingsButton.Location = new System.Drawing.Point(21, 349);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(140, 44);
+            this.SettingsButton.TabIndex = 17;
+            this.SettingsButton.Text = "Settings";
+            this.SettingsButton.UseVisualStyleBackColor = true;
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // AccountManagementButton
             // 
@@ -96,39 +96,49 @@ namespace Firebank
             this.AccountManagementButton.TabIndex = 16;
             this.AccountManagementButton.Text = "Accounts Management";
             this.AccountManagementButton.UseVisualStyleBackColor = true;
-            this.AccountManagementButton.Click += new System.EventHandler(this.button3_Click);
+            this.AccountManagementButton.Click += new System.EventHandler(this.AccountsManagementButton_Click);
             // 
-            // button2
+            // CardsManagementButton
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
-            this.button2.FlatAppearance.BorderSize = 2;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.OrangeRed;
-            this.button2.Location = new System.Drawing.Point(21, 235);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 44);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Cards Management";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.CardsManagementButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CardsManagementButton.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.CardsManagementButton.FlatAppearance.BorderSize = 2;
+            this.CardsManagementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CardsManagementButton.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CardsManagementButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.CardsManagementButton.Location = new System.Drawing.Point(21, 235);
+            this.CardsManagementButton.Name = "CardsManagementButton";
+            this.CardsManagementButton.Size = new System.Drawing.Size(140, 44);
+            this.CardsManagementButton.TabIndex = 15;
+            this.CardsManagementButton.Text = "Cards Management";
+            this.CardsManagementButton.UseVisualStyleBackColor = true;
+            this.CardsManagementButton.Click += new System.EventHandler(this.CardsManagementButton_Click);
             // 
-            // button1
+            // HomeButton
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
-            this.button1.FlatAppearance.BorderSize = 2;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.OrangeRed;
-            this.button1.Location = new System.Drawing.Point(21, 180);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 44);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Home";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.HomeButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.HomeButton.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.HomeButton.FlatAppearance.BorderSize = 2;
+            this.HomeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HomeButton.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HomeButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.HomeButton.Location = new System.Drawing.Point(21, 180);
+            this.HomeButton.Name = "HomeButton";
+            this.HomeButton.Size = new System.Drawing.Size(140, 44);
+            this.HomeButton.TabIndex = 14;
+            this.HomeButton.Text = "Home";
+            this.HomeButton.UseVisualStyleBackColor = true;
+            this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
+            // 
+            // logo
+            // 
+            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
+            this.logo.Location = new System.Drawing.Point(21, 12);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(140, 118);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.logo.TabIndex = 6;
+            this.logo.TabStop = false;
             // 
             // lbl1
             // 
@@ -164,7 +174,6 @@ namespace Firebank
             this.BalanceLabel.Size = new System.Drawing.Size(104, 25);
             this.BalanceLabel.TabIndex = 14;
             this.BalanceLabel.Text = "Balance";
-            this.BalanceLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // label1
             // 
@@ -255,16 +264,6 @@ namespace Firebank
             this.SettingsUserControl.TabIndex = 22;
             this.SettingsUserControl.Visible = false;
             // 
-            // logo
-            // 
-            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
-            this.logo.Location = new System.Drawing.Point(21, 12);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(140, 118);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.logo.TabIndex = 6;
-            this.logo.TabStop = false;
-            // 
             // Homepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,10 +297,10 @@ namespace Firebank
         private System.Windows.Forms.PictureBox logo;
         private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.Label WelcomeLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button HomeButton;
         private System.Windows.Forms.Button AccountManagementButton;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button CardsManagementButton;
+        private System.Windows.Forms.Button SettingsButton;
         private System.Windows.Forms.Label BalanceLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox AccountList;

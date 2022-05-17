@@ -19,5 +19,15 @@ namespace Firebank
         {
             ButtonClick?.Invoke(this, e);
         }
+
+        internal void SetUserInfo(string username, string email, string NIF, string CC, string phoneNumber, string birthday)
+        {
+            UsernameTextBox.Text = username;
+            EmailTextBox.Text = email;
+            NIFTextBox.Text = NIF;
+            CCTextBox.Text = CC;
+            PhoneNumberTextBox.Text = phoneNumber;
+            BirthdayTextBox.Text = birthday;
+        }
     }
 }

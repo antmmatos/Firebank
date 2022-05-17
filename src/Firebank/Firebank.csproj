@@ -261,6 +261,12 @@
     <Compile Include="Statement.Designer.cs">
       <DependentUpon>Statement.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerificationSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerificationSystem.Designer.cs">
+      <DependentUpon>VerificationSystem.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -300,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Statement.resx">
       <DependentUpon>Statement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerificationSystem.resx">
+      <DependentUpon>VerificationSystem.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
