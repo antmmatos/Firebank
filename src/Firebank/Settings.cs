@@ -17,8 +17,7 @@ namespace Firebank
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-            if (this.ButtonClick != null)
-                this.ButtonClick(this, e);
+            ButtonClick?.Invoke(this, e);
         }
     }
 }

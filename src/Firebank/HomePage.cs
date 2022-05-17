@@ -19,6 +19,10 @@ namespace Firebank
         private DataTable _CurrentStatement;
         List<Account> accounts = new List<Account>();
         List<Card> cards = new List<Card>();
+        private static void ThreadProc()
+        {
+            Application.Run(new Authentication());
+        }        
 
         public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db)
         {
@@ -30,7 +34,16 @@ namespace Firebank
             _PhoneNumber = PhoneNumber;
             _Birthday = Birthday;
             this.db = db;
+            SettingsUserControl.ButtonClick += new EventHandler(LogoutButtonClick);
             StartUPFunctions();
+        }
+
+        private void LogoutButtonClick(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProc));
+            t.Start();
+            this.Close();
+            this.Dispose();
         }
         private void StartUPFunctions()
         {
@@ -94,6 +107,7 @@ namespace Firebank
         {
             CardsManagement.Visible = false;
             AccountsManagement.Visible = false;
+            SettingsUserControl.Visible = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -101,6 +115,14 @@ namespace Firebank
             AccountsManagement.NIF = _NIF;
             CardsManagement.Visible = false;
             AccountsManagement.Visible = true;
+            SettingsUserControl.Visible = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SettingsUserControl.Visible = true;
+            CardsManagement.Visible = false;
+            AccountsManagement.Visible = false;
         }
     }
 }

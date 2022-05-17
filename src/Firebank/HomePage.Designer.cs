@@ -35,7 +35,6 @@ namespace Firebank
             this.AccountManagementButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.lbl1 = new System.Windows.Forms.Label();
             this.WelcomeLabel = new System.Windows.Forms.Label();
             this.BalanceLabel = new System.Windows.Forms.Label();
@@ -47,6 +46,7 @@ namespace Firebank
             this.CardsManagement = new Firebank.CardsUserControl();
             this.AccountsManagement = new Firebank.AccountsUserControl();
             this.SettingsUserControl = new Firebank.Settings();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
@@ -80,6 +80,7 @@ namespace Firebank
             this.button4.TabIndex = 17;
             this.button4.Text = "Settings";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // AccountManagementButton
             // 
@@ -129,16 +130,6 @@ namespace Firebank
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // logo
-            // 
-            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
-            this.logo.Location = new System.Drawing.Point(21, 12);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(140, 118);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.logo.TabIndex = 6;
-            this.logo.TabStop = false;
-            // 
             // lbl1
             // 
             this.lbl1.AutoSize = true;
@@ -146,7 +137,7 @@ namespace Firebank
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(18, 139);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(147, 32);
+            this.lbl1.Size = new System.Drawing.Size(146, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -158,7 +149,7 @@ namespace Firebank
             this.WelcomeLabel.ForeColor = System.Drawing.Color.OrangeRed;
             this.WelcomeLabel.Location = new System.Drawing.Point(212, 12);
             this.WelcomeLabel.Name = "WelcomeLabel";
-            this.WelcomeLabel.Size = new System.Drawing.Size(154, 32);
+            this.WelcomeLabel.Size = new System.Drawing.Size(153, 32);
             this.WelcomeLabel.TabIndex = 13;
             this.WelcomeLabel.Text = "Welcome";
             this.WelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,7 +173,7 @@ namespace Firebank
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
             this.label1.Location = new System.Drawing.Point(212, 77);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 32);
+            this.label1.Size = new System.Drawing.Size(136, 32);
             this.label1.TabIndex = 15;
             this.label1.Text = "Account";
             // 
@@ -262,6 +253,17 @@ namespace Firebank
             this.SettingsUserControl.Name = "SettingsUserControl";
             this.SettingsUserControl.Size = new System.Drawing.Size(503, 391);
             this.SettingsUserControl.TabIndex = 22;
+            this.SettingsUserControl.Visible = false;
+            // 
+            // logo
+            // 
+            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
+            this.logo.Location = new System.Drawing.Point(21, 12);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(140, 118);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.logo.TabIndex = 6;
+            this.logo.TabStop = false;
             // 
             // Homepage
             // 
