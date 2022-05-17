@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Windows.Forms;
 
 namespace Firebank
@@ -16,6 +17,7 @@ namespace Firebank
         private readonly string _PhoneNumber;
         private readonly string _Birthday;
         private readonly SqlConnection db;
+        private string _IP;
         private DataTable _CurrentStatement;
         readonly List<Account> accounts = new List<Account>();
         private static void ThreadProc()
@@ -26,6 +28,7 @@ namespace Firebank
         public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db)
         {
             InitializeComponent();
+            GetIp();
             _Username = Username;
             _Email = Email;
             _NIF = NIF;
@@ -34,9 +37,22 @@ namespace Firebank
             _Birthday = Birthday;
             this.db = db;
             SettingsUserControl.ButtonClick += new EventHandler(LogoutButtonClick);
+            SqlCommand command = new SqlCommand
+            {
+                Connection = db,
+                CommandText = "UPDATE Users SET LastIP = @IP WHERE Username = @Username"
+            };
+            command.Parameters.AddWithValue("@IP", System.Data.SqlDbType.VarChar).Value = _IP;
             StartUPFunctions();
             StartUPUserInfo();
         }
+        async private void GetIp()
+        {
+            var httpClient = new HttpClient();
+            string ip = await httpClient.GetStringAsync("https://api.ipify.org");
+            _IP = ip;
+        }
+
         private void StartUPUserInfo()
         {
             SettingsUserControl.SetUserInfo(_Username, _Email, _NIF, _CC, _PhoneNumber, _Birthday);

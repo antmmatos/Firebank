@@ -185,6 +185,7 @@ namespace Firebank
             this.ChangePasswordButton.TabIndex = 43;
             this.ChangePasswordButton.Text = "Change Password";
             this.ChangePasswordButton.UseVisualStyleBackColor = true;
+            this.ChangePasswordButton.Click += new System.EventHandler(this.ChangePasswordButton_Click);
             // 
             // LogoutButton
             // 

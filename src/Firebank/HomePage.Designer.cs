@@ -269,6 +269,7 @@ namespace Firebank
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 415);
+            this.Controls.Add(this.CardsManagement);
             this.Controls.Add(this.SettingsUserControl);
             this.Controls.Add(this.AccountsManagement);
             this.Controls.Add(this.OpenStatementButton);
@@ -279,7 +280,6 @@ namespace Firebank
             this.Controls.Add(this.BalanceLabel);
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.CardsManagement);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Homepage";
             this.Text = "Firebank - Homepage";

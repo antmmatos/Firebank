@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,8 @@ namespace Firebank
         public VerificationSystem(string email, string phone)
         {
             InitializeComponent();
+            GetIp();
+            GetCountryIp(_IP);
             _Email = email;
             _PhoneNumber = phone;
             SqlCommand command = new SqlCommand
@@ -51,6 +54,18 @@ namespace Firebank
             {
                 SendEmail();
             }
+        }
+        async private void GetIp()
+        {
+            var httpClient = new HttpClient();
+            string ip = await httpClient.GetStringAsync("https://api.ipify.org");
+            _IP = ip;
+        }
+        async private void GetCountryIp(string IP)
+        {
+            var httpClient = new HttpClient();
+            string country = await httpClient.GetStringAsync($"http://ip-api.com/json/{IP}");
+            _CountryIP = country;
         }
 
         private void SendEmail()
@@ -148,6 +163,7 @@ namespace Firebank
                         CommandText = "UPDATE Users SET VerifiedEmail = 1 WHERE Email = @Email"
                     };
                     command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
+                    command.ExecuteNonQuery();
                     VerifyLabel.Text = "SMS Verification";
                     CheckLabel.Text = "Enter the code sent by SMS";
                     IsEmailVerified = true;
@@ -168,6 +184,7 @@ namespace Firebank
                             CommandText = "UPDATE Users SET VerifiedMobilePhone = 1 WHERE Email = @Email"
                         };
                         command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
+                        command.ExecuteNonQuery();
                         this.Dispose();
                     }
                 }

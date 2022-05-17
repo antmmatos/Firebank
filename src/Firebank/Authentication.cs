@@ -29,7 +29,8 @@ namespace Firebank
                 if (commandReader.HasRows)
                 {
                     this.Hide();
-                    new VerificationSystem(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString()).ShowDialog();
+                    if (!(Convert.ToBoolean(commandReader["VerifiedEmail"].ToString())) || !(Convert.ToBoolean(commandReader["VerifiedMobilePhone"].ToString())))
+                        new VerificationSystem(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString()).ShowDialog();
                     Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db);
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
