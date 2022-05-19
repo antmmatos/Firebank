@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Firebank
@@ -40,13 +42,28 @@ namespace Firebank
                 Connection = Authentication.db,
                 CommandText = "UPDATE Users SET Password = @password WHERE Username = @username"
             };
-            command.Parameters.Add("@password", SqlDbType.VarChar).Value = newPassword; // TODO: Encrypt password
+            command.Parameters.Add("@password", SqlDbType.VarChar).Value = ComputeSha256Hash(newPassword);
             command.Parameters.Add("@username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
             Authentication.db.Open();
             command.ExecuteNonQuery();
             Authentication.db.Close();
             MessageBox.Show("Password changed with success.");
             input.Dispose();
+        }
+
+        private static string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }
