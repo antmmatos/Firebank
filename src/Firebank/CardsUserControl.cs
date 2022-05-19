@@ -17,13 +17,14 @@ namespace Firebank
         List<Card> cards = new List<Card>();
         SqlConnection db = Authentication.db;
         public string NIF = "";
+        private bool CardsFound = false;
         public CardsUserControl()
         {
             InitializeComponent();
             StartUPCards();
         }
 
-        private void StartUPCards()
+        public void StartUPCards()
         {
             CardsComboBox.Items.Clear();
             cards.Clear();
@@ -41,6 +42,7 @@ namespace Firebank
             {
                 CardsComboBox.Items.Add("ID: " + reader.GetInt32(0).ToString() + " - Account Connected: " + reader.GetString(8).ToString());
                 cards.Add(new Card(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetString(3), reader.GetInt32(4), reader.GetBoolean(5), reader.GetBoolean(6), reader.GetBoolean(7)));
+                CardsFound = true;
             }
             if (CardsComboBox.Items.Count == 0)
             {
@@ -51,31 +53,36 @@ namespace Firebank
         }
         private void CardsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CVVLabel.Visible = true;
-            EDLabel.Visible = true;
-            NumberLabel.Visible = true;
-            CVVLabel.Text = cards.ElementAt(CardsComboBox.SelectedIndex).CardCVV.ToString();
-            EDLabel.Text = cards.ElementAt(CardsComboBox.SelectedIndex).CardExpireDate.ToString("dd/MM/yyyy");
-            NumberLabel.Text = cards.ElementAt(CardsComboBox.SelectedIndex).CardNumber.ToString();
-            isFreeze.Visible = true;
-            isActivated.Visible = true;
-            if (cards.ElementAt(CardsComboBox.SelectedIndex).isFreeze)
+            if(CardsFound)
             {
-                isFreeze.ForeColor = System.Drawing.Color.Green;
-            }
-            else
-            {
-                isFreeze.ForeColor = System.Drawing.Color.Red;
-            }
-            if (cards.ElementAt(CardsComboBox.SelectedIndex).isActivated)
-            {
-                isActivated.ForeColor = System.Drawing.Color.Green;
-                ActivateButton.Enabled = false;
-            }
-            else
-            {
-                isActivated.ForeColor = System.Drawing.Color.Red;
-                ActivateButton.Enabled = true;
+                CVVLabel.Visible = true;
+                EDLabel.Visible = true;
+                NumberLabel.Visible = true;
+                CVVLabel.Text = cards.ElementAt(CardsComboBox.SelectedIndex).CardCVV.ToString();
+                EDLabel.Text = cards.ElementAt(CardsComboBox.SelectedIndex).CardExpireDate.ToString("dd/MM/yyyy");
+                NumberLabel.Text = cards.ElementAt(CardsComboBox.SelectedIndex).CardNumber.ToString();
+                isFreeze.Visible = true;
+                isActivated.Visible = true;
+                FreezeButton.Visible = true;
+                ActivateButton.Visible = true;
+                if (cards.ElementAt(CardsComboBox.SelectedIndex).isFreeze)
+                {
+                    isFreeze.ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    isFreeze.ForeColor = System.Drawing.Color.Red;
+                }
+                if (cards.ElementAt(CardsComboBox.SelectedIndex).isActivated)
+                {
+                    isActivated.ForeColor = System.Drawing.Color.Green;
+                    ActivateButton.Enabled = false;
+                }
+                else
+                {
+                    isActivated.ForeColor = System.Drawing.Color.Red;
+                    ActivateButton.Enabled = true;
+                }
             }
         }
 

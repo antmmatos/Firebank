@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -11,6 +13,9 @@ namespace Firebank
         private static readonly string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
         public static SqlConnection db = new SqlConnection(ConnectionString);
         private bool seePassword;
+        private string FACode;
+        private string _Email;
+
         public Authentication()
         {
             InitializeComponent();
@@ -29,11 +34,36 @@ namespace Firebank
                 if (commandReader.HasRows)
                 {
                     this.Hide();
-                    if (!(Convert.ToBoolean(commandReader["VerifiedEmail"].ToString())) || !(Convert.ToBoolean(commandReader["VerifiedMobilePhone"].ToString())))
+                    if (!Convert.ToBoolean(commandReader["VerifiedEmail"].ToString()) || !Convert.ToBoolean(commandReader["VerifiedMobilePhone"].ToString()))
                         new VerificationSystem(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString()).ShowDialog();
-                    Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db);
-                    homepage.Closed += (s, args) => this.Close();
-                    homepage.Show();
+                    else
+                    {
+                        if (Convert.ToBoolean(commandReader["is2FAEnabled"]))
+                        {
+                            _Email = commandReader["Email"].ToString();
+                            SendEmail();
+                            InputBox input = new InputBox("Firebank - 2FA", "Enter the code sent by Email", false, "");
+                            input.ShowDialog();
+                            if(input.value == FACode)
+                            {
+                                Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                                homepage.Closed += (s, args) => this.Close();
+                                homepage.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Wrong 2FA Code");
+                                Environment.Exit(0);
+                            }
+                        }
+                        else
+                        {
+                            Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                            homepage.Closed += (s, args) => this.Close();
+                            homepage.Show();
+                        }
+                    }
+                    
                 }
                 else
                 {
@@ -61,6 +91,33 @@ namespace Firebank
                     MessageBox.Show("Enter a password between 8 and 20 characters.");
                 }
             }
+        }
+
+        private void SendEmail()
+        {
+            string[] randomArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            string verificationCode = "";
+            Random random = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                verificationCode += randomArray[random.Next(35)];
+            }
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("tomas.vaz05@gmail.com", "Habravinha#2005"),
+                EnableSsl = true,
+            };
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress("tomas.vaz05@gmail.com"),
+                Subject = "Verification Code",
+                Body = "\nYour verification code to recover password is: " + verificationCode,
+                IsBodyHtml = false,
+            };
+            mailMessage.To.Add(_Email);
+            smtpClient.Send(mailMessage);
+            FACode = verificationCode;
         }
 
         private void RegisterPanelButton_Click(object sender, EventArgs e)
@@ -157,7 +214,7 @@ namespace Firebank
                     command.ExecuteNonQuery();
                     MessageBox.Show("Account created successfully.");
                     new VerificationSystem(EmailTextBoxRegister.Text, PhoneTextBoxRegister.Text).ShowDialog();
-                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db).Show();
+                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, db, false).Show();
                     this.Hide();
                 }
                 db.Close();

@@ -35,7 +35,6 @@ namespace Firebank
             this.AccountManagementButton = new System.Windows.Forms.Button();
             this.CardsManagementButton = new System.Windows.Forms.Button();
             this.HomeButton = new System.Windows.Forms.Button();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.lbl1 = new System.Windows.Forms.Label();
             this.WelcomeLabel = new System.Windows.Forms.Label();
             this.BalanceLabel = new System.Windows.Forms.Label();
@@ -44,9 +43,11 @@ namespace Firebank
             this.BalanceLabelValue = new System.Windows.Forms.Label();
             this.StatementLabel = new System.Windows.Forms.Label();
             this.OpenStatementButton = new System.Windows.Forms.Button();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.CardsManagement = new Firebank.CardsUserControl();
-            this.AccountsManagement = new Firebank.AccountsUserControl();
             this.SettingsUserControl = new Firebank.Settings();
+            this.AccountsManagement = new Firebank.AccountsUserControl();
+            this.TransferButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
@@ -130,16 +131,6 @@ namespace Firebank
             this.HomeButton.UseVisualStyleBackColor = true;
             this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
-            // logo
-            // 
-            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
-            this.logo.Location = new System.Drawing.Point(21, 12);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(140, 118);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.logo.TabIndex = 6;
-            this.logo.TabStop = false;
-            // 
             // lbl1
             // 
             this.lbl1.AutoSize = true;
@@ -147,7 +138,7 @@ namespace Firebank
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(18, 139);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(146, 32);
+            this.lbl1.Size = new System.Drawing.Size(147, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -159,7 +150,7 @@ namespace Firebank
             this.WelcomeLabel.ForeColor = System.Drawing.Color.OrangeRed;
             this.WelcomeLabel.Location = new System.Drawing.Point(212, 12);
             this.WelcomeLabel.Name = "WelcomeLabel";
-            this.WelcomeLabel.Size = new System.Drawing.Size(153, 32);
+            this.WelcomeLabel.Size = new System.Drawing.Size(154, 32);
             this.WelcomeLabel.TabIndex = 13;
             this.WelcomeLabel.Text = "Welcome";
             this.WelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,7 +173,7 @@ namespace Firebank
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
             this.label1.Location = new System.Drawing.Point(212, 77);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 32);
+            this.label1.Size = new System.Drawing.Size(137, 32);
             this.label1.TabIndex = 15;
             this.label1.Text = "Account";
             // 
@@ -240,6 +231,16 @@ namespace Firebank
             this.OpenStatementButton.UseVisualStyleBackColor = true;
             this.OpenStatementButton.Click += new System.EventHandler(this.OpenStatementButton_Click);
             // 
+            // logo
+            // 
+            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
+            this.logo.Location = new System.Drawing.Point(21, 12);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(140, 118);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.logo.TabIndex = 6;
+            this.logo.TabStop = false;
+            // 
             // CardsManagement
             // 
             this.CardsManagement.Location = new System.Drawing.Point(218, 12);
@@ -247,14 +248,6 @@ namespace Firebank
             this.CardsManagement.Size = new System.Drawing.Size(503, 391);
             this.CardsManagement.TabIndex = 21;
             this.CardsManagement.Visible = false;
-            // 
-            // AccountsManagement
-            // 
-            this.AccountsManagement.Location = new System.Drawing.Point(218, 12);
-            this.AccountsManagement.Name = "AccountsManagement";
-            this.AccountsManagement.Size = new System.Drawing.Size(503, 391);
-            this.AccountsManagement.TabIndex = 20;
-            this.AccountsManagement.Visible = false;
             // 
             // SettingsUserControl
             // 
@@ -264,13 +257,38 @@ namespace Firebank
             this.SettingsUserControl.TabIndex = 22;
             this.SettingsUserControl.Visible = false;
             // 
+            // AccountsManagement
+            // 
+            this.AccountsManagement.Location = new System.Drawing.Point(218, 12);
+            this.AccountsManagement.Name = "AccountsManagement";
+            this.AccountsManagement.Size = new System.Drawing.Size(503, 391);
+            this.AccountsManagement.TabIndex = 20;
+            this.AccountsManagement.Visible = false;
+            // 
+            // TransferButton
+            // 
+            this.TransferButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TransferButton.Enabled = false;
+            this.TransferButton.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.TransferButton.FlatAppearance.BorderSize = 2;
+            this.TransferButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TransferButton.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TransferButton.ForeColor = System.Drawing.Color.OrangeRed;
+            this.TransferButton.Location = new System.Drawing.Point(218, 349);
+            this.TransferButton.Name = "TransferButton";
+            this.TransferButton.Size = new System.Drawing.Size(474, 44);
+            this.TransferButton.TabIndex = 23;
+            this.TransferButton.Text = "Bank Transfer";
+            this.TransferButton.UseVisualStyleBackColor = true;
+            this.TransferButton.Click += new System.EventHandler(this.TransferButton_Click);
+            // 
             // Homepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 415);
-            this.Controls.Add(this.CardsManagement);
             this.Controls.Add(this.SettingsUserControl);
+            this.Controls.Add(this.CardsManagement);
             this.Controls.Add(this.AccountsManagement);
             this.Controls.Add(this.OpenStatementButton);
             this.Controls.Add(this.StatementLabel);
@@ -280,6 +298,7 @@ namespace Firebank
             this.Controls.Add(this.BalanceLabel);
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.TransferButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Homepage";
             this.Text = "Firebank - Homepage";
@@ -310,5 +329,6 @@ namespace Firebank
         private AccountsUserControl AccountsManagement;
         private CardsUserControl CardsManagement;
         private Settings SettingsUserControl;
+        private System.Windows.Forms.Button TransferButton;
     }
 }

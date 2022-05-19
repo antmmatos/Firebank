@@ -95,6 +95,7 @@ namespace Firebank
             this.ActivateButton.TabIndex = 40;
             this.ActivateButton.Text = "Activate Card";
             this.ActivateButton.UseVisualStyleBackColor = true;
+            this.ActivateButton.Visible = false;
             this.ActivateButton.Click += new System.EventHandler(this.ActivateButton_Click);
             // 
             // FreezeButton
@@ -109,6 +110,7 @@ namespace Firebank
             this.FreezeButton.TabIndex = 39;
             this.FreezeButton.Text = "Freeze Card";
             this.FreezeButton.UseVisualStyleBackColor = true;
+            this.FreezeButton.Visible = false;
             this.FreezeButton.Click += new System.EventHandler(this.FreezeButton_Click);
             // 
             // NumberLabel

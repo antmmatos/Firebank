@@ -44,6 +44,8 @@ namespace Firebank
             this.CCLabel = new System.Windows.Forms.Label();
             this.ChangePasswordButton = new System.Windows.Forms.Button();
             this.LogoutButton = new System.Windows.Forms.Button();
+            this.is2FAActivated = new Firebank.ToggleSwitch();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SettingsTitle
@@ -53,7 +55,7 @@ namespace Firebank
             this.SettingsTitle.ForeColor = System.Drawing.Color.OrangeRed;
             this.SettingsTitle.Location = new System.Drawing.Point(8, 18);
             this.SettingsTitle.Name = "SettingsTitle";
-            this.SettingsTitle.Size = new System.Drawing.Size(138, 32);
+            this.SettingsTitle.Size = new System.Drawing.Size(139, 32);
             this.SettingsTitle.TabIndex = 30;
             this.SettingsTitle.Text = "Settings";
             this.SettingsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -202,10 +204,38 @@ namespace Firebank
             this.LogoutButton.UseVisualStyleBackColor = true;
             this.LogoutButton.Click += new System.EventHandler(this.LogoutButton_Click);
             // 
+            // is2FAActivated
+            // 
+            this.is2FAActivated.AutoSize = true;
+            this.is2FAActivated.Location = new System.Drawing.Point(442, 284);
+            this.is2FAActivated.MinimumSize = new System.Drawing.Size(45, 22);
+            this.is2FAActivated.Name = "is2FAActivated";
+            this.is2FAActivated.OffBackColor = System.Drawing.Color.White;
+            this.is2FAActivated.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.is2FAActivated.OnBackColor = System.Drawing.Color.White;
+            this.is2FAActivated.OnToggleColor = System.Drawing.Color.OrangeRed;
+            this.is2FAActivated.Size = new System.Drawing.Size(45, 22);
+            this.is2FAActivated.TabIndex = 46;
+            this.is2FAActivated.UseVisualStyleBackColor = true;
+            this.is2FAActivated.Click += new System.EventHandler(this.is2FAActivated_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.OrangeRed;
+            this.label1.Location = new System.Drawing.Point(266, 286);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(168, 18);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Activate 2FA Email";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.is2FAActivated);
             this.Controls.Add(this.LogoutButton);
             this.Controls.Add(this.ChangePasswordButton);
             this.Controls.Add(this.CCTextBox);
@@ -244,5 +274,7 @@ namespace Firebank
         private System.Windows.Forms.Label CCLabel;
         private System.Windows.Forms.Button ChangePasswordButton;
         private System.Windows.Forms.Button LogoutButton;
+        private ToggleSwitch is2FAActivated;
+        private System.Windows.Forms.Label label1;
     }
 }

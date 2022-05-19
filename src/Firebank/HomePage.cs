@@ -16,6 +16,7 @@ namespace Firebank
         private readonly string _CC;
         private readonly string _PhoneNumber;
         private readonly string _Birthday;
+        private readonly bool _2FA;
         private readonly SqlConnection db;
         private string _IP;
         private DataTable _CurrentStatement;
@@ -25,7 +26,7 @@ namespace Firebank
             Application.Run(new Authentication());
         }        
 
-        public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db)
+        public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db, bool FA)
         {
             InitializeComponent();
             GetIp();
@@ -35,6 +36,7 @@ namespace Firebank
             _CC = CC;
             _PhoneNumber = PhoneNumber;
             _Birthday = Birthday;
+            _2FA = FA;
             this.db = db;
             SettingsUserControl.ButtonClick += new EventHandler(LogoutButtonClick);
             SqlCommand command = new SqlCommand
@@ -55,7 +57,7 @@ namespace Firebank
 
         private void StartUPUserInfo()
         {
-            SettingsUserControl.SetUserInfo(_Username, _Email, _NIF, _CC, _PhoneNumber, _Birthday);
+            SettingsUserControl.SetUserInfo(_Username, _Email, _NIF, _CC, _PhoneNumber, _Birthday, _2FA);
         }
 
         private void LogoutButtonClick(object sender, EventArgs e)
@@ -108,6 +110,7 @@ namespace Firebank
             adapter.Fill(dataSet);
             _CurrentStatement = dataSet.Tables[0];
             OpenStatementButton.Enabled = true;
+            TransferButton.Enabled = true;
         }
 
         private void OpenStatementButton_Click(object sender, EventArgs e)
@@ -125,6 +128,7 @@ namespace Firebank
         private void CardsManagementButton_Click(object sender, EventArgs e)
         {
             CardsManagement.NIF = _NIF;
+            CardsManagement.StartUPCards();
             CardsManagement.Visible = true;
             AccountsManagement.Visible = false;
         }
@@ -142,6 +146,11 @@ namespace Firebank
             SettingsUserControl.Visible = true;
             CardsManagement.Visible = false;
             AccountsManagement.Visible = false;
+        }
+
+        private void TransferButton_Click(object sender, EventArgs e)
+        {
+            new BankTransfer(accounts.ElementAt(AccountList.SelectedIndex).ID).ShowDialog();
         }
     }
 }

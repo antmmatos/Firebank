@@ -197,6 +197,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BankTransfer.Designer.cs">
+      <DependentUpon>BankTransfer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -261,12 +267,18 @@
     <Compile Include="Statement.Designer.cs">
       <DependentUpon>Statement.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToggleSwitch.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="VerificationSystem.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VerificationSystem.Designer.cs">
       <DependentUpon>VerificationSystem.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BankTransfer.resx">
+      <DependentUpon>BankTransfer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>

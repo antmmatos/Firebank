@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -22,7 +20,7 @@ namespace Firebank
             ButtonClick?.Invoke(this, e);
         }
 
-        internal void SetUserInfo(string username, string email, string NIF, string CC, string phoneNumber, string birthday)
+        internal void SetUserInfo(string username, string email, string NIF, string CC, string phoneNumber, string birthday, bool fa)
         {
             UsernameTextBox.Text = username;
             EmailTextBox.Text = email;
@@ -30,6 +28,7 @@ namespace Firebank
             CCTextBox.Text = CC;
             PhoneNumberTextBox.Text = phoneNumber;
             BirthdayTextBox.Text = birthday;
+            is2FAActivated.Checked = fa;
         }
 
         private void ChangePasswordButton_Click(object sender, EventArgs e)
@@ -63,6 +62,39 @@ namespace Firebank
                     builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();
+            }
+        }
+
+        private void is2FAActivated_Click(object sender, EventArgs e)
+        {
+            SqlCommand checkVerifiedPhone = new SqlCommand
+            {
+                Connection = Authentication.db,
+                CommandText = "SELECT VerifiedMobilePhone FROM Users WHERE NIF = @NIF"
+            };
+            checkVerifiedPhone.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIFTextBox.Text;
+            Authentication.db.Open();
+            SqlDataReader reader = checkVerifiedPhone.ExecuteReader();
+            reader.Read();
+            if (reader["VerifiedMobilePhone"].ToString().Equals("True"))
+            {
+                Authentication.db.Close();
+                SqlCommand command = new SqlCommand
+                {
+                    Connection = Authentication.db,
+                    CommandText = "UPDATE Users SET is2FAEnabled = @NewValue WHERE NIF = @NIF"
+                };
+                command.Parameters.Add("@NewValue", SqlDbType.Bit).Value = is2FAActivated.Checked;
+                command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIFTextBox.Text;
+                Authentication.db.Open();
+                command.ExecuteNonQuery();
+                Authentication.db.Close();
+            }
+            else
+            {
+                Authentication.db.Close();
+                is2FAActivated.Checked = false;
+                MessageBox.Show("Phone Number is not verified");
             }
         }
     }
