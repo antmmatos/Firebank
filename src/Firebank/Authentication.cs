@@ -46,7 +46,7 @@ namespace Firebank
                             input.ShowDialog();
                             if(input.value == FACode)
                             {
-                                Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                                AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
                                 homepage.Closed += (s, args) => this.Close();
                                 homepage.Show();
                             }
@@ -58,9 +58,18 @@ namespace Firebank
                         }
                         else
                         {
-                            Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
-                            homepage.Closed += (s, args) => this.Close();
-                            homepage.Show();
+                            if(!Convert.ToBoolean(commandReader["isAdmin"]))
+                            {
+                                Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                                homepage.Closed += (s, args) => this.Close();
+                                homepage.Show();
+                            }
+                            else
+                            {
+                                AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                                homepage.Closed += (s, args) => this.Close();
+                                homepage.Show();
+                            }
                         }
                     }
                     
