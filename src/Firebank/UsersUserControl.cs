@@ -50,9 +50,9 @@ namespace Firebank
                 SqlCommand command = new SqlCommand
                 {
                     Connection = Authentication.db,
-                    CommandText = "SELECT * FROM Users WHERE Username LIKE '%@Data%' OR Email LIKE '%@Data%' OR MobilePhoneNumber LIKE '%@Data%' OR NIF LIKE '%@Data%' OR CC LIKE '%@Data%'"
+                    CommandText = "SELECT * FROM Users WHERE Username LIKE @Data OR Email LIKE @Data OR MobilePhoneNumber LIKE @Data OR NIF LIKE @Data OR CC LIKE @Data"
                 };
-                command.Parameters.AddWithValue("@Data", textBox1.Text);
+                command.Parameters.AddWithValue("@Data", $"%{textBox1.Text}%");
                 Authentication.db.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 DataSet ds = new DataSet();

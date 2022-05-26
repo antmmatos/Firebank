@@ -75,7 +75,7 @@
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(17, 139);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(146, 32);
+            this.lbl1.Size = new System.Drawing.Size(147, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -98,7 +98,7 @@
             this.lbl2.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl2.Location = new System.Drawing.Point(216, 41);
             this.lbl2.Name = "lbl2";
-            this.lbl2.Size = new System.Drawing.Size(97, 32);
+            this.lbl2.Size = new System.Drawing.Size(98, 32);
             this.lbl2.TabIndex = 2;
             this.lbl2.Text = "Login";
             this.lbl2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -368,7 +368,7 @@
             this.RegisterLabel.ForeColor = System.Drawing.Color.OrangeRed;
             this.RegisterLabel.Location = new System.Drawing.Point(21, 29);
             this.RegisterLabel.Name = "RegisterLabel";
-            this.RegisterLabel.Size = new System.Drawing.Size(140, 32);
+            this.RegisterLabel.Size = new System.Drawing.Size(141, 32);
             this.RegisterLabel.TabIndex = 9;
             this.RegisterLabel.Text = "Register";
             this.RegisterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -376,6 +376,7 @@
             // RegisterButton
             // 
             this.RegisterButton.BackColor = System.Drawing.Color.OrangeRed;
+            this.RegisterButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.RegisterButton.FlatAppearance.BorderSize = 0;
             this.RegisterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RegisterButton.ForeColor = System.Drawing.Color.White;
