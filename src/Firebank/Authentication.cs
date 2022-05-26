@@ -115,12 +115,12 @@ namespace Firebank
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("tomas.vaz05@gmail.com", "Habravinha#2005"),
+                Credentials = new NetworkCredential("firebank.no.reply@gmail.com", "Matecas1"),
                 EnableSsl = true,
             };
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress("tomas.vaz05@gmail.com"),
+                From = new MailAddress("firebank.no.reply@gmail.com"),
                 Subject = "Verification Code",
                 Body = "\nYour verification code to recover password is: " + verificationCode,
                 IsBodyHtml = false,
