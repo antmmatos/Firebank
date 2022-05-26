@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Firebank
@@ -62,7 +63,7 @@ namespace Firebank
 
         private void LogoutButtonClick(object sender, EventArgs e)
         {
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProc));
+            Thread t = new Thread(new ThreadStart(ThreadProc));
             t.Start();
             this.Close();
             this.Dispose();
