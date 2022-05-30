@@ -20,16 +20,16 @@ namespace Firebank
             AccountSelected = Account;
             SqlCommand command = new SqlCommand
             {
-                Connection = Authentication.db,
+                Connection = StartDB.db,
                 CommandText = "SELECT AccountName, Balance FROM Accounts WHERE ID = @ID"
             };
             command.Parameters.Add("@ID", SqlDbType.Int).Value = AccountSelected;
-            Authentication.db.Open();
+            StartDB.db.Open();
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             AccountTextBox.Text = reader["AccountName"].ToString();
             BalanceTextBox.Text = reader["Balance"].ToString();
-            Authentication.db.Close();
+            StartDB.db.Close();
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -38,18 +38,18 @@ namespace Firebank
             {
                 SqlCommand command = new SqlCommand
                 {
-                    Connection = Authentication.db,
+                    Connection = StartDB.db,
                     CommandText = "SELECT Balance FROM Accounts WHERE IBan = @IBan"
                 };
                 command.Parameters.Add("@IBan", SqlDbType.VarChar).Value = ReceiverTextBox.Text;
-                Authentication.db.Open();
+                StartDB.db.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
                 if(reader.HasRows)
                 {
                     command = new SqlCommand
                     {
-                        Connection = Authentication.db,
+                        Connection = StartDB.db,
                         CommandText = "SELECT Balance FROM Accounts WHERE ID = @ID"
                     };
                     command.Parameters.Add("@ID", SqlDbType.VarChar).Value = AccountSelected;
@@ -63,7 +63,7 @@ namespace Firebank
                     {
                         command = new SqlCommand
                         {
-                            Connection = Authentication.db,
+                            Connection = StartDB.db,
                             CommandText = "UPDATE Accounts SET Balance = Balance - @Value WHERE ID = @ID"
                         };
                         command.Parameters.Add("@ID", SqlDbType.VarChar).Value = AccountSelected;
@@ -71,13 +71,13 @@ namespace Firebank
                         command.ExecuteNonQuery();
                         command = new SqlCommand
                         {
-                            Connection = Authentication.db,
+                            Connection = StartDB.db,
                             CommandText = "UPDATE Accounts SET Balance = Balance + @Value WHERE IBan = @IBan"
                         };
                         command.Parameters.Add("@IBan", SqlDbType.VarChar).Value = ReceiverTextBox.Text;
                         command.Parameters.Add("@Value", SqlDbType.Int).Value = AmountTextBox.Text;
                         command.ExecuteNonQuery();
-                        Authentication.db.Close();
+                        StartDB.db.Close();
                         MessageBox.Show("Sent successfully");
                         this.Dispose();
                     }

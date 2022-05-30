@@ -55,7 +55,6 @@ namespace Firebank
             this.UsersGrid.AllowUserToResizeColumns = false;
             this.UsersGrid.AllowUserToResizeRows = false;
             this.UsersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.UsersGrid.ColumnHeadersVisible = false;
             this.UsersGrid.EnableHeadersVisualStyles = false;
             this.UsersGrid.Location = new System.Drawing.Point(14, 115);
             this.UsersGrid.MultiSelect = false;

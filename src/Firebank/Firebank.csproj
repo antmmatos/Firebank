@@ -267,6 +267,7 @@
     <Compile Include="RequestCard.Designer.cs">
       <DependentUpon>RequestCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="StartDB.cs" />
     <Compile Include="Statement.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -18,8 +18,8 @@ namespace Firebank
             InitializeComponent();
             SqlCommand command = new SqlCommand
             {
-                Connection = Authentication.db,
-                CommandText = "SELECT * FROM Users"
+                Connection = StartDB.db,
+                CommandText = "SELECT ID, Username, Email, MobilePhoneNumber, Birthday, NIF, CC, VerifiedEmail, VerifiedMobilePhone, is2FAEnabled, LastIP, isAdmin FROM Users"
             };
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
@@ -33,32 +33,32 @@ namespace Firebank
             {
                 SqlCommand command = new SqlCommand
                 {
-                    Connection = Authentication.db,
-                    CommandText = "SELECT * FROM Users"
+                    Connection = StartDB.db,
+                    CommandText = "SELECT ID, Username, Email, MobilePhoneNumber, Birthday, NIF, CC, VerifiedEmail, VerifiedMobilePhone, is2FAEnabled, LastIP, isAdmin FROM Users"
                 };
-                Authentication.db.Open();
+                StartDB.db.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 DataSet ds = new DataSet();
                 adapter.Fill(ds);
                 UsersGrid.DataSource = null;
                 UsersGrid.Rows.Clear();
                 UsersGrid.DataSource = ds.Tables[0];
-                Authentication.db.Close();
+                StartDB.db.Close();
             }
             else
             {
                 SqlCommand command = new SqlCommand
                 {
-                    Connection = Authentication.db,
-                    CommandText = "SELECT * FROM Users WHERE Username LIKE @Data OR Email LIKE @Data OR MobilePhoneNumber LIKE @Data OR NIF LIKE @Data OR CC LIKE @Data"
+                    Connection = StartDB.db,
+                    CommandText = "SELECT ID, Username, Email, MobilePhoneNumber, Birthday, NIF, CC, VerifiedEmail, VerifiedMobilePhone, is2FAEnabled, LastIP, isAdmin FROM Users WHERE Username LIKE @Data OR Email LIKE @Data OR MobilePhoneNumber LIKE @Data OR NIF LIKE @Data OR CC LIKE @Data"
                 };
                 command.Parameters.AddWithValue("@Data", $"%{textBox1.Text}%");
-                Authentication.db.Open();
+                StartDB.db.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 DataSet ds = new DataSet();
                 adapter.Fill(ds);
                 UsersGrid.DataSource = ds.Tables[0];
-                Authentication.db.Close();
+                StartDB.db.Close();
             }
         }
     }

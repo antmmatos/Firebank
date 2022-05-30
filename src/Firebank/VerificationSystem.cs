@@ -40,7 +40,7 @@ namespace Firebank
             _PhoneNumber = phone;
             SqlCommand command = new SqlCommand
             {
-                Connection = Authentication.db,
+                Connection = StartDB.db,
                 CommandText = "SELECT * FROM Users WHERE Email = @Email"
             };
             command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
@@ -157,10 +157,10 @@ namespace Firebank
                     MessageBox.Show("Email verified!");
                     SqlCommand command = new SqlCommand
                     {
-                        Connection = Authentication.db,
+                        Connection = StartDB.db,
                         CommandText = "UPDATE Users SET VerifiedEmail = 1 WHERE Email = @Email"
                     };
-                    command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
+                    command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
                     command.ExecuteNonQuery();
                     VerifyLabel.Text = "SMS Verification";
                     CheckLabel.Text = "Enter the code sent by SMS";
@@ -178,10 +178,10 @@ namespace Firebank
                         MessageBox.Show("Phone number verified!");
                         SqlCommand command = new SqlCommand
                         {
-                            Connection = Authentication.db,
+                            Connection = StartDB.db,
                             CommandText = "UPDATE Users SET VerifiedMobilePhone = 1 WHERE Email = @Email"
                         };
-                        command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = _Email;
+                        command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
                         command.ExecuteNonQuery();
                         this.Dispose();
                     }

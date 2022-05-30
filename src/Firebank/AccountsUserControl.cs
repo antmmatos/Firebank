@@ -14,7 +14,7 @@ namespace Firebank
     public partial class AccountsUserControl : UserControl
     {
         List<Account> accounts = new List<Account>();
-        SqlConnection db = Authentication.db;
+        SqlConnection db = StartDB.db;
         public string NIF = "";
         public AccountsUserControl()
         {
@@ -71,8 +71,8 @@ namespace Firebank
                 SqlCommand command = new SqlCommand();
                 command.Connection = db;
                 command.CommandText = "UPDATE Accounts SET AccountName = @Name WHERE ID = @ID";
-                command.Parameters.Add("@Name", System.Data.SqlDbType.VarChar).Value = NewNameTextBox.Text;
-                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = accounts.ElementAt(AccountsComboBox.SelectedIndex).ID;
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = NewNameTextBox.Text;
+                command.Parameters.Add("@ID", SqlDbType.Int).Value = accounts.ElementAt(AccountsComboBox.SelectedIndex).ID;
                 db.Open();
                 command.ExecuteNonQuery();
                 db.Close();

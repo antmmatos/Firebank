@@ -45,7 +45,7 @@ namespace Firebank
                 Connection = db,
                 CommandText = "UPDATE Users SET LastIP = @IP WHERE Username = @Username"
             };
-            command.Parameters.AddWithValue("@IP", System.Data.SqlDbType.VarChar).Value = _IP;
+            command.Parameters.AddWithValue("@IP", SqlDbType.VarChar).Value = _IP;
             StartUPFunctions();
             StartUPUserInfo();
         }

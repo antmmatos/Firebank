@@ -1,6 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Firebank
 {
@@ -19,18 +20,18 @@ namespace Firebank
         {
             SqlCommand command = new SqlCommand
             {
-                Connection = Authentication.db,
+                Connection = StartDB.db,
                 CommandText = "SELECT ID FROM Users WHERE NIF = @NIF"
             };
-            command.Parameters.Add("@NIF", System.Data.SqlDbType.VarChar).Value = NIF;
-            Authentication.db.Open();
+            command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIF;
+            StartDB.db.Open();
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             ID = (int)reader["ID"];
             reader.Close();
             command = new SqlCommand
             {
-                Connection = Authentication.db,
+                Connection = StartDB.db,
                 CommandText = "INSERT INTO Accounts (Account_Owner, IBan, AccountName) VALUES (@AccountOwner, @IBan, @AccountName)"
             };
             Random random = new Random();
@@ -39,11 +40,11 @@ namespace Firebank
             {
                 IBan += randomArray[random.Next(10)];
             }
-            command.Parameters.Add("@AccountOwner", System.Data.SqlDbType.Int).Value = ID;
-            command.Parameters.Add("@IBan", System.Data.SqlDbType.VarChar).Value = IBan;
-            command.Parameters.Add("@AccountName", System.Data.SqlDbType.VarChar).Value = AccountNameTextBox.Text;
+            command.Parameters.Add("@AccountOwner", SqlDbType.Int).Value = ID;
+            command.Parameters.Add("@IBan", SqlDbType.VarChar).Value = IBan;
+            command.Parameters.Add("@AccountName", SqlDbType.VarChar).Value = AccountNameTextBox.Text;
             command.ExecuteNonQuery();
-            Authentication.db.Close();
+            StartDB.db.Close();
             MessageBox.Show("Created successfully");
             this.Dispose();
         }

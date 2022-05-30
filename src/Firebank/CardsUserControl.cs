@@ -15,7 +15,7 @@ namespace Firebank
     {
         List<Account> accounts = new List<Account>();
         List<Card> cards = new List<Card>();
-        SqlConnection db = Authentication.db;
+        SqlConnection db = StartDB.db;
         public string NIF = "";
         private bool CardsFound = false;
         public CardsUserControl()

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net.Http;
+using System.Data;
 
 namespace Firebank
 {
@@ -39,7 +40,7 @@ namespace Firebank
                 Connection = db,
                 CommandText = "SELECT * FROM Users WHERE Email = @Var or Username = @Var or MobilePhoneNumber = @Var"
             };
-            command.Parameters.Add("@Var", System.Data.SqlDbType.VarChar).Value = UsernameTextBox.Text;
+            command.Parameters.Add("@Var", SqlDbType.VarChar).Value = UsernameTextBox.Text;
             db.Open();
             SqlDataReader commandReader = command.ExecuteReader();
             string[] randomArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -112,9 +113,9 @@ namespace Firebank
                     {
                         From = "SMSVerify",
                         Destinations = new List<SmsDestination>()
-                    {
-                        new SmsDestination(to: _PhoneNumber)
-                    },
+                        {
+                            new SmsDestination(to: _PhoneNumber)
+                        },
                         Text = "Your verification code to recover password is: " + verificationCode
                     };
 
@@ -167,9 +168,9 @@ namespace Firebank
                 string _newPassword = newPassword.value;
                 command.Connection = db;
                 command.CommandText = "UPDATE users SET Password=@Password WHERE Email=@Email OR Username=@Username";
-                command.Parameters.Add("@Email", System.Data.SqlDbType.VarChar).Value = UsernameTextBox.Text;
-                command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = UsernameTextBox.Text;
-                command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = _newPassword;
+                command.Parameters.Add("@Email", SqlDbType.VarChar).Value = UsernameTextBox.Text;
+                command.Parameters.Add("@Username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
+                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = _newPassword;
                 newPassword.Dispose();
                 db.Open();
                 command.ExecuteNonQuery();

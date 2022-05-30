@@ -38,14 +38,14 @@ namespace Firebank
             string newPassword = input.value;
             SqlCommand command = new SqlCommand()
             {
-                Connection = Authentication.db,
+                Connection = StartDB.db,
                 CommandText = "UPDATE Users SET Password = @password WHERE Username = @username"
             };
             command.Parameters.Add("@password", SqlDbType.VarChar).Value = ComputeSha256Hash(newPassword);
             command.Parameters.Add("@username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
-            Authentication.db.Open();
+            StartDB.db.Open();
             command.ExecuteNonQuery();
-            Authentication.db.Close();
+            StartDB.db.Close();
             MessageBox.Show("Password changed with success.");
             input.Dispose();
         }
@@ -69,30 +69,30 @@ namespace Firebank
         {
             SqlCommand checkVerifiedPhone = new SqlCommand
             {
-                Connection = Authentication.db,
+                Connection = StartDB.db,
                 CommandText = "SELECT VerifiedMobilePhone FROM Users WHERE NIF = @NIF"
             };
             checkVerifiedPhone.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIFTextBox.Text;
-            Authentication.db.Open();
+            StartDB.db.Open();
             SqlDataReader reader = checkVerifiedPhone.ExecuteReader();
             reader.Read();
             if (reader["VerifiedMobilePhone"].ToString().Equals("True"))
             {
-                Authentication.db.Close();
+                StartDB.db.Close();
                 SqlCommand command = new SqlCommand
                 {
-                    Connection = Authentication.db,
+                    Connection = StartDB.db,
                     CommandText = "UPDATE Users SET is2FAEnabled = @NewValue WHERE NIF = @NIF"
                 };
                 command.Parameters.Add("@NewValue", SqlDbType.Bit).Value = is2FAActivated.Checked;
                 command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIFTextBox.Text;
-                Authentication.db.Open();
+                StartDB.db.Open();
                 command.ExecuteNonQuery();
-                Authentication.db.Close();
+                StartDB.db.Close();
             }
             else
             {
-                Authentication.db.Close();
+                StartDB.db.Close();
                 is2FAActivated.Checked = false;
                 MessageBox.Show("Phone Number is not verified");
             }
