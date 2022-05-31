@@ -15,7 +15,7 @@ namespace Firebank
     {
         List<Account> accounts = new List<Account>();
         List<Card> cards = new List<Card>();
-        SqlConnection db = StartDB.db;
+        SqlConnection db = Functions.db;
         public string NIF = "";
         private bool CardsFound = false;
         public CardsUserControl()
@@ -139,7 +139,7 @@ namespace Firebank
                     };
                     updateActivation.Parameters.Add("@ID", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).ID;
                     updateActivation.ExecuteNonQuery();
-                    MessageBox.Show("Card Activated successfully");
+                    Functions.Alert("Card Activated successfully", Notifications.enmType.Success);
                     isActivated.ForeColor = System.Drawing.Color.Green;
                     ActivateButton.Enabled = false;
                 }
@@ -193,7 +193,7 @@ namespace Firebank
                 getUserIDReader.Close();
                 command.ExecuteNonQuery();
                 db.Close();
-                MessageBox.Show("A transaction has been added to your statement with the activation code.");
+                Functions.Alert("A transaction has been added to your statement with the activation code.", Notifications.enmType.Info);
             }
         }
 

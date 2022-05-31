@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Firebank
 {
-    public partial class UsersUserControl : UserControl
+    public partial class AccountManagerUserControl : UserControl
     {
-        public UsersUserControl()
+        public AccountManagerUserControl()
         {
             InitializeComponent();
             SqlCommand command = new SqlCommand
             {
                 Connection = Functions.db,
-                CommandText = "SELECT ID, Username, Email, MobilePhoneNumber, Birthday, NIF, CC, VerifiedEmail, VerifiedMobilePhone, is2FAEnabled, LastIP, isAdmin FROM Users"
+                CommandText = "SELECT Accounts.ID, Users.Name, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID"
             };
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
@@ -34,7 +28,7 @@ namespace Firebank
                 SqlCommand command = new SqlCommand
                 {
                     Connection = Functions.db,
-                    CommandText = "SELECT ID, Username, Email, MobilePhoneNumber, Birthday, NIF, CC, VerifiedEmail, VerifiedMobilePhone, is2FAEnabled, LastIP, isAdmin FROM Users"
+                    CommandText = "SELECT Accounts.ID, Users.Name, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID"
                 };
                 Functions.db.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -50,7 +44,7 @@ namespace Firebank
                 SqlCommand command = new SqlCommand
                 {
                     Connection = Functions.db,
-                    CommandText = "SELECT ID, Username, Email, MobilePhoneNumber, Birthday, NIF, CC, VerifiedEmail, VerifiedMobilePhone, is2FAEnabled, LastIP, isAdmin FROM Users WHERE Username LIKE @Data OR Email LIKE @Data OR MobilePhoneNumber LIKE @Data OR NIF LIKE @Data OR CC LIKE @Data"
+                    CommandText = "SELECT Accounts.ID, Users.Name, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID WHERE Users.Name LIKE @Data OR IBan LIKE @Data OR AccountName LIKE @Data"
                 };
                 command.Parameters.AddWithValue("@Data", $"%{textBox1.Text}%");
                 Functions.db.Open();

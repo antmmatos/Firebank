@@ -38,15 +38,15 @@ namespace Firebank
             string newPassword = input.value;
             SqlCommand command = new SqlCommand()
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "UPDATE Users SET Password = @password WHERE Username = @username"
             };
             command.Parameters.Add("@password", SqlDbType.VarChar).Value = ComputeSha256Hash(newPassword);
             command.Parameters.Add("@username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
-            StartDB.db.Open();
+            Functions.db.Open();
             command.ExecuteNonQuery();
-            StartDB.db.Close();
-            MessageBox.Show("Password changed with success.");
+            Functions.db.Close();
+            Functions.Alert("Password changed with success.", Notifications.enmType.Success);
             input.Dispose();
         }
 
@@ -67,34 +67,42 @@ namespace Firebank
 
         private void is2FAActivated_Click(object sender, EventArgs e)
         {
+            if (is2FAActivated.Checked)
+            {
+                Functions.Alert("2FA Enabled", Notifications.enmType.Info);
+            }
+            else
+            {
+                Functions.Alert("2FA Disabled", Notifications.enmType.Info);
+            }
             SqlCommand checkVerifiedPhone = new SqlCommand
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "SELECT VerifiedMobilePhone FROM Users WHERE NIF = @NIF"
             };
             checkVerifiedPhone.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIFTextBox.Text;
-            StartDB.db.Open();
+            Functions.db.Open();
             SqlDataReader reader = checkVerifiedPhone.ExecuteReader();
             reader.Read();
             if (reader["VerifiedMobilePhone"].ToString().Equals("True"))
             {
-                StartDB.db.Close();
+                Functions.db.Close();
                 SqlCommand command = new SqlCommand
                 {
-                    Connection = StartDB.db,
+                    Connection = Functions.db,
                     CommandText = "UPDATE Users SET is2FAEnabled = @NewValue WHERE NIF = @NIF"
                 };
                 command.Parameters.Add("@NewValue", SqlDbType.Bit).Value = is2FAActivated.Checked;
                 command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIFTextBox.Text;
-                StartDB.db.Open();
+                Functions.db.Open();
                 command.ExecuteNonQuery();
-                StartDB.db.Close();
+                Functions.db.Close();
             }
             else
             {
-                StartDB.db.Close();
+                Functions.db.Close();
                 is2FAActivated.Checked = false;
-                MessageBox.Show("Phone Number is not verified");
+                Functions.Alert("Phone Number is not verified", Notifications.enmType.Warning);
             }
         }
     }

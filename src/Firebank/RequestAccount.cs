@@ -20,18 +20,18 @@ namespace Firebank
         {
             SqlCommand command = new SqlCommand
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "SELECT ID FROM Users WHERE NIF = @NIF"
             };
             command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIF;
-            StartDB.db.Open();
+            Functions.db.Open();
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             ID = (int)reader["ID"];
             reader.Close();
             command = new SqlCommand
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "INSERT INTO Accounts (Account_Owner, IBan, AccountName) VALUES (@AccountOwner, @IBan, @AccountName)"
             };
             Random random = new Random();
@@ -44,8 +44,8 @@ namespace Firebank
             command.Parameters.Add("@IBan", SqlDbType.VarChar).Value = IBan;
             command.Parameters.Add("@AccountName", SqlDbType.VarChar).Value = AccountNameTextBox.Text;
             command.ExecuteNonQuery();
-            StartDB.db.Close();
-            MessageBox.Show("Created successfully");
+            Functions.db.Close();
+            Functions.Alert("Created successfully", Notifications.enmType.Success);
             this.Dispose();
         }
     }

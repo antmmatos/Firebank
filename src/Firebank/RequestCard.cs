@@ -38,17 +38,17 @@ namespace Firebank
             }
             SqlCommand command = new SqlCommand
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "INSERT INTO Cards (CardNumber, CardExpireDate, CardCVV, AccountID) VALUES (@CardNumber, @CardExpireDate, @CardCVV, @AccountID)"
             };
             command.Parameters.Add("@CardNumber", SqlDbType.VarChar).Value = CardNumber;
             command.Parameters.Add("@CardExpireDate", SqlDbType.Date).Value = start.AddDays(random.Next(range)).AddYears(2);
             command.Parameters.Add("@CardCVV", SqlDbType.VarChar).Value = CardCVV;
             command.Parameters.Add("@AccountID", SqlDbType.Int).Value = Convert.ToInt32(accounts.ElementAt(CardsComboBox.SelectedIndex).ID);
-            StartDB.db.Open();
+            Functions.db.Open();
             command.ExecuteNonQuery();
-            StartDB.db.Close();
-            MessageBox.Show("Card requested successfully");
+            Functions.db.Close();
+            Functions.Alert("Card requested successfully", Notifications.enmType.Success);
             this.Dispose();
         }
     }

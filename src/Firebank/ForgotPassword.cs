@@ -70,7 +70,7 @@ namespace Firebank
                     };
                     mailMessage.To.Add(UsernameTextBox.Text);
                     smtpClient.Send(mailMessage);
-                    MessageBox.Show("An email has been sent with a validation code.");
+                    Functions.Alert("An email has been sent with a validation code.", Notifications.enmType.Info);
                     CodeTextBox.Enabled = true;
                     VerifyButton.Enabled = true;
                     _verificationCode = verificationCode;
@@ -127,20 +127,20 @@ namespace Firebank
                     try
                     {
                         var smsResponse = sendSmsApi.SendSmsMessage(smsRequest);
-                        MessageBox.Show("A SMS has been sent with a validation code.");
+                        Functions.Alert("A SMS has been sent with a validation code.", Notifications.enmType.Info);
                         CodeTextBox.Enabled = true;
                         VerifyButton.Enabled = true;
                         _verificationCode = verificationCode;
                     }
                     catch (ApiException apiException)
                     {
-                        MessageBox.Show($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}");
+                        Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Username or Email invalid.");
+                Functions.Alert("Username or Email invalid.", Notifications.enmType.Error);
             }
             db.Close();
         }

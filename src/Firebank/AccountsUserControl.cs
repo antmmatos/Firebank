@@ -14,7 +14,7 @@ namespace Firebank
     public partial class AccountsUserControl : UserControl
     {
         List<Account> accounts = new List<Account>();
-        SqlConnection db = StartDB.db;
+        SqlConnection db = Functions.db;
         public string NIF = "";
         public AccountsUserControl()
         {

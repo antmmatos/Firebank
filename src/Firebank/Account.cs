@@ -1,4 +1,6 @@
-﻿namespace Firebank
+﻿using System;
+
+namespace Firebank
 {
     public class Account
     {

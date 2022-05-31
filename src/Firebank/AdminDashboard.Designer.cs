@@ -38,8 +38,9 @@ namespace Firebank
             this.logo = new System.Windows.Forms.PictureBox();
             this.lbl1 = new System.Windows.Forms.Label();
             this.WelcomeLabel = new System.Windows.Forms.Label();
-            this.SettingsUserControl = new Firebank.Settings();
+            this.AccountManagerUserControl = new Firebank.AccountManagerUserControl();
             this.UsersUserControl = new Firebank.UsersUserControl();
+            this.SettingsUserControl = new Firebank.Settings();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
@@ -89,6 +90,7 @@ namespace Firebank
             this.AccountManagementButton.TabIndex = 16;
             this.AccountManagementButton.Text = "Accounts Management";
             this.AccountManagementButton.UseVisualStyleBackColor = true;
+            this.AccountManagementButton.Click += new System.EventHandler(this.AccountManagementButton_Click);
             // 
             // UsersManagementButton
             // 
@@ -156,13 +158,13 @@ namespace Firebank
             this.WelcomeLabel.Text = "Welcome";
             this.WelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SettingsUserControl
+            // AccountManagerUserControl
             // 
-            this.SettingsUserControl.Location = new System.Drawing.Point(218, 12);
-            this.SettingsUserControl.Name = "SettingsUserControl";
-            this.SettingsUserControl.Size = new System.Drawing.Size(503, 391);
-            this.SettingsUserControl.TabIndex = 14;
-            this.SettingsUserControl.Visible = false;
+            this.AccountManagerUserControl.Location = new System.Drawing.Point(218, 12);
+            this.AccountManagerUserControl.Name = "AccountManagerUserControl";
+            this.AccountManagerUserControl.Size = new System.Drawing.Size(503, 391);
+            this.AccountManagerUserControl.TabIndex = 16;
+            this.AccountManagerUserControl.Visible = false;
             // 
             // UsersUserControl
             // 
@@ -172,11 +174,20 @@ namespace Firebank
             this.UsersUserControl.TabIndex = 15;
             this.UsersUserControl.Visible = false;
             // 
+            // SettingsUserControl
+            // 
+            this.SettingsUserControl.Location = new System.Drawing.Point(218, 12);
+            this.SettingsUserControl.Name = "SettingsUserControl";
+            this.SettingsUserControl.Size = new System.Drawing.Size(503, 391);
+            this.SettingsUserControl.TabIndex = 14;
+            this.SettingsUserControl.Visible = false;
+            // 
             // AdminDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 415);
+            this.Controls.Add(this.AccountManagerUserControl);
             this.Controls.Add(this.UsersUserControl);
             this.Controls.Add(this.SettingsUserControl);
             this.Controls.Add(this.WelcomeLabel);
@@ -204,5 +215,6 @@ namespace Firebank
         private System.Windows.Forms.Button SettingsButton;
         private Settings SettingsUserControl;
         private UsersUserControl UsersUserControl;
+        private AccountManagerUserControl AccountManagerUserControl;
     }
 }

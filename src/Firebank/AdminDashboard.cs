@@ -55,25 +55,35 @@ namespace Firebank
 
         private void StartUPHomepage()
         {
-            
+            WelcomeLabel.Text = "Welcome " + _Username;
         }
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             SettingsUserControl.Visible = true;
             UsersUserControl.Visible = false;
+            AccountManagerUserControl.Visible = false;
         }
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
             SettingsUserControl.Visible = false;
             UsersUserControl.Visible = false;
+            AccountManagerUserControl.Visible = false;
         }
 
         private void UsersManagementButton_Click(object sender, EventArgs e)
         {
             SettingsUserControl.Visible = false;
             UsersUserControl.Visible = true;
+            AccountManagerUserControl.Visible = false;
+        }
+
+        private void AccountManagementButton_Click(object sender, EventArgs e)
+        {
+            AccountManagerUserControl.Visible = true;
+            SettingsUserControl.Visible = false;
+            UsersUserControl.Visible = false;
         }
     }
 }

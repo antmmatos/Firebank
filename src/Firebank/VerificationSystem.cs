@@ -40,7 +40,7 @@ namespace Firebank
             _PhoneNumber = phone;
             SqlCommand command = new SqlCommand
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "SELECT * FROM Users WHERE Email = @Email"
             };
             command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
@@ -51,6 +51,7 @@ namespace Firebank
             if (!IsEmailVerified)
             {
                 SendEmail();
+                Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
             }
         }
         async private void GetIp()
@@ -144,7 +145,7 @@ namespace Firebank
             }
             catch (ApiException apiException)
             {
-                MessageBox.Show($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}");
+                Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
             }
         }
         
@@ -154,10 +155,10 @@ namespace Firebank
             {
                 if (!IsEmailVerified)
                 {
-                    MessageBox.Show("Email verified!");
+                    Functions.Alert("Email verified!", Notifications.enmType.Success);
                     SqlCommand command = new SqlCommand
                     {
-                        Connection = StartDB.db,
+                        Connection = Functions.db,
                         CommandText = "UPDATE Users SET VerifiedEmail = 1 WHERE Email = @Email"
                     };
                     command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
@@ -169,16 +170,17 @@ namespace Firebank
                     if (!IsPhoneVerified)
                     {
                         SendSMS();
+                        Functions.Alert("Code sent by SMS successfully", Notifications.enmType.Info);
                     }
                 }
                 else
                 {
                     if (!IsPhoneVerified)
                     {
-                        MessageBox.Show("Phone number verified!");
+                        Functions.Alert("Phone number verified!", Notifications.enmType.Success);
                         SqlCommand command = new SqlCommand
                         {
-                            Connection = StartDB.db,
+                            Connection = Functions.db,
                             CommandText = "UPDATE Users SET VerifiedMobilePhone = 1 WHERE Email = @Email"
                         };
                         command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
@@ -189,7 +191,7 @@ namespace Firebank
             }
             else
             {
-                MessageBox.Show("Invalid code.");
+                Functions.Alert("Invalid code.", Notifications.enmType.Error);
             }
         }
     }

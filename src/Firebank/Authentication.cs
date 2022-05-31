@@ -34,10 +34,10 @@ namespace Firebank
         {
             if (UsernameTextBox.Text.Length >= 6 && PasswordTextBox.Text.Length >= 8 && UsernameTextBox.Text.Length <= 32 && PasswordTextBox.Text.Length <= 20)
             {
-                SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND Password = @Password", StartDB.db);
+                SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND Password = @Password", Functions.db);
                 command.Parameters.Add("@Username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
                 command.Parameters.Add("@Password", SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBox.Text);
-                StartDB.db.Open();
+                Functions.db.Open();
                 SqlDataReader commandReader = command.ExecuteReader();
                 commandReader.Read();
                 if (commandReader.HasRows)
@@ -53,7 +53,7 @@ namespace Firebank
                         {
                             command = new SqlCommand
                             {
-                                Connection = StartDB.db,
+                                Connection = Functions.db,
                                 CommandText = "UPDATE Users SET LastIP = @IP WHERE ID = @ID"
                             };
                             command.Parameters.Add("@IP", SqlDbType.VarChar).Value = IP;
@@ -69,6 +69,7 @@ namespace Firebank
                             else
                             {
                                 SendEmail();
+                                Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
                                 InputBox input = new InputBox("Firebank - New IP Detected", "Enter the code sent by Email", false, "");
                                 input.ShowDialog();
                                 if (input.value == FACode)
@@ -78,7 +79,7 @@ namespace Firebank
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Wrong Verification Code");
+                                    Functions.Alert("Wrong Verification Code", Notifications.enmType.Error);
                                     Environment.Exit(0);
                                 }
                             }
@@ -88,28 +89,28 @@ namespace Firebank
                 }
                 else
                 {
-                    MessageBox.Show("Username or Password is incorrect");
+                    Functions.Alert("Username or Password is incorrect", Notifications.enmType.Error);
                     commandReader.Close();
                 }
-                StartDB.db.Close();
+                Functions.db.Close();
             }
             else
             {
                 if (!(UsernameTextBox.Text.Length >= 6))
                 {
-                    MessageBox.Show("Enter an username between 6 and 32 characters.");
+                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(UsernameTextBox.Text.Length <= 32))
                 {
-                    MessageBox.Show("Enter an username between 6 and 32 characters.");
+                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBox.Text.Length >= 8))
                 {
-                    MessageBox.Show("Enter a password between 8 and 20 characters.");
+                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBox.Text.Length <= 20))
                 {
-                    MessageBox.Show("Enter a password between 8 and 20 characters.");
+                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
             }
         }
@@ -118,7 +119,7 @@ namespace Firebank
         {
             SqlCommand command = new SqlCommand
             {
-                Connection = StartDB.db,
+                Connection = Functions.db,
                 CommandText = "UPDATE Users SET LastIP = @IP WHERE ID = @ID"
             };
             command.Parameters.Add("@IP", SqlDbType.VarChar).Value = IP;
@@ -132,26 +133,29 @@ namespace Firebank
             {
                 _Email = commandReader["Email"].ToString();
                 SendEmail();
+                Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
                 InputBox input = new InputBox("Firebank - 2FA", "Enter the code sent by Email", false, "");
                 input.ShowDialog();
                 if (input.value == FACode)
                 {
                     if (!Convert.ToBoolean(commandReader["isAdmin"]))
                     {
-                        Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), StartDB.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                        Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
                         homepage.Closed += (s, args) => this.Close();
                         homepage.Show();
+                        Functions.Alert("Successfully logged in", Notifications.enmType.Success);
                     }
                     else
                     {
-                        AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), StartDB.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                        AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
                         homepage.Closed += (s, args) => this.Close();
                         homepage.Show();
+                        Functions.Alert("Successfully logged in", Notifications.enmType.Success);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Wrong 2FA Code");
+                    Functions.Alert("Wrong 2FA Code", Notifications.enmType.Error);
                     Environment.Exit(0);
                 }
             }
@@ -159,15 +163,17 @@ namespace Firebank
             {
                 if (!Convert.ToBoolean(commandReader["isAdmin"]))
                 {
-                    Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), StartDB.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                    Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
+                    Functions.Alert("Successfully logged in", Notifications.enmType.Success);
                 }
                 else
                 {
-                    AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), StartDB.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+                    AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
                     homepage.Closed += (s, args) => this.Close();
                     homepage.Show();
+                    Functions.Alert("Successfully logged in", Notifications.enmType.Success);
                 }
 
             }
@@ -261,7 +267,7 @@ namespace Firebank
             {
                 SqlCommand command = new SqlCommand
                 {
-                    Connection = StartDB.db,
+                    Connection = Functions.db,
                     CommandText = "SELECT * FROM Users WHERE Username = @Username OR Email = @Email OR MobilePhoneNumber = @MobilePhoneNumber OR NIF = @NIF OR CC = @CC"
                 };
                 command.Parameters.Add("@Username", SqlDbType.VarChar).Value = UsernameTextBoxRegister.Text;
@@ -269,20 +275,20 @@ namespace Firebank
                 command.Parameters.Add("@MobilePhoneNumber", SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                 command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = TAXTextBoxRegister.Text;
                 command.Parameters.Add("@CC", SqlDbType.VarChar).Value = CCNTextBox.Text;
-                StartDB.db.Open();
+                Functions.db.Open();
                 SqlDataReader commandReader = command.ExecuteReader();
                 commandReader.Read();
                 if (commandReader.HasRows)
                 {
                     ClearReaders(commandReader, command);
-                    MessageBox.Show("There is already an account with that informations.");
+                    Functions.Alert("There is already an account with that informations.", Notifications.enmType.Error);
                 }
                 else
                 {
                     ClearReaders(commandReader, command);
                     command = new SqlCommand
                     {
-                        Connection = StartDB.db,
+                        Connection = Functions.db,
                         CommandText = "INSERT INTO Users (Username, Password, Email, NIF, CC, Birthday, MobilePhoneNumber) VALUES (@Username, @Password, @Email, @NIF, @CC, @Birthday, @MobilePhoneNumber)"
                     };
                     command.Parameters.Add("@Username", SqlDbType.VarChar).Value = UsernameTextBoxRegister.Text;
@@ -293,34 +299,34 @@ namespace Firebank
                     command.Parameters.Add("@Birthday", SqlDbType.Date).Value = DatePickerRegister.Text;
                     command.Parameters.Add("@MobilePhoneNumber", SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                     command.ExecuteNonQuery();
-                    MessageBox.Show("Account created successfully.");
+                    Functions.Alert("Account created successfully.", Notifications.enmType.Success);
                     new VerificationSystem(EmailTextBoxRegister.Text, PhoneTextBoxRegister.Text).ShowDialog();
-                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, StartDB.db, false).Show();
+                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, Functions.db, false).Show();
                     this.Hide();
                 }
-                StartDB.db.Close();
+                Functions.db.Close();
             }
             else
             {
                 if (!(UsernameTextBoxRegister.Text.Length >= 6))
                 {
-                    MessageBox.Show("Enter an username between 6 and 32 characters.");
+                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(UsernameTextBoxRegister.Text.Length <= 32))
                 {
-                    MessageBox.Show("Enter an username between 6 and 32 characters.");
+                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBoxRegister.Text.Length >= 8))
                 {
-                    MessageBox.Show("Enter a password between 8 and 20 characters.");
+                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBoxRegister.Text.Length <= 20))
                 {
-                    MessageBox.Show("Enter a password between 8 and 20 characters.");
+                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
                 else if (!(EmailTextBoxRegister.Text.Contains("@")))
                 {
-                    MessageBox.Show("Invalid Email.");
+                    Functions.Alert("Invalid Email.", Notifications.enmType.Error);
                 }
             }
         }
