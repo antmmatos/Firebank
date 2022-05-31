@@ -1,18 +1,16 @@
-﻿using System;
-
-namespace Firebank
+﻿namespace Firebank
 {
     public class Card
     {
         internal int ID { get; set; }
         internal string CardNumber { get; set; }
-        internal DateTime CardExpireDate { get; set; }
+        internal System.DateTime CardExpireDate { get; set; }
         internal string CardCVV { get; set; }
         internal int AccountID { get; set; }
         internal bool isActivated { get; set; }
         internal bool isFreeze { get; set; }
         internal bool isActivating { get; set; }
-        public Card(int ID, string CardNumber, DateTime CardExpireDate, string CardCVV, int AccountID, bool isActivated, bool isFreeze, bool isActivating)
+        public Card(int ID, string CardNumber, System.DateTime CardExpireDate, string CardCVV, int AccountID, bool isActivated, bool isFreeze, bool isActivating)
         {
             this.ID = ID;
             this.CardNumber = CardNumber;
