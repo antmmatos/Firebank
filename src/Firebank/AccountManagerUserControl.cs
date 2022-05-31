@@ -13,7 +13,7 @@ namespace Firebank
             SqlCommand command = new SqlCommand
             {
                 Connection = Functions.db,
-                CommandText = "SELECT Accounts.ID, Users.Name, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID"
+                CommandText = "SELECT Accounts.ID, Users.Username, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID"
             };
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
@@ -28,7 +28,7 @@ namespace Firebank
                 SqlCommand command = new SqlCommand
                 {
                     Connection = Functions.db,
-                    CommandText = "SELECT Accounts.ID, Users.Name, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID"
+                    CommandText = "SELECT Accounts.ID, Users.Username, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID"
                 };
                 Functions.db.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -44,7 +44,7 @@ namespace Firebank
                 SqlCommand command = new SqlCommand
                 {
                     Connection = Functions.db,
-                    CommandText = "SELECT Accounts.ID, Users.Name, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID WHERE Users.Name LIKE @Data OR IBan LIKE @Data OR AccountName LIKE @Data"
+                    CommandText = "SELECT Accounts.ID, Users.Username, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID WHERE Users.Name LIKE @Data OR IBan LIKE @Data OR AccountName LIKE @Data"
                 };
                 command.Parameters.AddWithValue("@Data", $"%{textBox1.Text}%");
                 Functions.db.Open();
