@@ -9,5 +9,10 @@
             Notifications notifier = new Notifications();
             notifier.showAlert(msg, type);
         }
+
+        public static void EmailSend()
+        {
+            //TODO
+        }
     }
 }

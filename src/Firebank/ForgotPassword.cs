@@ -58,7 +58,7 @@ namespace Firebank
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
                     {
                         Port = 587,
-                        Credentials = new NetworkCredential("firebank.no.reply@gmail.com", "Matecas1"),
+                        Credentials = new NetworkCredential("firebank.no.reply@gmail.com", "cmiz gljj vctq pbmq"),
                         EnableSsl = true,
                     };
                     MailMessage mailMessage = new MailMessage
