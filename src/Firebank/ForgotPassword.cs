@@ -43,33 +43,13 @@ namespace Firebank
             command.Parameters.Add("@Var", SqlDbType.VarChar).Value = UsernameTextBox.Text;
             db.Open();
             SqlDataReader commandReader = command.ExecuteReader();
-            string[] randomArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            string verificationCode = "";
-            Random random = new Random();
-            for (int i = 0; i < 8; i++)
-            {
-                verificationCode += randomArray[random.Next(35)];
-            }
+            string verificationCode = Functions.RandomVerificationCode();
             commandReader.Read();
             if (commandReader.HasRows)
             {
                 if (VerificationTypeComboBox.SelectedItem.ToString() == "Email")
                 {
-                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
-                    {
-                        Port = 587,
-                        Credentials = new NetworkCredential("firebank.no.reply@gmail.com", "cmiz gljj vctq pbmq"),
-                        EnableSsl = true,
-                    };
-                    MailMessage mailMessage = new MailMessage
-                    {
-                        From = new MailAddress("firebank.no.reply@gmail.com"),
-                        Subject = "Verification Code",
-                        Body = "\nYour verification code to recover password is: " + verificationCode,
-                        IsBodyHtml = false,
-                    };
-                    mailMessage.To.Add(UsernameTextBox.Text);
-                    smtpClient.Send(mailMessage);
+                    Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, UsernameTextBox.Text);
                     Functions.Alert("An email has been sent with a validation code.", Notifications.enmType.Info);
                     CodeTextBox.Enabled = true;
                     VerifyButton.Enabled = true;

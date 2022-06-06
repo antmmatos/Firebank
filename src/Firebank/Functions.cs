@@ -1,4 +1,8 @@
-﻿namespace Firebank
+﻿using System;
+using System.Net;
+using System.Net.Mail;
+
+namespace Firebank
 {
     static class Functions
     {
@@ -10,9 +14,35 @@
             notifier.showAlert(msg, type);
         }
 
-        public static void EmailSend()
+        public static void EmailSend(string subject, string body, string email)
         {
-            //TODO
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("firebank.no.reply@gmail.com", "cmiz gljj vctq pbmq"),
+                EnableSsl = true,
+            };
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress("firebank.no.reply@gmail.com"),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = false,
+            };
+            mailMessage.To.Add(email);
+            smtpClient.Send(mailMessage);
+        }
+
+        public static string RandomVerificationCode()
+        {
+            string[] randomArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            string verificationCode = "";
+            Random random = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                verificationCode += randomArray[random.Next(35)];
+            }
+            return verificationCode;
         }
     }
 }

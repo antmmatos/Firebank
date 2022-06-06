@@ -110,7 +110,7 @@ namespace Firebank
             }
         }
 
-        private void ActivateButton_Click(object sender, EventArgs e)
+        private async void ActivateButton_Click(object sender, EventArgs e)
         {
             if (cards.ElementAt(CardsComboBox.SelectedIndex).isActivating)
             {
@@ -143,13 +143,7 @@ namespace Firebank
             }
             else
             {
-                string[] randomArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-                string verificationCode = "";
-                Random random = new Random();
-                for (int i = 0; i < 8; i++)
-                {
-                    verificationCode += randomArray[random.Next(35)];
-                }
+                string verificationCode = Functions.RandomVerificationCode();
                 db.Open();
                 SqlCommand command = new SqlCommand
                 {
@@ -163,7 +157,7 @@ namespace Firebank
                 };
                 codeInsert.Parameters.Add("@ActivationCode", SqlDbType.VarChar).Value = verificationCode;
                 codeInsert.Parameters.Add("@ID", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).ID;
-                codeInsert.ExecuteNonQuery();
+                await codeInsert.ExecuteNonQueryAsync();
                 SqlCommand getUserID = new SqlCommand
                 {
                     Connection = db,
@@ -176,7 +170,7 @@ namespace Firebank
                 };
                 getUserID.Parameters.Add("@ID", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).AccountID;
                 isActivatingCardQuery.Parameters.Add("@ID", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).ID;
-                isActivatingCardQuery.ExecuteNonQuery();
+                await isActivatingCardQuery.ExecuteNonQueryAsync();
                 cards.ElementAt(CardsComboBox.SelectedIndex).isActivating = true;
                 SqlDataReader getUserIDReader = getUserID.ExecuteReader();
                 getUserIDReader.Read();
@@ -187,7 +181,7 @@ namespace Firebank
                 command.Parameters.Add("@Receiver_Account", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).AccountID;
                 command.Parameters.Add("@Quantity", SqlDbType.Int).Value = 1;
                 getUserIDReader.Close();
-                command.ExecuteNonQuery();
+                await command .ExecuteNonQueryAsync();
                 db.Close();
                 Functions.Alert("A transaction has been added to your statement with the activation code.", Notifications.enmType.Info);
             }

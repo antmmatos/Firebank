@@ -68,7 +68,9 @@ namespace Firebank
                             }
                             else
                             {
-                                SendEmail();
+                                string verificationCode = Functions.RandomVerificationCode();
+                                Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
+                                FACode = verificationCode;
                                 Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
                                 InputBox input = new InputBox("Firebank - New IP Detected", "Enter the code sent by Email", false, "");
                                 input.ShowDialog();
@@ -132,7 +134,9 @@ namespace Firebank
             if (Convert.ToBoolean(commandReader["is2FAEnabled"]))
             {
                 _Email = commandReader["Email"].ToString();
-                SendEmail();
+                string verificationCode = Functions.RandomVerificationCode();
+                Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
+                FACode = verificationCode;
                 Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
                 InputBox input = new InputBox("Firebank - 2FA", "Enter the code sent by Email", false, "");
                 input.ShowDialog();
@@ -140,17 +144,11 @@ namespace Firebank
                 {
                     if (!Convert.ToBoolean(commandReader["isAdmin"]))
                     {
-                        Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
-                        homepage.Closed += (s, args) => this.Close();
-                        homepage.Show();
-                        Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+                        OpenUser(commandReader);
                     }
                     else
                     {
-                        AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
-                        homepage.Closed += (s, args) => this.Close();
-                        homepage.Show();
-                        Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+                        OpenAdmin(commandReader);
                     }
                 }
                 else
@@ -163,47 +161,30 @@ namespace Firebank
             {
                 if (!Convert.ToBoolean(commandReader["isAdmin"]))
                 {
-                    Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
-                    homepage.Closed += (s, args) => this.Close();
-                    homepage.Show();
-                    Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+                    OpenUser(commandReader);
                 }
                 else
                 {
-                    AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
-                    homepage.Closed += (s, args) => this.Close();
-                    homepage.Show();
-                    Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+                    OpenAdmin(commandReader);
                 }
 
             }
         }
 
-        private void SendEmail()
+        private void OpenAdmin(dynamic commandReader)
         {
-            string[] randomArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            string verificationCode = "";
-            Random random = new Random();
-            for (int i = 0; i < 8; i++)
-            {
-                verificationCode += randomArray[random.Next(35)];
-            }
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("firebank.no.reply@gmail.com", "cmiz gljj vctq pbmq"),
-                EnableSsl = true,
-            };
-            MailMessage mailMessage = new MailMessage
-            {
-                From = new MailAddress("firebank.no.reply@gmail.com"),
-                Subject = "Verification Code",
-                Body = "\nYour verification code to recover password is: " + verificationCode,
-                IsBodyHtml = false,
-            };
-            mailMessage.To.Add(_Email);
-            smtpClient.Send(mailMessage);
-            FACode = verificationCode;
+            AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+            homepage.Closed += (s, args) => this.Close();
+            homepage.Show();
+            Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+        }
+
+        private void OpenUser(dynamic commandReader)
+        {
+            Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+            homepage.Closed += (s, args) => this.Close();
+            homepage.Show();
+            Functions.Alert("Successfully logged in", Notifications.enmType.Success);
         }
 
         private void RegisterPanelButton_Click(object sender, EventArgs e)
