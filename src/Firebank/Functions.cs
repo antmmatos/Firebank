@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Infobip.Api.Client;
+using Infobip.Api.Client.Api;
+using Infobip.Api.Client.Model;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 
@@ -8,6 +14,9 @@ namespace Firebank
     {
         private static readonly string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
         public static System.Data.SqlClient.SqlConnection db = new System.Data.SqlClient.SqlConnection(ConnectionString);
+        private static string _CountryCode;
+        private const string BASE_URL = "https://gy2yge.api.infobip.com";
+        private const string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
         public static void Alert(string msg, Notifications.enmType type)
         {
             Notifications notifier = new Notifications();
@@ -43,6 +52,60 @@ namespace Firebank
                 verificationCode += randomArray[random.Next(35)];
             }
             return verificationCode;
+        }
+
+        public static void SendNotification(string message, Notifications.enmType type)
+        {
+            Notifications notifier = new Notifications();
+            notifier.showAlert(message, type);
+        }
+
+        public static void SendSMS(string IP, string phoneNumber, string verificationCode)
+        {
+            JArray array = JArray.Parse(File.ReadAllText("countriescode.json"));
+            JObject countrySettings = JObject.Parse(IP);
+            for (int i = 0; i < array.Count; i++)
+            {
+                if (array[i]["name"].ToString() == countrySettings["country"].ToString())
+                {
+                    _CountryCode = array[i]["dial_code"].ToString();
+                    break;
+                }
+            }
+            phoneNumber = _CountryCode + phoneNumber;
+            var configuration = new Configuration()
+            {
+                BasePath = BASE_URL,
+                ApiKeyPrefix = "App",
+                ApiKey = API_KEY
+            };
+
+            var sendSmsApi = new SendSmsApi(configuration);
+
+            var smsMessage = new SmsTextualMessage()
+            {
+                From = "SMSVerify",
+                Destinations = new List<SmsDestination>()
+                    {
+                        new SmsDestination(to: phoneNumber)
+                    },
+                Text = "Your verification code to recover password is: " + verificationCode
+            };
+
+            var smsRequest = new SmsAdvancedTextualRequest()
+            {
+                Messages = new List<SmsTextualMessage>() { smsMessage }
+            };
+
+            try
+            {
+                var smsResponse = sendSmsApi.SendSmsMessage(smsRequest);
+            }
+            catch (ApiException apiException)
+            {
+                Notifications notifier = new Notifications();
+                notifier.showAlert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
+            }
         }
     }
 }

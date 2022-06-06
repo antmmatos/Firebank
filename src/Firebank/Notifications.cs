@@ -30,7 +30,6 @@ namespace Firebank
 
         private int x, y;
 
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             switch (action)
@@ -50,7 +49,7 @@ namespace Firebank
                     {
                         if (Opacity == 1.0)
                         {
-                            action = Notifications.enmAction.wait;
+                            action = enmAction.wait;
                         }
                     }
                     break;
@@ -61,7 +60,7 @@ namespace Firebank
                     Left -= 3;
                     if (Opacity == 0.0)
                     {
-                        Close();
+                        this.Dispose();
                     }
                     break;
             }

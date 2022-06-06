@@ -99,6 +99,7 @@ namespace Firebank
 
         private void AccountList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (accounts.Count == 0) return;
             BalanceLabelValue.Text = accounts.ElementAt(AccountList.SelectedIndex).Balance.ToString();
             SqlCommand command = new SqlCommand
             {

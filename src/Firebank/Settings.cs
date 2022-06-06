@@ -46,8 +46,6 @@ namespace Firebank
             Functions.db.Open();
             command.ExecuteNonQuery();
             Functions.db.Close();
-            Notifications notifier = new Notifications();
-            notifier.showAlert("Password changed with success.", Notifications.enmType.Success);
             input.Dispose();
         }
 
@@ -66,7 +64,7 @@ namespace Firebank
             }
         }
 
-        private void is2FAActivated_Click(object sender, EventArgs e)
+        private void Is2FAActivated_Click(object sender, EventArgs e)
         {
             Notifications notifier;
             if (is2FAActivated.Checked)

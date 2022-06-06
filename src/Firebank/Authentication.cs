@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -48,55 +49,56 @@ namespace Firebank
                     if (!rx.IsMatch(_Email))
                     {
                         Notifications notifier = new Notifications();
-                        notifier.showAlert("An error ocorred. Please contact support.", Notifications.enmType.Error);
+                        notifier.showAlert("An error occurred. Please contact support team.", Notifications.enmType.Error);
                         return;
                     }
                     if (!Convert.ToBoolean(commandReader["VerifiedEmail"].ToString()) || !Convert.ToBoolean(commandReader["VerifiedMobilePhone"].ToString()))
                     {
-                        VerificationSystem a = new VerificationSystem();
-                        a.Setup(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString());
-                        a.ShowDialog();
+                        VerificationSystem vs = new VerificationSystem();
+                        vs.Setup(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString());
+                        try
+                        {
+                            vs.ShowDialog();
+                        }
+                        catch (Exception) { }
+                    }
+                    string IP = GetIp();
+                    if (Convert.ToString(commandReader["LastIP"]) == "")
+                    {
+                        command = new SqlCommand
+                        {
+                            Connection = Functions.db,
+                            CommandText = "UPDATE Users SET LastIP = @IP WHERE ID = @ID"
+                        };
+                        command.Parameters.Add("@IP", SqlDbType.VarChar).Value = IP;
+                        command.Parameters.Add("@ID", SqlDbType.Int).Value = Convert.ToInt32(commandReader["ID"]);
+                        await command.ExecuteNonQueryAsync();
                     }
                     else
                     {
-                        string IP = GetIp();
-                        if (Convert.ToString(commandReader["LastIP"]) == "")
+                        if (Convert.ToString(commandReader["LastIP"]) == IP)
                         {
-                            command = new SqlCommand
-                            {
-                                Connection = Functions.db,
-                                CommandText = "UPDATE Users SET LastIP = @IP WHERE ID = @ID"
-                            };
-                            command.Parameters.Add("@IP", SqlDbType.VarChar).Value = IP;
-                            command.Parameters.Add("@ID", SqlDbType.Int).Value = Convert.ToInt32(commandReader["ID"]);
-                            command.ExecuteNonQuery();
+                            ContinueLogin(commandReader);
                         }
                         else
                         {
-                            if (Convert.ToString(commandReader["LastIP"]) == IP)
+                            string verificationCode = Functions.RandomVerificationCode();
+                            Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
+                            FACode = verificationCode;
+                            Notifications notifier = new Notifications();
+                            notifier.showAlert("Code sent to Email successfully", Notifications.enmType.Info);
+                            InputBox input = new InputBox("Firebank - New IP Detected", "Enter the code sent by Email", false, "");
+                            input.ShowDialog();
+                            if (input.value == FACode)
                             {
+                                await ChangeIP(IP, Convert.ToInt32(commandReader["ID"]));
                                 ContinueLogin(commandReader);
                             }
                             else
                             {
-                                string verificationCode = Functions.RandomVerificationCode();
-                                Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
-                                FACode = verificationCode;
-                                Notifications notifier = new Notifications();
-                                notifier.showAlert("Code sent to Email successfully", Notifications.enmType.Info);
-                                InputBox input = new InputBox("Firebank - New IP Detected", "Enter the code sent by Email", false, "");
-                                input.ShowDialog();
-                                if (input.value == FACode)
-                                {
-                                    await ChangeIP(IP, Convert.ToInt32(commandReader["ID"]));
-                                    ContinueLogin(commandReader);
-                                }
-                                else
-                                {
-                                    notifier = new Notifications();
-                                    notifier.showAlert("Wrong Verification Code", Notifications.enmType.Error);
-                                    Environment.Exit(0);
-                                }
+                                notifier = new Notifications();
+                                notifier.showAlert("Wrong Verification Code", Notifications.enmType.Error);
+                                Environment.Exit(0);
                             }
                         }
                     }
@@ -156,8 +158,6 @@ namespace Firebank
                 string verificationCode = Functions.RandomVerificationCode();
                 Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
                 FACode = verificationCode;
-                Notifications notifier = new Notifications();
-                notifier.showAlert("Code sent to Email successfully", Notifications.enmType.Info);
                 InputBox input = new InputBox("Firebank - 2FA", "Enter the code sent by Email", false, "");
                 input.ShowDialog();
                 if (input.value == FACode)
@@ -173,8 +173,7 @@ namespace Firebank
                 }
                 else
                 {
-                    notifier = new Notifications();
-                    notifier.showAlert("Wrong 2FA Code", Notifications.enmType.Error);
+                    MessageBox.Show("Wrong Verification Code");
                     Environment.Exit(0);
                 }
             }
@@ -212,23 +211,23 @@ namespace Firebank
 
         private void RegisterPanelButton_Click(object sender, EventArgs e)
         {
-            LoginPanelButton.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            RegisterPanelButton.Font = new System.Drawing.Font("Verdana", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            LoginPanelButton.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            RegisterPanelButton.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
             RegisterPanel.Visible = true;
             seePassword = false;
-            SeePasswordPhotoLogin.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
+            SeePasswordPhotoLogin.Image = Properties.Resources.invisible_removebg_preview;
             SeePasswordPhoto.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
             PasswordTextBox.PasswordChar = '*';
         }
 
         private void LoginPanelButton_Click(object sender, EventArgs e)
         {
-            LoginPanelButton.Font = new System.Drawing.Font("Verdana", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            RegisterPanelButton.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            LoginPanelButton.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
+            RegisterPanelButton.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             RegisterPanel.Visible = false;
             seePassword = false;
-            SeePasswordPhotoLogin.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
-            SeePasswordPhoto.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
+            SeePasswordPhotoLogin.Image = Properties.Resources.invisible_removebg_preview;
+            SeePasswordPhoto.Image = Properties.Resources.invisible_removebg_preview;
             PasswordTextBox.PasswordChar = '*';
         }
 
@@ -237,13 +236,13 @@ namespace Firebank
             if (!seePassword)
             {
                 seePassword = true;
-                SeePasswordPhoto.Image = global::Firebank.Properties.Resources.visible_removebg_preview;
+                SeePasswordPhoto.Image = Properties.Resources.visible_removebg_preview;
                 PasswordTextBoxRegister.PasswordChar = '\0';
             }
             else
             {
                 seePassword = false;
-                SeePasswordPhoto.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
+                SeePasswordPhoto.Image = Properties.Resources.invisible_removebg_preview;
                 PasswordTextBoxRegister.PasswordChar = '*';
             }
         }
@@ -253,13 +252,13 @@ namespace Firebank
             if (!seePassword)
             {
                 seePassword = true;
-                SeePasswordPhotoLogin.Image = global::Firebank.Properties.Resources.visible_removebg_preview;
+                SeePasswordPhotoLogin.Image = Properties.Resources.visible_removebg_preview;
                 PasswordTextBox.PasswordChar = '\0';
             }
             else
             {
                 seePassword = false;
-                SeePasswordPhotoLogin.Image = global::Firebank.Properties.Resources.invisible_removebg_preview;
+                SeePasswordPhotoLogin.Image = Properties.Resources.invisible_removebg_preview;
                 PasswordTextBox.PasswordChar = '*';
             }
         }

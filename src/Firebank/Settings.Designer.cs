@@ -217,7 +217,7 @@ namespace Firebank
             this.is2FAActivated.Size = new System.Drawing.Size(45, 22);
             this.is2FAActivated.TabIndex = 46;
             this.is2FAActivated.UseVisualStyleBackColor = true;
-            this.is2FAActivated.Click += new System.EventHandler(this.is2FAActivated_Click);
+            this.is2FAActivated.Click += new System.EventHandler(this.Is2FAActivated_Click);
             // 
             // label1
             // 

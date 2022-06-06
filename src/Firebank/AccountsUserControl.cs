@@ -46,6 +46,7 @@ namespace Firebank
         }
         private void AccountsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (accounts.Count == 0) return;
             BalanceLabel.Visible = true;
             IDLabel.Visible = true;
             iBanLabel.Visible = true;
@@ -62,8 +63,12 @@ namespace Firebank
 
         private void ChangeNameButton_Click(object sender, EventArgs e)
         {
-            if(AccountsComboBox.SelectedIndex != -1)
+            if(AccountsComboBox.SelectedIndex != -1 && AccountsComboBox.SelectedIndex != 0)
             {
+                NewNameTextBox.Text = "";
+                iBanLabel.Text = "";
+                IDLabel.Text = "";
+                BalanceLabel.Text = "";
                 SqlCommand command = new SqlCommand();
                 command.Connection = db;
                 command.CommandText = "UPDATE Accounts SET AccountName = @Name WHERE ID = @ID";
