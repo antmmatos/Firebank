@@ -51,7 +51,8 @@ namespace Firebank
                     balanceReader.Read();
                     if(Convert.ToInt32(balanceReader["Balance"].ToString()) < Convert.ToInt32(AmountTextBox.Text))
                     {
-                        Functions.Alert("Insufficient balance", Notifications.enmType.Error);
+                        Notifications notifier = new Notifications();
+                        notifier.showAlert("Insufficient balance", Notifications.enmType.Error);
                     }
                     else
                     {
@@ -72,13 +73,15 @@ namespace Firebank
                         command.Parameters.Add("@Value", SqlDbType.Int).Value = AmountTextBox.Text;
                         command.ExecuteNonQuery();
                         Functions.db.Close();
-                        Functions.Alert("Sent successfully", Notifications.enmType.Success);
+                        Notifications notifier = new Notifications();
+                        notifier.showAlert("Sent successfully", Notifications.enmType.Success);
                         this.Dispose();
                     }
                 }
                 else
                 {
-                    Functions.Alert("Invalid transference", Notifications.enmType.Error);
+                    Notifications notifier = new Notifications();
+                    notifier.showAlert("Invalid transference", Notifications.enmType.Error);
                 }
             }
         }

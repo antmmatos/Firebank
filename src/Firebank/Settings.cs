@@ -46,7 +46,8 @@ namespace Firebank
             Functions.db.Open();
             command.ExecuteNonQuery();
             Functions.db.Close();
-            Functions.Alert("Password changed with success.", Notifications.enmType.Success);
+            Notifications notifier = new Notifications();
+            notifier.showAlert("Password changed with success.", Notifications.enmType.Success);
             input.Dispose();
         }
 
@@ -67,13 +68,16 @@ namespace Firebank
 
         private void is2FAActivated_Click(object sender, EventArgs e)
         {
+            Notifications notifier;
             if (is2FAActivated.Checked)
             {
-                Functions.Alert("2FA Enabled", Notifications.enmType.Info);
+                notifier = new Notifications();
+                notifier.showAlert("2FA Enabled", Notifications.enmType.Info);
             }
             else
             {
-                Functions.Alert("2FA Disabled", Notifications.enmType.Info);
+                notifier = new Notifications();
+                notifier.showAlert("2FA Disabled", Notifications.enmType.Info);
             }
             SqlCommand checkVerifiedPhone = new SqlCommand
             {
@@ -102,7 +106,8 @@ namespace Firebank
             {
                 Functions.db.Close();
                 is2FAActivated.Checked = false;
-                Functions.Alert("Phone Number is not verified", Notifications.enmType.Warning);
+                notifier = new Notifications();
+                notifier.showAlert("Phone Number is not verified", Notifications.enmType.Warning);
             }
         }
     }

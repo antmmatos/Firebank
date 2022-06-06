@@ -307,6 +307,9 @@
     <EmbeddedResource Include="AdminDashboard.resx">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Notifications.resx">
+      <DependentUpon>Notifications.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -356,6 +359,9 @@
     <EmbeddedResource Include="VerificationSystem.resx">
       <DependentUpon>VerificationSystem.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="countriescode.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

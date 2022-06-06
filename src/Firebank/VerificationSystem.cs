@@ -16,40 +16,32 @@ namespace Firebank
 {
     public partial class VerificationSystem : Form
     {
-        private static readonly string BASE_URL = "https://gy2yge.api.infobip.com";
-        private static readonly string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
-        private static string _verificationCode;
+        private const string BASE_URL = "https://gy2yge.api.infobip.com";
+        private const string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
+        private string _verificationCode;
         private string _PhoneNumber;
-        private readonly string _Email;
+        private string _Email;
         private bool IsEmailVerified = false;
-        private readonly bool IsPhoneVerified = false;
+        private bool IsPhoneVerified = false;
         private string _IP;
         private string _CountryIP;
         private string _CountryCode;
-        public VerificationSystem(string email, string phone)
+
+
+        private bool notificationHasBeenShowned = false;
+        public VerificationSystem()
         {
             InitializeComponent();
+           
+        }
+
+        public void Setup(string email, string phone)
+        {
             GetIp();
             GetCountryIp(_IP);
+
             _Email = email;
             _PhoneNumber = phone;
-            SqlCommand command = new SqlCommand
-            {
-                Connection = Functions.db,
-                CommandText = "SELECT * FROM Users WHERE Email = @Email"
-            };
-            command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
-            SqlDataReader reader = command.ExecuteReader();
-            reader.Read();
-            IsEmailVerified = Convert.ToBoolean(reader["VerifiedEmail"]);
-            IsPhoneVerified = Convert.ToBoolean(reader["VerifiedMobilePhone"]);
-            if (!IsEmailVerified)
-            {
-                string verificationCode = Functions.RandomVerificationCode();
-                Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
-                _verificationCode = verificationCode;
-                Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
-            }
         }
         async private void GetIp()
         {
@@ -109,7 +101,8 @@ namespace Firebank
             }
             catch (ApiException apiException)
             {
-                Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
+                Notifications notifier = new Notifications();
+                notifier.showAlert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
             }
         }
         
@@ -119,7 +112,8 @@ namespace Firebank
             {
                 if (!IsEmailVerified)
                 {
-                    Functions.Alert("Email verified!", Notifications.enmType.Success);
+                    Notifications notifier = new Notifications();
+                    notifier.showAlert("Email verified!", Notifications.enmType.Success);
                     SqlCommand command = new SqlCommand
                     {
                         Connection = Functions.db,
@@ -134,14 +128,16 @@ namespace Firebank
                     if (!IsPhoneVerified)
                     {
                         SendSMS();
-                        Functions.Alert("Code sent by SMS successfully", Notifications.enmType.Info);
+                        notifier = new Notifications();
+                        notifier.showAlert("Code sent by SMS successfully", Notifications.enmType.Info);
                     }
                 }
                 else
                 {
                     if (!IsPhoneVerified)
                     {
-                        Functions.Alert("Phone number verified!", Notifications.enmType.Success);
+                        Notifications notifier = new Notifications();
+                        notifier.showAlert("Phone number verified!", Notifications.enmType.Success);
                         SqlCommand command = new SqlCommand
                         {
                             Connection = Functions.db,
@@ -149,13 +145,50 @@ namespace Firebank
                         };
                         command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
                         command.ExecuteNonQuery();
-                        this.Dispose();
                     }
                 }
             }
             else
             {
-                Functions.Alert("Invalid code.", Notifications.enmType.Error);
+                Notifications notifier = new Notifications();
+                notifier.showAlert("Invalid code.", Notifications.enmType.Error);
+            }
+        }
+
+        private void VerificationSystem_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VerificationSystem_Activated(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void VerificationSystem_VisibleChanged(object sender, EventArgs e)
+        {
+            if (notificationHasBeenShowned)
+                return;
+
+            notificationHasBeenShowned = true;
+
+            SqlCommand command = new SqlCommand
+            {
+                Connection = Functions.db,
+                CommandText = "SELECT * FROM Users WHERE Email = @Email"
+            };
+            command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email;
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            IsEmailVerified = Convert.ToBoolean(reader["VerifiedEmail"]);
+            IsPhoneVerified = Convert.ToBoolean(reader["VerifiedMobilePhone"]);
+            if (!IsEmailVerified)
+            {
+                string verificationCode = Functions.RandomVerificationCode();
+                Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
+                _verificationCode = verificationCode;
+                Notifications notifier = new Notifications();
+                notifier.showAlert("Code sent to Email successfully", Notifications.enmType.Info);
             }
         }
     }

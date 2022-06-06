@@ -39,13 +39,24 @@ namespace Firebank
                 command.Parameters.Add("@Password", SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBox.Text);
                 Functions.db.Open();
                 SqlDataReader commandReader = command.ExecuteReader();
-                commandReader.Read();
                 if (commandReader.HasRows)
                 {
+                    commandReader.Read();
                     _Email = commandReader["Email"].ToString();
                     this.Hide();
+                    Regex rx = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+                    if (!rx.IsMatch(_Email))
+                    {
+                        Notifications notifier = new Notifications();
+                        notifier.showAlert("An error ocorred. Please contact support.", Notifications.enmType.Error);
+                        return;
+                    }
                     if (!Convert.ToBoolean(commandReader["VerifiedEmail"].ToString()) || !Convert.ToBoolean(commandReader["VerifiedMobilePhone"].ToString()))
-                        new VerificationSystem(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString()).ShowDialog();
+                    {
+                        VerificationSystem a = new VerificationSystem();
+                        a.Setup(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString());
+                        a.ShowDialog();
+                    }
                     else
                     {
                         string IP = GetIp();
@@ -71,7 +82,8 @@ namespace Firebank
                                 string verificationCode = Functions.RandomVerificationCode();
                                 Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
                                 FACode = verificationCode;
-                                Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
+                                Notifications notifier = new Notifications();
+                                notifier.showAlert("Code sent to Email successfully", Notifications.enmType.Info);
                                 InputBox input = new InputBox("Firebank - New IP Detected", "Enter the code sent by Email", false, "");
                                 input.ShowDialog();
                                 if (input.value == FACode)
@@ -81,7 +93,8 @@ namespace Firebank
                                 }
                                 else
                                 {
-                                    Functions.Alert("Wrong Verification Code", Notifications.enmType.Error);
+                                    notifier = new Notifications();
+                                    notifier.showAlert("Wrong Verification Code", Notifications.enmType.Error);
                                     Environment.Exit(0);
                                 }
                             }
@@ -91,28 +104,34 @@ namespace Firebank
                 }
                 else
                 {
-                    Functions.Alert("Username or Password is incorrect", Notifications.enmType.Error);
+                    Notifications notifier = new Notifications();
+                    notifier.showAlert("Username or Password is incorrect", Notifications.enmType.Error);
                     commandReader.Close();
                 }
                 Functions.db.Close();
             }
             else
             {
+                Notifications notifier;
                 if (!(UsernameTextBox.Text.Length >= 6))
                 {
-                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(UsernameTextBox.Text.Length <= 32))
                 {
-                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBox.Text.Length >= 8))
                 {
-                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBox.Text.Length <= 20))
                 {
-                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
             }
         }
@@ -137,7 +156,8 @@ namespace Firebank
                 string verificationCode = Functions.RandomVerificationCode();
                 Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
                 FACode = verificationCode;
-                Functions.Alert("Code sent to Email successfully", Notifications.enmType.Info);
+                Notifications notifier = new Notifications();
+                notifier.showAlert("Code sent to Email successfully", Notifications.enmType.Info);
                 InputBox input = new InputBox("Firebank - 2FA", "Enter the code sent by Email", false, "");
                 input.ShowDialog();
                 if (input.value == FACode)
@@ -153,7 +173,8 @@ namespace Firebank
                 }
                 else
                 {
-                    Functions.Alert("Wrong 2FA Code", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Wrong 2FA Code", Notifications.enmType.Error);
                     Environment.Exit(0);
                 }
             }
@@ -176,7 +197,8 @@ namespace Firebank
             AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
             homepage.Closed += (s, args) => this.Close();
             homepage.Show();
-            Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+            Notifications notifier = new Notifications();
+            notifier.showAlert("Successfully logged in", Notifications.enmType.Success);
         }
 
         private void OpenUser(dynamic commandReader)
@@ -184,7 +206,8 @@ namespace Firebank
             Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
             homepage.Closed += (s, args) => this.Close();
             homepage.Show();
-            Functions.Alert("Successfully logged in", Notifications.enmType.Success);
+            Notifications notifier = new Notifications();
+            notifier.showAlert("Successfully logged in", Notifications.enmType.Success);
         }
 
         private void RegisterPanelButton_Click(object sender, EventArgs e)
@@ -262,7 +285,8 @@ namespace Firebank
                 if (commandReader.HasRows)
                 {
                     ClearReaders(commandReader, command);
-                    Functions.Alert("There is already an account with that informations.", Notifications.enmType.Error);
+                    Notifications notifier = new Notifications();
+                    notifier.showAlert("There is already an account with that informations.", Notifications.enmType.Error);
                 }
                 else
                 {
@@ -280,8 +304,11 @@ namespace Firebank
                     command.Parameters.Add("@Birthday", SqlDbType.Date).Value = DatePickerRegister.Text;
                     command.Parameters.Add("@MobilePhoneNumber", SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                     command.ExecuteNonQuery();
-                    Functions.Alert("Account created successfully.", Notifications.enmType.Success);
-                    new VerificationSystem(EmailTextBoxRegister.Text, PhoneTextBoxRegister.Text).ShowDialog();
+                    Notifications notifier = new Notifications();
+                    notifier.showAlert("Account created successfully.", Notifications.enmType.Success);
+                    VerificationSystem a = new VerificationSystem();
+                    a.Setup(EmailTextBoxRegister.Text, PhoneTextBoxRegister.Text);
+                    a.ShowDialog();
                     new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, Functions.db, false).Show();
                     this.Hide();
                 }
@@ -289,25 +316,31 @@ namespace Firebank
             }
             else
             {
+                Notifications notifier;
                 if (!(UsernameTextBoxRegister.Text.Length >= 6))
                 {
-                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(UsernameTextBoxRegister.Text.Length <= 32))
                 {
-                    Functions.Alert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter an username between 6 and 32 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBoxRegister.Text.Length >= 8))
                 {
-                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
                 else if (!(PasswordTextBoxRegister.Text.Length <= 20))
                 {
-                    Functions.Alert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Enter a password between 8 and 20 characters.", Notifications.enmType.Error);
                 }
                 else if (!(EmailTextBoxRegister.Text.Contains("@")))
                 {
-                    Functions.Alert("Invalid Email.", Notifications.enmType.Error);
+                    notifier = new Notifications();
+                    notifier.showAlert("Invalid Email.", Notifications.enmType.Error);
                 }
             }
         }
