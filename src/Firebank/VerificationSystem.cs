@@ -93,7 +93,6 @@ namespace Firebank
 
         private async void VerifyEmailButton_Click(object sender, EventArgs e)
         {
-            Notifications notifier = new Notifications();
             if (_verificationCode == VerifyEmailCodeTextBox.Text)
             {
                 if (!IsEmailVerified)
@@ -125,7 +124,6 @@ namespace Firebank
             }
             else
             {
-                notifier = new Notifications();
                 Functions.Alert("Invalid code.", Notifications.enmType.Error);
             }
         }

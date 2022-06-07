@@ -34,14 +34,12 @@ namespace Firebank
                     if(_successMessage != "")
                     {
                         MessageBox.Show(_successMessage);
-                        Notifications notifier = new Notifications();
                         Functions.Alert(_successMessage, Notifications.enmType.Success);
                     }
                     this.Close();
                 }
                 else
                 {
-                    Notifications notifier = new Notifications();
                     Functions.Alert("A minimum of 8 characters is required.", Notifications.enmType.Error);
                 }
             }
@@ -52,14 +50,12 @@ namespace Firebank
                     value = ValueTextBox.Text;
                     if(_successMessage != "")
                     {
-                        Notifications notifier = new Notifications();
                         Functions.Alert(_successMessage, Notifications.enmType.Success);
                     }
                     this.Close();
                 }
                 else
                 {
-                    Notifications notifier = new Notifications();
                     Functions.Alert("Invalid value.", Notifications.enmType.Error);
                 }
             }

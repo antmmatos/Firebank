@@ -50,7 +50,6 @@ namespace Firebank
                 if (VerificationTypeComboBox.SelectedItem.ToString() == "Email")
                 {
                     Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, UsernameTextBox.Text);
-                    Notifications notifier = new Notifications();
                     Functions.Alert("An email has been sent with a validation code.", Notifications.enmType.Info);
                     CodeTextBox.Enabled = true;
                     VerifyButton.Enabled = true;
@@ -108,7 +107,6 @@ namespace Firebank
                     try
                     {
                         var smsResponse = sendSmsApi.SendSmsMessage(smsRequest);
-                        Notifications notifier = new Notifications();
                         Functions.Alert("A SMS has been sent with a validation code.", Notifications.enmType.Info);
                         CodeTextBox.Enabled = true;
                         VerifyButton.Enabled = true;
@@ -116,14 +114,12 @@ namespace Firebank
                     }
                     catch (ApiException apiException)
                     {
-                        Notifications notifier = new Notifications();
                         Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
                     }
                 }
             }
             else
             {
-                Notifications notifier = new Notifications();
                 Functions.Alert("Username or Email invalid.", Notifications.enmType.Error);
             }
             db.Close();

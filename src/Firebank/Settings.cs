@@ -66,15 +66,12 @@ namespace Firebank
 
         private void Is2FAActivated_Click(object sender, EventArgs e)
         {
-            Notifications notifier;
             if (is2FAActivated.Checked)
             {
-                notifier = new Notifications();
                 Functions.Alert("2FA Enabled", Notifications.enmType.Info);
             }
             else
             {
-                notifier = new Notifications();
                 Functions.Alert("2FA Disabled", Notifications.enmType.Info);
             }
             SqlCommand checkVerifiedPhone = new SqlCommand
@@ -104,7 +101,6 @@ namespace Firebank
             {
                 Functions.db.Close();
                 is2FAActivated.Checked = false;
-                notifier = new Notifications();
                 Functions.Alert("Phone Number is not verified", Notifications.enmType.Warning);
             }
         }

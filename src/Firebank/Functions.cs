@@ -19,7 +19,6 @@ namespace Firebank
         private const string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
         public static void Alert(string msg, Notifications.enmType type)
         {
-            Notifications notifier = new Notifications();
             Functions.Alert(msg, type);
         }
 
@@ -56,7 +55,6 @@ namespace Firebank
 
         public static void SendNotification(string message, Notifications.enmType type)
         {
-            Notifications notifier = new Notifications();
             Functions.Alert(message, type);
         }
 
@@ -103,7 +101,6 @@ namespace Firebank
             }
             catch (ApiException apiException)
             {
-                Notifications notifier = new Notifications();
                 Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
             }
         }

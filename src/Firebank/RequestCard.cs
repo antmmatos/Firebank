@@ -48,7 +48,6 @@ namespace Firebank
             Functions.db.Open();
             command.ExecuteNonQuery();
             Functions.db.Close();
-            Notifications notifier = new Notifications();
             Functions.Alert("Card requested successfully", Notifications.enmType.Success);
             this.Dispose();
         }

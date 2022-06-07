@@ -45,7 +45,6 @@ namespace Firebank
             command.Parameters.Add("@AccountName", SqlDbType.VarChar).Value = AccountNameTextBox.Text;
             command.ExecuteNonQuery();
             Functions.db.Close();
-            Notifications notifier = new Notifications();
             Functions.Alert("Created successfully", Notifications.enmType.Success);
             this.Dispose();
         }
