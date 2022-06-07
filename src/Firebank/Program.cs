@@ -8,7 +8,7 @@ namespace Firebank
         /// <summary>
         /// Ponto de entrada principal para o aplicativo.
         /// </summary>
-        [STAThread]
+        //[STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();

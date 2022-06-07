@@ -20,7 +20,7 @@ namespace Firebank
         public static void Alert(string msg, Notifications.enmType type)
         {
             Notifications notifier = new Notifications();
-            notifier.showAlert(msg, type);
+            Functions.Alert(msg, type);
         }
 
         public static void EmailSend(string subject, string body, string email)
@@ -57,7 +57,7 @@ namespace Firebank
         public static void SendNotification(string message, Notifications.enmType type)
         {
             Notifications notifier = new Notifications();
-            notifier.showAlert(message, type);
+            Functions.Alert(message, type);
         }
 
         public static void SendSMS(string IP, string phoneNumber, string verificationCode)
@@ -104,7 +104,7 @@ namespace Firebank
             catch (ApiException apiException)
             {
                 Notifications notifier = new Notifications();
-                notifier.showAlert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
+                Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
             }
         }
     }

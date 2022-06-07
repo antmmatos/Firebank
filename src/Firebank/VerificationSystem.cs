@@ -98,7 +98,7 @@ namespace Firebank
             {
                 if (!IsEmailVerified)
                 {
-                    notifier.showAlert("Email verified!", Notifications.enmType.Success);
+                    Functions.Alert("Email verified!", Notifications.enmType.Success);
                     SqlCommand command = new SqlCommand
                     {
                         Connection = Functions.db,
@@ -111,7 +111,7 @@ namespace Firebank
                 }
                 else
                 {
-                    notifier.showAlert("Phone verified!", Notifications.enmType.Success);
+                    Functions.Alert("Phone verified!", Notifications.enmType.Success);
                     SqlCommand command = new SqlCommand
                     {
                         Connection = Functions.db,
@@ -126,7 +126,7 @@ namespace Firebank
             else
             {
                 notifier = new Notifications();
-                notifier.showAlert("Invalid code.", Notifications.enmType.Error);
+                Functions.Alert("Invalid code.", Notifications.enmType.Error);
             }
         }
     }

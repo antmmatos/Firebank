@@ -49,7 +49,7 @@ namespace Firebank
             command.ExecuteNonQuery();
             Functions.db.Close();
             Notifications notifier = new Notifications();
-            notifier.showAlert("Card requested successfully", Notifications.enmType.Success);
+            Functions.Alert("Card requested successfully", Notifications.enmType.Success);
             this.Dispose();
         }
     }

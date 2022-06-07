@@ -70,12 +70,12 @@ namespace Firebank
             if (is2FAActivated.Checked)
             {
                 notifier = new Notifications();
-                notifier.showAlert("2FA Enabled", Notifications.enmType.Info);
+                Functions.Alert("2FA Enabled", Notifications.enmType.Info);
             }
             else
             {
                 notifier = new Notifications();
-                notifier.showAlert("2FA Disabled", Notifications.enmType.Info);
+                Functions.Alert("2FA Disabled", Notifications.enmType.Info);
             }
             SqlCommand checkVerifiedPhone = new SqlCommand
             {
@@ -105,7 +105,7 @@ namespace Firebank
                 Functions.db.Close();
                 is2FAActivated.Checked = false;
                 notifier = new Notifications();
-                notifier.showAlert("Phone Number is not verified", Notifications.enmType.Warning);
+                Functions.Alert("Phone Number is not verified", Notifications.enmType.Warning);
             }
         }
     }

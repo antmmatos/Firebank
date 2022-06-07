@@ -51,7 +51,7 @@ namespace Firebank
                 {
                     Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, UsernameTextBox.Text);
                     Notifications notifier = new Notifications();
-                    notifier.showAlert("An email has been sent with a validation code.", Notifications.enmType.Info);
+                    Functions.Alert("An email has been sent with a validation code.", Notifications.enmType.Info);
                     CodeTextBox.Enabled = true;
                     VerifyButton.Enabled = true;
                     _verificationCode = verificationCode;
@@ -109,7 +109,7 @@ namespace Firebank
                     {
                         var smsResponse = sendSmsApi.SendSmsMessage(smsRequest);
                         Notifications notifier = new Notifications();
-                        notifier.showAlert("A SMS has been sent with a validation code.", Notifications.enmType.Info);
+                        Functions.Alert("A SMS has been sent with a validation code.", Notifications.enmType.Info);
                         CodeTextBox.Enabled = true;
                         VerifyButton.Enabled = true;
                         _verificationCode = verificationCode;
@@ -117,14 +117,14 @@ namespace Firebank
                     catch (ApiException apiException)
                     {
                         Notifications notifier = new Notifications();
-                        notifier.showAlert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
+                        Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
                     }
                 }
             }
             else
             {
                 Notifications notifier = new Notifications();
-                notifier.showAlert("Username or Email invalid.", Notifications.enmType.Error);
+                Functions.Alert("Username or Email invalid.", Notifications.enmType.Error);
             }
             db.Close();
         }

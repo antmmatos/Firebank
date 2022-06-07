@@ -136,7 +136,7 @@ namespace Firebank
                     updateActivation.Parameters.Add("@ID", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).ID;
                     updateActivation.ExecuteNonQuery();
                     Notifications notifier = new Notifications();
-                    notifier.showAlert("Card Activated successfully", Notifications.enmType.Success);
+                    Functions.Alert("Card Activated successfully", Notifications.enmType.Success);
                     isActivated.ForeColor = System.Drawing.Color.Green;
                     ActivateButton.Enabled = false;
                 }
@@ -185,7 +185,7 @@ namespace Firebank
                 await command .ExecuteNonQueryAsync();
                 db.Close();
                 Notifications notifier = new Notifications();
-                notifier.showAlert("A transaction has been added to your statement with the activation code.", Notifications.enmType.Info);
+                Functions.Alert("A transaction has been added to your statement with the activation code.", Notifications.enmType.Info);
             }
         }
 

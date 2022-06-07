@@ -46,7 +46,7 @@ namespace Firebank
             command.ExecuteNonQuery();
             Functions.db.Close();
             Notifications notifier = new Notifications();
-            notifier.showAlert("Created successfully", Notifications.enmType.Success);
+            Functions.Alert("Created successfully", Notifications.enmType.Success);
             this.Dispose();
         }
     }
