@@ -81,7 +81,9 @@ namespace Firebank
             this.Controls.Add(this.CustomLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(268, 149);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(268, 149);
             this.Name = "InputBox";
             this.Text = "InputBox";
             this.ResumeLayout(false);

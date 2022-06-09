@@ -26,42 +26,41 @@ namespace Firebank
             Error,
             Info
         }
-        private enmAction action;
+        private Notifications.enmAction action;
 
         private int x, y;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            switch (action)
+            switch (this.action)
             {
                 case enmAction.wait:
                     timer1.Interval = 5000;
                     action = enmAction.close;
+
                     break;
-                case enmAction.start:
-                    timer1.Interval = 1;
-                    Opacity += 0.1;
-                    if (x < Location.X)
+
+                case Notifications.enmAction.start:
+                    this.timer1.Interval = 1;
+                    this.Opacity += 0.1;
+
+                    if (this.Opacity == 1.0)
                     {
-                        Left--;
+                        action = Notifications.enmAction.wait;
                     }
-                    else
-                    {
-                        if (Opacity == 1.0)
-                        {
-                            action = enmAction.wait;
-                        }
-                    }
+
                     break;
+
                 case enmAction.close:
                     timer1.Interval = 1;
-                    Opacity -= 0.1;
+                    this.Opacity -= 0.1;
+                    this.Left -= 3;
 
-                    Left -= 3;
-                    if (Opacity == 0.0)
+                    if (base.Opacity == 0.0)
                     {
-                        this.Dispose();
+                        base.Close();
                     }
+
                     break;
             }
         }
@@ -74,9 +73,11 @@ namespace Firebank
 
         public void showAlert(string msg, enmType type)
         {
-            Opacity = 0.0;
-            StartPosition = FormStartPosition.Manual;
+            this.Opacity = 0.0;
+            this.StartPosition = FormStartPosition.Manual;
             string fname;
+
+            this.lblMsg.Text = msg;
 
             for (int i = 1; i < 10; i++)
             {
@@ -85,44 +86,39 @@ namespace Firebank
 
                 if (frm == null)
                 {
-                    Name = fname;
-                    x = Screen.PrimaryScreen.WorkingArea.Width - Width + 15;
-                    y = Screen.PrimaryScreen.WorkingArea.Height - Height * i - 5 * i;
-                    Location = new Point(x, y);
+                    this.Name = fname;
+                    this.x = Screen.PrimaryScreen.WorkingArea.Width - (this.lblMsg.Width / 2) - 80;
+                    this.y = Screen.PrimaryScreen.WorkingArea.Height - this.Height * i - 5 * i;
+                    this.Location = new Point(this.x - (this.lblMsg.Width / 2), this.y);
                     break;
-
                 }
-
             }
-            x = Screen.PrimaryScreen.WorkingArea.Width - Width - 5;
+
+            this.x = Screen.PrimaryScreen.WorkingArea.Width - base.Width - 5;
 
             switch (type)
             {
                 case enmType.Success:
-                    pictureBox1.Image = Resources.success;
-                    BackColor = Color.SeaGreen;
+                    this.pictureBox1.Image = Firebank.Properties.Resources.success;
+                    this.BackColor = Color.SeaGreen;
                     break;
                 case enmType.Error:
-                    pictureBox1.Image = Resources.error;
-                    BackColor = Color.DarkRed;
+                    this.pictureBox1.Image = Firebank.Properties.Resources.error;
+                    this.BackColor = Color.DarkRed;
                     break;
                 case enmType.Info:
-                    pictureBox1.Image = Resources.info;
-                    BackColor = Color.RoyalBlue;
+                    this.pictureBox1.Image = Firebank.Properties.Resources.info;
+                    this.BackColor = Color.RoyalBlue;
                     break;
                 case enmType.Warning:
-                    pictureBox1.Image = Resources.warning;
-                    BackColor = Color.DarkOrange;
+                    this.pictureBox1.Image = Firebank.Properties.Resources.warning;
+                    this.BackColor = Color.DarkOrange;
                     break;
             }
-
-
-            lblMsg.Text = msg;
-
-            Show();
-            action = enmAction.start;
-            timer1.Interval = 1;
-            timer1.Start();
+            this.Show();
+            this.action = enmAction.start;
+            this.timer1.Interval = 1;
+            this.timer1.Start();
         }
     }
 }
