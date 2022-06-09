@@ -202,7 +202,7 @@ namespace Firebank
                 command.Parameters.Add("@Receiver_Account", SqlDbType.Int).Value = cards.ElementAt(CardsComboBox.SelectedIndex).AccountID;
                 command.Parameters.Add("@Quantity", SqlDbType.Int).Value = 1;
                 getUserIDReader.Close();
-                await command .ExecuteNonQueryAsync();
+                await command.ExecuteNonQueryAsync();
                 db.Close();
                 Functions.Alert("A transaction has been added to your statement with the activation code.", Notifications.enmType.Info);
             }

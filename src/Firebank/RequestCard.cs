@@ -47,11 +47,6 @@ namespace Firebank
             command.Parameters.Add("@AccountID", SqlDbType.Int).Value = Convert.ToInt32(accounts.ElementAt(CardsComboBox.SelectedIndex).ID);
             Functions.db.Open();
             command.ExecuteNonQuery();
-            command = new SqlCommand
-            {
-                Connection = Functions.db,
-                CommandText = ""
-            };
             Functions.db.Close();
             Functions.Alert("Card requested successfully", Notifications.enmType.Success);
             this.Dispose();
