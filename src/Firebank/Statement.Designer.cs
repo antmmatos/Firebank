@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Statement));
             this.statementgrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.statementgrid)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +53,9 @@
             this.ClientSize = new System.Drawing.Size(603, 297);
             this.Controls.Add(this.statementgrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Statement";
             this.Text = "Firebank - Statement Viewer";
             ((System.ComponentModel.ISupportInitialize)(this.statementgrid)).EndInit();

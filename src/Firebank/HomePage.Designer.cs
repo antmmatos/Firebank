@@ -35,6 +35,7 @@ namespace Firebank
             this.AccountManagementButton = new System.Windows.Forms.Button();
             this.CardsManagementButton = new System.Windows.Forms.Button();
             this.HomeButton = new System.Windows.Forms.Button();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.lbl1 = new System.Windows.Forms.Label();
             this.WelcomeLabel = new System.Windows.Forms.Label();
             this.BalanceLabel = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@ namespace Firebank
             this.BalanceLabelValue = new System.Windows.Forms.Label();
             this.StatementLabel = new System.Windows.Forms.Label();
             this.OpenStatementButton = new System.Windows.Forms.Button();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.CardsManagement = new Firebank.CardsUserControl();
             this.SettingsUserControl = new Firebank.Settings();
             this.AccountsManagement = new Firebank.AccountsUserControl();
@@ -131,6 +131,16 @@ namespace Firebank
             this.HomeButton.UseVisualStyleBackColor = true;
             this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
+            // logo
+            // 
+            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
+            this.logo.Location = new System.Drawing.Point(21, 12);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(140, 118);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.logo.TabIndex = 6;
+            this.logo.TabStop = false;
+            // 
             // lbl1
             // 
             this.lbl1.AutoSize = true;
@@ -199,9 +209,9 @@ namespace Firebank
             this.BalanceLabelValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
             this.BalanceLabelValue.Location = new System.Drawing.Point(211, 235);
             this.BalanceLabelValue.Name = "BalanceLabelValue";
-            this.BalanceLabelValue.Size = new System.Drawing.Size(144, 38);
+            this.BalanceLabelValue.Size = new System.Drawing.Size(121, 38);
             this.BalanceLabelValue.TabIndex = 17;
-            this.BalanceLabelValue.Text = "€00.00";
+            this.BalanceLabelValue.Text = "€0,00";
             // 
             // StatementLabel
             // 
@@ -230,16 +240,6 @@ namespace Firebank
             this.OpenStatementButton.Text = "Statement";
             this.OpenStatementButton.UseVisualStyleBackColor = true;
             this.OpenStatementButton.Click += new System.EventHandler(this.OpenStatementButton_Click);
-            // 
-            // logo
-            // 
-            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
-            this.logo.Location = new System.Drawing.Point(21, 12);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(140, 118);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.logo.TabIndex = 6;
-            this.logo.TabStop = false;
             // 
             // CardsManagement
             // 
@@ -300,6 +300,9 @@ namespace Firebank
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.TransferButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Homepage";
             this.Text = "Firebank - Homepage";
             this.panel1.ResumeLayout(false);

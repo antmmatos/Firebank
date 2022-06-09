@@ -19,7 +19,8 @@ namespace Firebank
         private const string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
         public static void Alert(string msg, Notifications.enmType type)
         {
-            Functions.Alert(msg, type);
+            Notifications notifier = new Notifications();
+            notifier.showAlert(msg, type);
         }
 
         public static void EmailSend(string subject, string body, string email)

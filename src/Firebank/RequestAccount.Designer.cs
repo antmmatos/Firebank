@@ -29,6 +29,7 @@ namespace Firebank
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RequestAccount));
             this.AccountNameTextBox = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.addCardButton = new System.Windows.Forms.Button();
@@ -77,6 +78,9 @@ namespace Firebank
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.AccountNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RequestAccount";
             this.Text = "Firebank - Request Account";
             this.ResumeLayout(false);

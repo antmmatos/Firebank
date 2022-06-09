@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ForgotPassword));
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.lbl3 = new System.Windows.Forms.Label();
             this.RecoverPasswordButton = new System.Windows.Forms.Button();
@@ -132,7 +133,7 @@
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(15, 259);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(146, 32);
+            this.lbl1.Size = new System.Drawing.Size(147, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,7 +156,7 @@
             this.ForgotPasswordLabel.ForeColor = System.Drawing.Color.OrangeRed;
             this.ForgotPasswordLabel.Location = new System.Drawing.Point(212, 24);
             this.ForgotPasswordLabel.Name = "ForgotPasswordLabel";
-            this.ForgotPasswordLabel.Size = new System.Drawing.Size(270, 32);
+            this.ForgotPasswordLabel.Size = new System.Drawing.Size(271, 32);
             this.ForgotPasswordLabel.TabIndex = 12;
             this.ForgotPasswordLabel.Text = "Forgot Password";
             this.ForgotPasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -215,7 +216,10 @@
             this.Controls.Add(this.lbl3);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ForgotPassword";
             this.Text = "Firebank - Forgot Password";
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();

@@ -80,6 +80,8 @@ namespace Firebank
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.CustomLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "InputBox";
             this.Text = "InputBox";
             this.ResumeLayout(false);

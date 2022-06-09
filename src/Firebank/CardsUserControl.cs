@@ -47,6 +47,27 @@ namespace Firebank
             reader.Close();
             db.Close();
         }
+
+        public void StartUPAccounts()
+        {
+            accounts.Clear();
+            SqlCommand command = new SqlCommand();
+            command.Connection = db;
+            command.CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, AccountName FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner WHERE Users.NIF = @NIF";
+            command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = NIF;
+            try
+            {
+                db.Open();
+            }
+            catch (Exception) { }
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetDecimal(3), reader.GetString(4)));
+            }
+            reader.Close();
+            db.Close();
+        }
         private void CardsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(CardsFound)
@@ -189,6 +210,7 @@ namespace Firebank
 
         private void addCardButton_Click(object sender, EventArgs e)
         {
+            StartUPAccounts();
             new RequestCard(accounts).ShowDialog();
             StartUPCards();
         }

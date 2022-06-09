@@ -87,7 +87,7 @@ namespace Firebank
             while (reader.Read())
             {
                 AccountList.Items.Add("ID: " + reader.GetInt32(0).ToString() + " - Account Name: " + reader.GetString(4));
-                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4)));
+                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetDecimal(3), reader.GetString(4)));
             }
             if (AccountList.Items.Count == 0)
             {
@@ -100,7 +100,7 @@ namespace Firebank
         private void AccountList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (accounts.Count == 0) return;
-            BalanceLabelValue.Text = accounts.ElementAt(AccountList.SelectedIndex).Balance.ToString();
+            BalanceLabelValue.Text = "€" + accounts.ElementAt(AccountList.SelectedIndex).Balance.ToString();
             SqlCommand command = new SqlCommand
             {
                 Connection = db,
@@ -138,6 +138,7 @@ namespace Firebank
         private void AccountsManagementButton_Click(object sender, EventArgs e)
         {
             AccountsManagement.NIF = _NIF;
+            AccountsManagement.StartUPAccounts();
             CardsManagement.Visible = false;
             AccountsManagement.Visible = true;
             SettingsUserControl.Visible = false;

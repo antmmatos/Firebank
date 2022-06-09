@@ -48,7 +48,7 @@
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(18, 255);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(146, 32);
+            this.lbl1.Size = new System.Drawing.Size(147, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -81,7 +81,7 @@
             this.VerificationLabel.ForeColor = System.Drawing.Color.OrangeRed;
             this.VerificationLabel.Location = new System.Drawing.Point(212, 12);
             this.VerificationLabel.Name = "VerificationLabel";
-            this.VerificationLabel.Size = new System.Drawing.Size(188, 32);
+            this.VerificationLabel.Size = new System.Drawing.Size(189, 32);
             this.VerificationLabel.TabIndex = 14;
             this.VerificationLabel.Text = "Verification";
             this.VerificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -105,7 +105,7 @@
             this.CheckLabel.ForeColor = System.Drawing.Color.Black;
             this.CheckLabel.Location = new System.Drawing.Point(215, 94);
             this.CheckLabel.Name = "CheckLabel";
-            this.CheckLabel.Size = new System.Drawing.Size(249, 16);
+            this.CheckLabel.Size = new System.Drawing.Size(250, 16);
             this.CheckLabel.TabIndex = 16;
             this.CheckLabel.Text = "Enter the code sent to your email";
             this.CheckLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -145,6 +145,9 @@
             this.Controls.Add(this.VerificationLabel);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "VerificationSystem";
             this.Text = "Verification System";
             this.panel1.ResumeLayout(false);

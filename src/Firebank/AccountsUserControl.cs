@@ -18,7 +18,7 @@ namespace Firebank
             StartUPAccounts();
         }
 
-        private void StartUPAccounts()
+        public void StartUPAccounts()
         {
             AccountsComboBox.Items.Clear();
             accounts.Clear();
@@ -35,7 +35,7 @@ namespace Firebank
             while (reader.Read())
             {
                 AccountsComboBox.Items.Add("ID: " + reader.GetInt32(0).ToString() + " - Account Name: " + reader.GetString(4));
-                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4)));
+                accounts.Add(new Account(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetDecimal(3), reader.GetString(4)));
             }
             if (AccountsComboBox.Items.Count == 0)
             {
@@ -63,9 +63,8 @@ namespace Firebank
 
         private void ChangeNameButton_Click(object sender, EventArgs e)
         {
-            if(AccountsComboBox.SelectedIndex != -1 && AccountsComboBox.SelectedIndex != 0)
+            if(AccountsComboBox.SelectedIndex != -1)
             {
-                NewNameTextBox.Text = "";
                 iBanLabel.Text = "";
                 IDLabel.Text = "";
                 BalanceLabel.Text = "";

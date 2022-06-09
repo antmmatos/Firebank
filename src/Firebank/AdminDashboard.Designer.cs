@@ -193,6 +193,9 @@ namespace Firebank
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AdminDashboard";
             this.Text = "Firebank - Administrative Dashboard";
             this.panel1.ResumeLayout(false);

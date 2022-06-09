@@ -75,7 +75,7 @@ namespace Firebank
             this.lbl1.ForeColor = System.Drawing.Color.OrangeRed;
             this.lbl1.Location = new System.Drawing.Point(18, 139);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(146, 32);
+            this.lbl1.Size = new System.Drawing.Size(147, 32);
             this.lbl1.TabIndex = 1;
             this.lbl1.Text = "Firebank";
             this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -87,7 +87,7 @@ namespace Firebank
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
             this.label1.Location = new System.Drawing.Point(186, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(225, 32);
+            this.label1.Size = new System.Drawing.Size(226, 32);
             this.label1.TabIndex = 14;
             this.label1.Text = "Bank Transfer";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -99,7 +99,7 @@ namespace Firebank
             this.label2.ForeColor = System.Drawing.Color.OrangeRed;
             this.label2.Location = new System.Drawing.Point(189, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 16);
+            this.label2.Size = new System.Drawing.Size(134, 16);
             this.label2.TabIndex = 15;
             this.label2.Text = "Account Selected";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -127,7 +127,7 @@ namespace Firebank
             this.label3.ForeColor = System.Drawing.Color.OrangeRed;
             this.label3.Location = new System.Drawing.Point(222, 114);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 16);
+            this.label3.Size = new System.Drawing.Size(66, 16);
             this.label3.TabIndex = 17;
             this.label3.Text = "Balance";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -146,7 +146,7 @@ namespace Firebank
             this.label4.ForeColor = System.Drawing.Color.OrangeRed;
             this.label4.Location = new System.Drawing.Point(392, 54);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 16);
+            this.label4.Size = new System.Drawing.Size(109, 16);
             this.label4.TabIndex = 19;
             this.label4.Text = "Receiver IBan";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -181,7 +181,7 @@ namespace Firebank
             this.label5.ForeColor = System.Drawing.Color.OrangeRed;
             this.label5.Location = new System.Drawing.Point(412, 120);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 16);
+            this.label5.Size = new System.Drawing.Size(65, 16);
             this.label5.TabIndex = 22;
             this.label5.Text = "Amount";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -203,6 +203,9 @@ namespace Firebank
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BankTransfer";
             this.Text = "BankTransfer";
             this.panel1.ResumeLayout(false);

@@ -80,7 +80,7 @@ namespace Firebank
                             string verificationCode = Functions.RandomVerificationCode();
                             Functions.EmailSend("Verification Code", "\nYour verification code to recover password is: " + verificationCode, _Email);
                             FACode = verificationCode;
-                            InputBox input = new InputBox("Firebank - New IP Detected", "Enter the code sent by Email", false, "");
+                            InputBox input = new InputBox("Firebank - New IP Detected", "New IP Detected\nEnter the code sent by Email", false, "");
                             Functions.Alert("Check your mailbox with the verification code", Notifications.enmType.Info);
                             input.ShowDialog(this);
                             if (input.value == FACode)
