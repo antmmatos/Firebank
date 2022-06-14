@@ -14,14 +14,12 @@ namespace Firebank
         private readonly string _PhoneNumber;
         private readonly string _Birthday;
         private readonly bool _2FA;
-        private readonly SqlConnection db;
-        readonly List<Account> accounts = new List<Account>();
         private static void ThreadProc()
         {
             Application.Run(new Authentication());
         }        
 
-        public AdminDashboard(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db, bool FA)
+        public AdminDashboard(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, bool FA)
         {
             InitializeComponent();
             _Username = Username;
@@ -31,7 +29,6 @@ namespace Firebank
             _PhoneNumber = PhoneNumber;
             _Birthday = Birthday;
             _2FA = FA;
-            this.db = db;
             SettingsUserControl.ButtonClick += new EventHandler(LogoutButtonClick);
             StartUPHomepage();
             StartUPUserInfo();
@@ -57,30 +54,62 @@ namespace Firebank
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            SettingsUserControl.Visible = true;
-            UsersUserControl.Visible = false;
-            AccountManagerUserControl.Visible = false;
+            if (Functions.StillAdmin(Functions.UserID))
+            {
+                SettingsUserControl.Visible = true;
+                UsersUserControl.Visible = false;
+                AccountManagerUserControl.Visible = false;
+            }
+            else
+            {
+                Functions.Logout();
+                this.Dispose();
+            }
         }
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
-            SettingsUserControl.Visible = false;
-            UsersUserControl.Visible = false;
-            AccountManagerUserControl.Visible = false;
+            if (Functions.StillAdmin(Functions.UserID))
+            {
+                SettingsUserControl.Visible = false;
+                UsersUserControl.Visible = false;
+                AccountManagerUserControl.Visible = false;
+            }
+            else
+            {
+                Functions.Logout();
+                this.Dispose();
+            }
         }
 
         private void UsersManagementButton_Click(object sender, EventArgs e)
         {
-            SettingsUserControl.Visible = false;
-            UsersUserControl.Visible = true;
-            AccountManagerUserControl.Visible = false;
+            if (Functions.StillAdmin(Functions.UserID))
+            {
+                SettingsUserControl.Visible = false;
+                UsersUserControl.Visible = true;
+                AccountManagerUserControl.Visible = false;
+            }
+            else
+            {
+                Functions.Logout();
+                this.Dispose();
+            }
         }
 
         private void AccountManagementButton_Click(object sender, EventArgs e)
         {
-            AccountManagerUserControl.Visible = true;
-            SettingsUserControl.Visible = false;
-            UsersUserControl.Visible = false;
+            if (Functions.StillAdmin(Functions.UserID))
+            {
+                AccountManagerUserControl.Visible = true;
+                SettingsUserControl.Visible = false;
+                UsersUserControl.Visible = false;
+            }
+            else
+            {
+                Functions.Logout();
+                this.Dispose();
+            }
         }
     }
 }

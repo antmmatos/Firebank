@@ -18,16 +18,11 @@ namespace Firebank
         private readonly string _PhoneNumber;
         private readonly string _Birthday;
         private readonly bool _2FA;
-        private readonly SqlConnection db;
         private string _IP;
         private DataTable _CurrentStatement;
         readonly List<Account> accounts = new List<Account>();
-        private static void ThreadProc()
-        {
-            Application.Run(new Authentication());
-        }        
 
-        public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, SqlConnection db, bool FA)
+        public Homepage(string Username, string Email, string NIF, string CC, string PhoneNumber, string Birthday, bool FA)
         {
             InitializeComponent();
             GetIp();
@@ -38,11 +33,10 @@ namespace Firebank
             _PhoneNumber = PhoneNumber;
             _Birthday = Birthday;
             _2FA = FA;
-            this.db = db;
             SettingsUserControl.ButtonClick += new EventHandler(LogoutButtonClick);
             SqlCommand command = new SqlCommand
             {
-                Connection = db,
+                Connection = Functions.db,
                 CommandText = "UPDATE Users SET LastIP = @IP WHERE Username = @Username"
             };
             command.Parameters.AddWithValue("@IP", SqlDbType.VarChar).Value = _IP;
@@ -63,9 +57,7 @@ namespace Firebank
 
         private void LogoutButtonClick(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(ThreadProc));
-            t.Start();
-            this.Close();
+            Functions.Logout();
             this.Dispose();
         }
         private void StartUPFunctions()
@@ -79,10 +71,10 @@ namespace Firebank
             WelcomeLabel.Text = "Welcome " + _Username;
             SqlCommand command = new SqlCommand
             {
-                Connection = db,
+                Connection = Functions.db,
                 CommandText = "SELECT Accounts.ID, Account_Owner, IBan, Balance, isnull(AccountName, 'SEM NOME') FROM Users INNER JOIN Accounts ON Users.ID = Accounts.Account_Owner"
             };
-            db.Open();
+            Functions.db.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -94,7 +86,7 @@ namespace Firebank
                 AccountList.Items.Add("No Accounts found");
             }
             reader.Close();
-            db.Close();
+            Functions.db.Close();
         }
 
         private void AccountList_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,7 +95,7 @@ namespace Firebank
             BalanceLabelValue.Text = "€" + accounts.ElementAt(AccountList.SelectedIndex).Balance.ToString();
             SqlCommand command = new SqlCommand
             {
-                Connection = db,
+                Connection = Functions.db,
                 CommandText = "SELECT * FROM Transactions WHERE Sender_Account = @ID OR Receiver_Account = @ID"
             };
             command.Parameters.Add("@ID", SqlDbType.Int).Value = accounts.ElementAt(AccountList.SelectedIndex).ID;

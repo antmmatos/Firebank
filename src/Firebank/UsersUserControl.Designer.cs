@@ -33,6 +33,7 @@ namespace Firebank
             this.UsersGrid = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SearchBox = new System.Windows.Forms.Label();
+            this.ChangeAdminState = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UsersGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +62,7 @@ namespace Firebank
             this.UsersGrid.Name = "UsersGrid";
             this.UsersGrid.ReadOnly = true;
             this.UsersGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.UsersGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.UsersGrid.Size = new System.Drawing.Size(474, 263);
             this.UsersGrid.TabIndex = 32;
             // 
@@ -83,10 +85,25 @@ namespace Firebank
             this.SearchBox.TabIndex = 34;
             this.SearchBox.Text = "Search";
             // 
+            // ChangeAdminState
+            // 
+            this.ChangeAdminState.FlatAppearance.BorderSize = 2;
+            this.ChangeAdminState.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeAdminState.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChangeAdminState.ForeColor = System.Drawing.Color.OrangeRed;
+            this.ChangeAdminState.Location = new System.Drawing.Point(364, 52);
+            this.ChangeAdminState.Name = "ChangeAdminState";
+            this.ChangeAdminState.Size = new System.Drawing.Size(124, 47);
+            this.ChangeAdminState.TabIndex = 44;
+            this.ChangeAdminState.Text = "Change Admin State";
+            this.ChangeAdminState.UseVisualStyleBackColor = true;
+            this.ChangeAdminState.Click += new System.EventHandler(this.ChangeAdminState_Click);
+            // 
             // UsersUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ChangeAdminState);
             this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.UsersGrid);
@@ -105,5 +122,6 @@ namespace Firebank
         private System.Windows.Forms.DataGridView UsersGrid;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label SearchBox;
+        private System.Windows.Forms.Button ChangeAdminState;
     }
 }

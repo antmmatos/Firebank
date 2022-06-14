@@ -4,19 +4,28 @@ using Infobip.Api.Client.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Firebank
 {
     static class Functions
     {
         private static readonly string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
-        public static System.Data.SqlClient.SqlConnection db = new System.Data.SqlClient.SqlConnection(ConnectionString);
+        public static SqlConnection db = new SqlConnection(ConnectionString);
         private static string _CountryCode;
         private const string BASE_URL = "https://gy2yge.api.infobip.com";
         private const string API_KEY = "3ed9d56ba5092fa8bcf06ddd32ef6ffc-07df9850-5fd2-4368-b169-a6eb26939882";
+        public static int UserID;
+        private static void ThreadProc()
+        {
+            Application.Run(new Authentication());
+        }
+
         public static void Alert(string msg, Notifications.enmType type)
         {
             Notifications notifier = new Notifications();
@@ -104,6 +113,32 @@ namespace Firebank
             {
                 Functions.Alert($"Error occurred! \n\tMessage: {apiException.ErrorContent}. \n\tCode: {apiException.ErrorCode}", Notifications.enmType.Error);
             }
+        }
+
+        public static void Logout()
+        {
+            UserID = 0;
+            Thread t = new Thread(new ThreadStart(ThreadProc));
+            t.Start();
+        }
+
+        public static bool StillAdmin(int id)
+        {
+            if (id == 0) { return false; }
+            bool isAdmin;
+            SqlCommand command = new SqlCommand
+            {
+                Connection = db,
+                CommandText = "SELECT isAdmin FROM Users WHERE ID = @ID"
+            };
+            command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = id;
+            try
+            {
+                db.Open();
+            } catch { }
+            isAdmin = (bool)command.ExecuteScalar();
+            db.Close();
+            return isAdmin;
         }
     }
 }

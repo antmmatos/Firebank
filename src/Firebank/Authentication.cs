@@ -181,7 +181,8 @@ namespace Firebank
 
         private void OpenAdmin(dynamic commandReader)
         {
-            AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+            Functions.UserID = Convert.ToInt32(commandReader["ID"]);
+            AdminDashboard homepage = new AdminDashboard(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Convert.ToBoolean(commandReader["is2FAEnabled"]));
             homepage.Closed += (s, args) => this.Close();
             homepage.Show();
             Functions.Alert("Successfully logged in", Notifications.enmType.Success);
@@ -189,7 +190,8 @@ namespace Firebank
 
         private void OpenUser(dynamic commandReader)
         {
-            Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Functions.db, Convert.ToBoolean(commandReader["is2FAEnabled"]));
+            Functions.UserID = Convert.ToInt32(commandReader["ID"]);
+            Homepage homepage = new Homepage(commandReader["Username"].ToString(), commandReader["Email"].ToString(), commandReader["NIF"].ToString(), commandReader["CC"].ToString(), commandReader["MobilePhoneNumber"].ToString(), commandReader["Birthday"].ToString(), Convert.ToBoolean(commandReader["is2FAEnabled"]));
             homepage.Closed += (s, args) => this.Close();
             homepage.Show();
             Functions.Alert("Successfully logged in", Notifications.enmType.Success);
@@ -288,11 +290,17 @@ namespace Firebank
                     command.Parameters.Add("@Birthday", SqlDbType.Date).Value = DatePickerRegister.Text;
                     command.Parameters.Add("@MobilePhoneNumber", SqlDbType.VarChar).Value = PhoneTextBoxRegister.Text;
                     command.ExecuteNonQuery();
+                    command = new SqlCommand
+                    {
+                        Connection = Functions.db,
+                        CommandText = "SELECT SCOPE_IDENTITY()"
+                    };
                     Functions.Alert("Account created successfully.", Notifications.enmType.Success);
                     VerificationSystem a = new VerificationSystem();
                     a.Setup(EmailTextBoxRegister.Text, PhoneTextBoxRegister.Text);
                     a.ShowDialog(this);
-                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, Functions.db, false).Show();
+                    Functions.UserID = (int)command.ExecuteScalar();
+                    new Homepage(UsernameTextBoxRegister.Text, EmailTextBoxRegister.Text, TAXTextBoxRegister.Text, CCNTextBox.Text, PhoneTextBoxRegister.Text, DatePickerRegister.Text, false).Show();
                     this.Hide();
                 }
                 Functions.db.Close();
