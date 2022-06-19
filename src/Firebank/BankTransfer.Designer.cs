@@ -148,7 +148,7 @@ namespace Firebank
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 16);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Receiver IBan";
+            this.label4.Text = "Receiver IBAN";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SendButton

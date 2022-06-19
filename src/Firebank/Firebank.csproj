@@ -231,6 +231,7 @@
     <Compile Include="AdminDashboard.Designer.cs">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseInformation.cs" />
     <Compile Include="Notifications.cs">
       <SubType>Form</SubType>
     </Compile>

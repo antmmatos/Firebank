@@ -22,34 +22,37 @@ namespace Firebank
 
         private void addCardButton_Click(object sender, EventArgs e)
         {
-            string[] randomArray = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            string CardNumber = "";
-            string CardCVV = "";
-            Random random = new Random();
-            for (int i = 0; i < 16; i++)
+            if (CardsComboBox.SelectedIndex != -1)
             {
-                CardNumber += randomArray[random.Next(10)];
+                string[] randomArray = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+                string CardNumber = "";
+                string CardCVV = "";
+                Random random = new Random();
+                for (int i = 0; i < 16; i++)
+                {
+                    CardNumber += randomArray[random.Next(10)];
+                }
+                DateTime start = new DateTime(2022, 1, 1);
+                int range = (DateTime.Today - start).Days;
+                for (int i = 0; i < 3; i++)
+                {
+                    CardCVV += randomArray[random.Next(10)];
+                }
+                SqlCommand command = new SqlCommand
+                {
+                    Connection = Functions.db,
+                    CommandText = "INSERT INTO Cards (CardNumber, CardExpireDate, CardCVV, AccountID) VALUES (@CardNumber, @CardExpireDate, @CardCVV, @AccountID)"
+                };
+                command.Parameters.Add("@CardNumber", SqlDbType.VarChar).Value = CardNumber;
+                command.Parameters.Add("@CardExpireDate", SqlDbType.Date).Value = start.AddDays(random.Next(range)).AddYears(2);
+                command.Parameters.Add("@CardCVV", SqlDbType.VarChar).Value = CardCVV;
+                command.Parameters.Add("@AccountID", SqlDbType.Int).Value = Convert.ToInt32(accounts.ElementAt(CardsComboBox.SelectedIndex).ID);
+                Functions.db.Open();
+                command.ExecuteNonQuery();
+                Functions.db.Close();
+                Functions.Alert("Card requested successfully", Notifications.enmType.Success);
+                this.Dispose();
             }
-            DateTime start = new DateTime(2022, 1, 1);
-            int range = (DateTime.Today - start).Days;
-            for (int i = 0; i < 3; i++)
-            {
-                CardCVV += randomArray[random.Next(10)];
-            }
-            SqlCommand command = new SqlCommand
-            {
-                Connection = Functions.db,
-                CommandText = "INSERT INTO Cards (CardNumber, CardExpireDate, CardCVV, AccountID) VALUES (@CardNumber, @CardExpireDate, @CardCVV, @AccountID)"
-            };
-            command.Parameters.Add("@CardNumber", SqlDbType.VarChar).Value = CardNumber;
-            command.Parameters.Add("@CardExpireDate", SqlDbType.Date).Value = start.AddDays(random.Next(range)).AddYears(2);
-            command.Parameters.Add("@CardCVV", SqlDbType.VarChar).Value = CardCVV;
-            command.Parameters.Add("@AccountID", SqlDbType.Int).Value = Convert.ToInt32(accounts.ElementAt(CardsComboBox.SelectedIndex).ID);
-            Functions.db.Open();
-            command.ExecuteNonQuery();
-            Functions.db.Close();
-            Functions.Alert("Card requested successfully", Notifications.enmType.Success);
-            this.Dispose();
         }
     }
 }

@@ -49,10 +49,10 @@ namespace Firebank
             if (accounts.Count == 0) return;
             BalanceLabel.Visible = true;
             IDLabel.Visible = true;
-            iBanLabel.Visible = true;
+            IBANLabel.Visible = true;
             BalanceLabel.Text = accounts.ElementAt(AccountsComboBox.SelectedIndex).Balance.ToString();
             IDLabel.Text = accounts.ElementAt(AccountsComboBox.SelectedIndex).ID.ToString();
-            iBanLabel.Text = accounts.ElementAt(AccountsComboBox.SelectedIndex).IBan.ToString();
+            IBANLabel.Text = accounts.ElementAt(AccountsComboBox.SelectedIndex).IBAN.ToString();
         }
 
         private void addAccountButton_Click(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace Firebank
         {
             if(AccountsComboBox.SelectedIndex != -1)
             {
-                iBanLabel.Text = "";
+                IBANLabel.Text = "";
                 IDLabel.Text = "";
                 BalanceLabel.Text = "";
                 SqlCommand command = new SqlCommand();

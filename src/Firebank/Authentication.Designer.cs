@@ -112,7 +112,7 @@
             this.lbl3.Name = "lbl3";
             this.lbl3.Size = new System.Drawing.Size(131, 13);
             this.lbl3.TabIndex = 3;
-            this.lbl3.Text = "Username or Email";
+            this.lbl3.Text = "Username";
             // 
             // PasswordTextBox
             // 

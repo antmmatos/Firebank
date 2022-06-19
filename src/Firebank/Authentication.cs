@@ -55,7 +55,7 @@ namespace Firebank
                     {
                         VerificationSystem vs = new VerificationSystem();
                         vs.Setup(commandReader["Email"].ToString(), commandReader["MobilePhoneNumber"].ToString());
-                        vs.ShowDialog();
+                        vs.ShowDialog(this);
                     }
                     string IP = GetIp();
                     if (Convert.ToString(commandReader["LastIP"]) == "")
@@ -347,7 +347,7 @@ namespace Firebank
 
         private void Lbl6_Click(object sender, EventArgs e)
         {
-            new ForgotPassword().ShowDialog();
+            new ForgotPassword().ShowDialog(this);
         }
 
         private void ClearReaders(SqlDataReader commandReader, SqlCommand command)

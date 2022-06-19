@@ -15,7 +15,7 @@ namespace Firebank
 {
     static class Functions
     {
-        private static readonly string ConnectionString = "Server=devlab.thenotepad.eu;Database=PSI20L_AntonioMatos_2220077;User Id=U2220077;Password=Z20Z9GK0;MultipleActiveResultSets=true;";
+        private static readonly string ConnectionString = $"Server={DatabaseInformation.Host};Database={DatabaseInformation.Database};User Id={DatabaseInformation.Username};Password={DatabaseInformation.Password};MultipleActiveResultSets=true;";
         public static SqlConnection db = new SqlConnection(ConnectionString);
         private static string _CountryCode;
         private const string BASE_URL = "https://gy2yge.api.infobip.com";

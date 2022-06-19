@@ -30,12 +30,12 @@ namespace Firebank
         private void InitializeComponent()
         {
             this.addAccountButton = new System.Windows.Forms.Button();
-            this.iBanLabel = new System.Windows.Forms.Label();
+            this.IBANLabel = new System.Windows.Forms.Label();
             this.IDLabel = new System.Windows.Forms.Label();
             this.BalanceLabel = new System.Windows.Forms.Label();
             this.AccountBalance = new System.Windows.Forms.Label();
             this.AccountIDLabel = new System.Windows.Forms.Label();
-            this.AccountiBanLabel = new System.Windows.Forms.Label();
+            this.AccountIBANLabel = new System.Windows.Forms.Label();
             this.AccountsComboBox = new System.Windows.Forms.ComboBox();
             this.AccountSelectorLabel = new System.Windows.Forms.Label();
             this.AccountsManagementTitle = new System.Windows.Forms.Label();
@@ -60,15 +60,15 @@ namespace Firebank
             // 
             // iBanLabel
             // 
-            this.iBanLabel.AutoSize = true;
-            this.iBanLabel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iBanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
-            this.iBanLabel.Location = new System.Drawing.Point(11, 225);
-            this.iBanLabel.Name = "iBanLabel";
-            this.iBanLabel.Size = new System.Drawing.Size(79, 16);
-            this.iBanLabel.TabIndex = 37;
-            this.iBanLabel.Text = "iBanLabel";
-            this.iBanLabel.Visible = false;
+            this.IBANLabel.AutoSize = true;
+            this.IBANLabel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IBANLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(10)))), ((int)(((byte)(37)))));
+            this.IBANLabel.Location = new System.Drawing.Point(11, 225);
+            this.IBANLabel.Name = "iBanLabel";
+            this.IBANLabel.Size = new System.Drawing.Size(79, 16);
+            this.IBANLabel.TabIndex = 37;
+            this.IBANLabel.Text = "iBanLabel";
+            this.IBANLabel.Visible = false;
             // 
             // IDLabel
             // 
@@ -118,14 +118,14 @@ namespace Firebank
             // 
             // AccountiBanLabel
             // 
-            this.AccountiBanLabel.AutoSize = true;
-            this.AccountiBanLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AccountiBanLabel.ForeColor = System.Drawing.Color.OrangeRed;
-            this.AccountiBanLabel.Location = new System.Drawing.Point(10, 186);
-            this.AccountiBanLabel.Name = "AccountiBanLabel";
-            this.AccountiBanLabel.Size = new System.Drawing.Size(58, 23);
-            this.AccountiBanLabel.TabIndex = 33;
-            this.AccountiBanLabel.Text = "iBan";
+            this.AccountIBANLabel.AutoSize = true;
+            this.AccountIBANLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AccountIBANLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.AccountIBANLabel.Location = new System.Drawing.Point(10, 186);
+            this.AccountIBANLabel.Name = "AccountiBanLabel";
+            this.AccountIBANLabel.Size = new System.Drawing.Size(58, 23);
+            this.AccountIBANLabel.TabIndex = 33;
+            this.AccountIBANLabel.Text = "iBan";
             // 
             // AccountsComboBox
             // 
@@ -203,12 +203,12 @@ namespace Firebank
             this.Controls.Add(this.NewNameTextBox);
             this.Controls.Add(this.ChangeAccountNameLabel);
             this.Controls.Add(this.addAccountButton);
-            this.Controls.Add(this.iBanLabel);
+            this.Controls.Add(this.IBANLabel);
             this.Controls.Add(this.IDLabel);
             this.Controls.Add(this.BalanceLabel);
             this.Controls.Add(this.AccountBalance);
             this.Controls.Add(this.AccountIDLabel);
-            this.Controls.Add(this.AccountiBanLabel);
+            this.Controls.Add(this.AccountIBANLabel);
             this.Controls.Add(this.AccountsComboBox);
             this.Controls.Add(this.AccountSelectorLabel);
             this.Controls.Add(this.AccountsManagementTitle);
@@ -222,12 +222,12 @@ namespace Firebank
         #endregion
 
         private System.Windows.Forms.Button addAccountButton;
-        private System.Windows.Forms.Label iBanLabel;
+        private System.Windows.Forms.Label IBANLabel;
         private System.Windows.Forms.Label IDLabel;
         private System.Windows.Forms.Label BalanceLabel;
         private System.Windows.Forms.Label AccountBalance;
         private System.Windows.Forms.Label AccountIDLabel;
-        private System.Windows.Forms.Label AccountiBanLabel;
+        private System.Windows.Forms.Label AccountIBANLabel;
         private System.Windows.Forms.ComboBox AccountsComboBox;
         private System.Windows.Forms.Label AccountSelectorLabel;
         private System.Windows.Forms.Label AccountsManagementTitle;
