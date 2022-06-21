@@ -89,19 +89,27 @@ namespace Firebank
             if (Functions.StillAdmin(Functions.UserID))
             {
                 int ID = (int)UsersGrid.SelectedRows[0].Cells[0].Value;
-                if (Confirm)
+                if (Functions.UserID != ID)
                 {
-                    await RemoveAdmin(ID);
-                    Confirm = false;
+                    if (Confirm)
+                    {
+                        await RemoveAdmin(ID);
+                        Confirm = false;
+                    }
+                    else
+                    {
+                        Confirm = true;
+                        Functions.SendNotification("Click on the button again to confirm.", Notifications.enmType.Info);
+                        await Task.Delay(5000);
+                        if (Confirm)
+                            Confirm = false;
+                    }
                 }
                 else
                 {
-                    Confirm = true;
-                    Functions.SendNotification("Click on the button again to confirm.", Notifications.enmType.Info);
-                    await Task.Delay(5000);
-                    if (Confirm)
-                        Confirm = false;
+                    Functions.SendNotification("You can't remove yourself from Admin!", Notifications.enmType.Error);
                 }
+                
             }
             else
             {

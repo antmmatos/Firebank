@@ -2,8 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,7 +32,7 @@ namespace Firebank
             {
                 SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND Password = @Password", Functions.db);
                 command.Parameters.Add("@Username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
-                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBox.Text);
+                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = Functions.ComputeSha512Hash(PasswordTextBox.Text);
                 Functions.db.Open();
                 SqlDataReader commandReader = command.ExecuteReader();
                 if (commandReader.HasRows)
@@ -280,7 +278,7 @@ namespace Firebank
                         CommandText = "INSERT INTO Users (Username, Password, Email, NIF, CC, Birthday, MobilePhoneNumber) VALUES (@Username, @Password, @Email, @NIF, @CC, @Birthday, @MobilePhoneNumber)"
                     };
                     command.Parameters.Add("@Username", SqlDbType.VarChar).Value = UsernameTextBoxRegister.Text;
-                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = ComputeSha256Hash(PasswordTextBoxRegister.Text);
+                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = Functions.ComputeSha512Hash(PasswordTextBoxRegister.Text);
                     command.Parameters.Add("@Email", SqlDbType.VarChar).Value = EmailTextBoxRegister.Text;
                     command.Parameters.Add("@NIF", SqlDbType.VarChar).Value = TAXTextBoxRegister.Text;
                     command.Parameters.Add("@CC", SqlDbType.VarChar).Value = CCNTextBox.Text;
@@ -324,21 +322,6 @@ namespace Firebank
                 {
                     Functions.Alert("Invalid Email.", Notifications.enmType.Error);
                 }
-            }
-        }
-
-        private static string ComputeSha256Hash(string rawData)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
             }
         }
 

@@ -44,7 +44,7 @@ namespace Firebank
                 SqlCommand command = new SqlCommand
                 {
                     Connection = Functions.db,
-                    CommandText = "SELECT Accounts.ID, Users.Username, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID WHERE Users.Name LIKE @Data OR IBan LIKE @Data OR AccountName LIKE @Data"
+                    CommandText = "SELECT Accounts.ID, Users.Username, IBan, Balance, AccountName FROM Accounts INNER JOIN Users ON Accounts.Account_Owner = Users.ID WHERE IBan LIKE @Data OR AccountName LIKE @Data"
                 };
                 command.Parameters.AddWithValue("@Data", $"%{textBox1.Text}%");
                 Functions.db.Open();

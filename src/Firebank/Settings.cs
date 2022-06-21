@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Firebank
@@ -36,31 +34,23 @@ namespace Firebank
             InputBox input = new InputBox("Firebank - Change Password", "Enter your new password", true, "Password changed with success.");
             input.ShowDialog();
             string newPassword = input.value;
-            SqlCommand command = new SqlCommand()
+            if (newPassword.Length > 8)
             {
-                Connection = Functions.db,
-                CommandText = "UPDATE Users SET Password = @password WHERE Username = @username"
-            };
-            command.Parameters.Add("@password", SqlDbType.VarChar).Value = ComputeSha256Hash(newPassword);
-            command.Parameters.Add("@username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
-            Functions.db.Open();
-            command.ExecuteNonQuery();
-            Functions.db.Close();
-            input.Dispose();
-        }
-
-        private static string ComputeSha256Hash(string rawData)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
+                SqlCommand command = new SqlCommand()
                 {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
+                    Connection = Functions.db,
+                    CommandText = "UPDATE Users SET Password = @password WHERE Username = @username"
+                };
+                command.Parameters.Add("@password", SqlDbType.VarChar).Value = Functions.ComputeSha512Hash(newPassword);
+                command.Parameters.Add("@username", SqlDbType.VarChar).Value = UsernameTextBox.Text;
+                Functions.db.Open();
+                command.ExecuteNonQuery();
+                Functions.db.Close();
+                input.Dispose();
+            }
+            else
+            {
+                Functions.SendNotification("Invalid Password", Notifications.enmType.Error);
             }
         }
 
