@@ -118,8 +118,8 @@ namespace Firebank
         public static void Logout()
         {
             UserID = 0;
-            Thread t = new Thread(new ThreadStart(ThreadProc));
-            t.Start();
+            Thread logoutThread = new Thread(ThreadProc);
+            logoutThread.Start();
         }
 
         public static bool StillAdmin(int id)
